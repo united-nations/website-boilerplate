@@ -1,168 +1,59 @@
-# UN Website Boilerplate (with Auth)
+# United Nations Website Starter
 
-A Next.js template with UN branding and magic link authentication.
+An English-language Next.js website using the shared [EOSG UI library](https://un-eosg-analytics.github.io/ui/). You can change the content without knowing how every part of the application works.
 
-Based on: https://github.com/kleinlennart/un-website-boilerplate
+## Choose your version
 
-## Branches
+| Branch               | Choose this when…                                                            | Hosting                                  |
+| -------------------- | ---------------------------------------------------------------------------- | ---------------------------------------- |
+| `main`               | Everyone can see your website; no sign-in or database is needed.             | GitHub Pages or any static web host      |
+| `template-with-auth` | Visitors should sign in using an emailed link and select their organisation. | A Node.js host, plus PostgreSQL and SMTP |
 
-This template has two variants:
+On GitHub, choose **Use this template → Create a new repository**. Enable **Include all branches** if you need the authenticated version. Clone your new repository, open its folder in your editor, and open a terminal there. The terminal is where you type the commands below; do not type the surrounding backticks.
 
-| Branch | Description |
-|--------|-------------|
-| `main` | Static site, no authentication |
-| `template-with-auth` | Adds magic link auth, PostgreSQL integration, entity/document search |
+To choose the authenticated version, run `git switch template-with-auth` before installing anything. Document search is not included in either version.
 
-When creating from this template, check "Include all branches" to get both. Then switch if needed:
+## Start the website on your computer
 
-```bash
-git checkout template-with-auth
-```
+1. Install **Node.js 24 LTS** from [nodejs.org](https://nodejs.org/en/download) and **pnpm 11.22.0** using the [pnpm installation guide](https://pnpm.io/installation). Node 22.18 or newer is also supported. Use pnpm for this project; do not generate an npm lockfile.
+2. Check that installation worked: run `node --version`, then `pnpm --version`.
+3. In your project folder, run `pnpm install`. This downloads the website's dependencies. The first installation needs internet access, including access to the GitHub UI library.
+4. Copy `.env.example` to `.env.local`. On macOS/Linux use `cp .env.example .env.local`; in PowerShell use `Copy-Item .env.example .env.local`. These are local settings. Never commit passwords or `.env.local`.
+5. **Auth branch only:** complete [database and email setup](docs/auth-setup.md) first. Ask a database administrator to help with the administrator steps.
+6. Run `pnpm dev`. Keep this terminal open while you work.
+7. Open [localhost:3000](http://localhost:3000) in your browser. If the terminal reports a different port, open that address instead.
 
-## Features
+`pnpm dev` starts a development preview on your computer. It does not publish your changes. Save a file in your editor and the browser updates automatically. To stop the preview, click the terminal and press **Ctrl+C**. Start it again with `pnpm dev`.
 
-- UN branding (logo, colors, Roboto font)
-- Magic link authentication (configurable email domains via DB)
-- Rate limiting on magic link requests (2 min cooldown)
-- 30-day session duration
-- PostgreSQL session/user storage
-- Configurable database schema per app
-- Entity selection on first login (with "Other" option)
-- Entity change dialog (click entity badge in header)
-- Public landing page (`/about`) + protected dashboard (`/`)
+## Make your first change
 
-## Setup
+- Open `src/lib/site-config.ts`. Change `name` and `description`, save, and look at your browser.
+- Edit the text in `src/app/page.tsx` for the home page and `src/app/about/page.tsx` for About. Keep the surrounding JSX tags, quotes and brackets intact.
+- Put downloadable files in `public/`. A file at `public/guide.pdf` is served as `/guide.pdf`.
+- Navigation, page title and optional analytics are explained in [Customization](docs/customization.md).
 
-### 1. Install dependencies
+Before sharing your changes, run `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build`. These detect common mistakes. If a command fails, read the first error and its file name; fixing that error often resolves later ones too.
 
-```bash
-pnpm install
-```
+## Preview and publish
 
-### 2. Configure environment
+On **main**, `pnpm build` creates a static website in `out/`. Run `pnpm start` to preview it at localhost:3000. For a GitHub project URL such as `https://organisation.github.io/my-site/`, set `BASE_PATH=/my-site` in `.env.local` before building. For a custom domain, leave it empty. Enable **Settings → Pages → Source → GitHub Actions** in your repository; the supplied workflow deploys pushes to `main` and derives the path automatically. A push to `main` can therefore publish the website.
 
-```bash
-cp .env.template .env.local
-```
+On **template-with-auth**, `pnpm build` creates a server application and `pnpm start` runs it. Deploy to a Node.js host, configure the environment variables there, and connect PostgreSQL and SMTP. GitHub Pages cannot run authentication. See [Auth setup](docs/auth-setup.md).
 
-Edit `.env.local`:
-- `DATABASE_URL` - PostgreSQL connection string
-- `DB_SCHEMA` - Schema for auth tables (e.g. `myapp` → `myapp.users`, `myapp.magic_tokens`)
-- `AUTH_SECRET` - Generate with `openssl rand -hex 32`
-- `SMTP_*` - Mail server for magic links
-- `BASE_URL` - Your app URL (for magic link emails)
+Set `NEXT_PUBLIC_SITE_URL` to the real public origin before publishing. Public environment variables and static content are visible to visitors. Changing build-time settings requires a rebuild.
 
-### 3. Create database tables
+## Common problems
 
-Edit `sql/auth_tables.sql` and replace `myapp` with your schema name (must match `DB_SCHEMA`), then:
+| Problem                                 | Try this                                                                                                   |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `pnpm` or `node` is not recognised      | Finish installation, close your terminal, and open a new one.                                              |
+| `package.json` cannot be found          | Open a terminal in the repository folder, not its parent folder.                                           |
+| Port 3000 is occupied                   | Stop the other preview with Ctrl+C, or use the port shown in the terminal.                                 |
+| My change is not visible                | Save the file; confirm the preview terminal is still running and you have the right browser address.       |
+| Images or links fail after publishing   | Check `BASE_PATH`, rebuild, and use the URL helpers described in Customization.                            |
+| Auth reports a missing setting or table | Follow the auth setup guide and restart `pnpm dev` after editing `.env.local`.                             |
+| Sign-in email does not arrive           | Check the SMTP settings, spam folder, allowed domain and server logs; a request has a two-minute cooldown. |
 
-```bash
-psql $DATABASE_URL -f sql/auth_tables.sql
-```
+## For maintainers
 
-The schema includes an `allowed_domains` table pre-populated with UN system domains (un.org, undp.org, unicef.org, who.int, etc.). Edit the SQL to remove domains you don't need, or add custom ones:
-
-```sql
--- Add a custom domain
-INSERT INTO myapp.allowed_domains (entity, domain) VALUES
-  ('*', 'example.org'),        -- global: allow for all entities
-  ('PARTNER', 'partner.org');  -- entity-specific
-```
-
-### 4. Run
-
-```bash
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser.
-
-## Auth Flow
-
-1. User visits `/about` (public landing page)
-2. User clicks "Sign In" → `/login`
-3. User enters email, magic link sent (rate limited: 2 min cooldown)
-4. User clicks link → `/verify?token=...`
-5. First login: select entity (combobox with "Other" option); returning users: direct sign-in
-6. Session cookie set (30 days)
-7. Header shows user email, clickable entity badge (to change), and logout
-8. Unauthenticated users accessing protected routes → redirect to `/about`
-
-## Customization
-
-- **Site title/subtitle**: Edit `SITE_TITLE` and `SITE_SUBTITLE` in `src/components/Header.tsx`
-- **Allowed email domains**: Add to `allowed_domains` table in database
-- **Entity list**: Query in `fetchEntities()` in `src/app/api/entities/route.ts`
-- **Document search**: Query in `src/app/api/documents/search/route.ts`
-- **Protected routes**: Edit `PUBLIC_PATHS` in `src/middleware.ts`
-- **Auth schema**: Set `DB_SCHEMA` env var and update `sql/auth_tables.sql`
-
-## File Structure
-
-```
-src/
-├── app/
-│   ├── about/                # Public landing page
-│   ├── api/
-│   │   ├── auth/             # Auth API routes (backup, actions preferred)
-│   │   ├── documents/search/ # Document search
-│   │   └── entities/         # Entity list + fetchEntities()
-│   ├── login/                # Login page + layout
-│   ├── verify/               # Token verification + entity selection
-│   └── page.tsx              # Protected dashboard
-├── components/
-│   ├── DocumentSearch.tsx    # Document autocomplete
-│   ├── EntityChangeDialog.tsx # Dialog to change entity
-│   ├── EntityCombobox.tsx    # Entity dropdown with "Other" option
-│   ├── EntitySearch.tsx      # Entity autocomplete (for search)
-│   ├── Footer.tsx            # Site footer
-│   ├── Header.tsx            # Site header with maxWidth, hideAbout props
-│   ├── LoginForm.tsx         # Login form (uses server actions)
-│   ├── UserMenu.tsx          # Email + entity badge + logout
-│   └── VerifyForm.tsx        # Verify form with returning user detection
-├── lib/
-│   ├── actions.ts            # Server actions for auth
-│   ├── auth.ts               # Auth logic (isAllowedDomain, sessions, etc.)
-│   ├── config.ts             # DB_SCHEMA config + table names
-│   ├── db.ts                 # PostgreSQL pool
-│   ├── mail.ts               # Magic link emails
-│   └── utils.ts              # Tailwind cn() helper
-└── middleware.ts             # Route protection
-sql/
-└── auth_tables.sql           # Database schema (users, tokens, allowed_domains)
-```
-
-## Maintenance
-
-### Check for issues
-```bash
-pnpm audit         # Security vulnerabilities
-pnpm outdated      # Outdated packages
-pnpm lint          # ESLint errors
-pnpm tsc --noEmit  # TypeScript errors
-```
-
-### Update packages
-```bash
-pnpm update                                             # Safe patch/minor updates
-pnpm add next@latest eslint-config-next@latest           # Update Next.js
-```
-
-### Clean install (if issues occur)
-```bash
-rm -rf node_modules .next && pnpm install
-```
-
-## Good to know
-
-- use `npx shadcn@latest add <component-name>` when you need to add components.
-
-- https://nextjs.org/docs/app/api-reference/file-conventions/src-folder
-- https://nextjs.org/docs/app/getting-started/project-structure
-
-- The `/public` directory should remain in the root of your project.
-- Config files like `package.json`, `next.config.js` and `tsconfig.json` should remain in the root of your project.
-- `.env.*` files should remain in the root of your project.
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Learn Next.js](https://nextjs.org/learn)
+[Maintenance](docs/maintenance.md) covers dependency updates, checks, UI contributions and keeping both branches synchronized. Python data preparation in `python/` is optional; the website itself does not need Python. For that workflow, install Python 3.13+ and [uv](https://docs.astral.sh/uv/), then run `uv sync`. The example script expects a CSV at `data/your_data.csv`; supply that file (or edit `input_path` in `python/data_prep.py`), then run `uv run python python/data_prep.py` to export it to `public/data/data.json`.

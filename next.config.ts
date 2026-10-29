@@ -1,8 +1,21 @@
-import type { NextConfig } from 'next'
-
+import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
-    reactStrictMode: true,
-    poweredByHeader: false,
-}
-
-export default nextConfig
+  output: "standalone",
+  transpilePackages: ["@un-eosg/ui"],
+  reactStrictMode: true,
+  poweredByHeader: false,
+  env: { NEXT_PUBLIC_BASE_PATH: "" },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+        ],
+      },
+    ];
+  },
+};
+export default nextConfig;

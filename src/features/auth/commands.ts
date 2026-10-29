@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { tables } from "@/lib/db/config";
 import { query } from "@/lib/db/db";
+import { normalizeEmail, normalizeEntity, validToken } from "./validation";
+import { getSecret } from "./session";
 import { sendMagicLink } from "./mail";
 import {
   clearSession,
@@ -17,14 +19,13 @@ import {
 } from "./service";
 
 type ActionResult<T = void> =
-  | { success: true; data?: T }
-  | { success: false; error: string };
+  { success: true; data?: T } | { success: false; error: string };
 
 export async function requestMagicLink(email: string): Promise<ActionResult> {
-  if (!email || typeof email !== "string" || !email.trim()) {
+  const trimmedEmail = normalizeEmail(email);
+  if (!trimmedEmail) {
     return { success: false, error: "Email required" };
   }
-  const trimmedEmail = email.trim();
   if (!(await isAllowedDomain(trimmedEmail))) {
     return { success: false, error: "Email domain not allowed" };
   }
@@ -50,7 +51,7 @@ export async function checkEntityForToken(
 ): Promise<
   ActionResult<{ email: string; hasEntity: boolean; entity: string | null }>
 > {
-  if (!token || typeof token !== "string") {
+  if (!validToken(token)) {
     return { success: false, error: "Missing token" };
   }
   const tokenRows = await query<{ email: string }>(
@@ -76,17 +77,32 @@ export async function verifyMagicToken(
   token: string,
   entity?: string,
 ): Promise<ActionResult> {
-  if (!token || typeof token !== "string") {
+  if (!validToken(token)) {
     return { success: false, error: "Missing token" };
+  }
+  const selected = entity === undefined ? undefined : normalizeEntity(entity);
+  if (selected === null)
+    return {
+      success: false,
+      error: "Select an entity of at most 255 characters.",
+    };
+  getSecret(); // Fail before consuming a one-time link if configuration is missing.
+  if (selected === undefined) {
+    const existing = await checkEntityForToken(token);
+    if (!existing.success || !existing.data?.hasEntity)
+      return {
+        success: false,
+        error: "Please select your organisational entity.",
+      };
   }
   const email = await verifyMagicTokenService(token);
   if (!email) {
     return { success: false, error: "Invalid or expired link" };
   }
   const userId = await upsertUser(email);
-  if (entity && typeof entity === "string" && entity.trim()) {
+  if (selected) {
     await query(`UPDATE ${tables.users} SET entity = $1 WHERE id = $2`, [
-      entity.trim(),
+      selected,
       userId,
     ]);
   }
@@ -100,11 +116,12 @@ export async function updateEntity(entity: string): Promise<ActionResult> {
   if (!user) {
     return { success: false, error: "Unauthorized" };
   }
-  if (!entity || typeof entity !== "string" || !entity.trim()) {
+  const selected = normalizeEntity(entity);
+  if (!selected) {
     return { success: false, error: "Entity is required" };
   }
   await query(`UPDATE ${tables.users} SET entity = $1 WHERE id = $2`, [
-    entity.trim(),
+    selected,
     user.id,
   ]);
   revalidatePath("/", "layout");

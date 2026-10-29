@@ -1,120 +1,73 @@
 "use client";
-
-import { useState, useEffect } from "react";
-import { X } from "lucide-react";
-import { EntityCombobox, type EntityOption } from "./EntityCombobox";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Modal } from "@un-eosg/ui/components/modal";
+import { Button } from "@un-eosg/ui/components/button";
+import { typography } from "@un-eosg/ui/typography";
+import { EntityPicker, type EntityOption } from "./EntityPicker";
 import { updateEntity } from "@/features/auth/commands";
-
-interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-  currentEntity: string | null;
-  entities: EntityOption[];
-}
-
 export function EntityChangeDialog({
-  isOpen,
-  onClose,
   currentEntity,
   entities,
-}: Props) {
-  const [selectedEntity, setSelectedEntity] = useState("");
-  const [otherEntity, setOtherEntity] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      setSelectedEntity(currentEntity || "");
-      setOtherEntity("");
-      setError(null);
-    }
-  }, [isOpen, currentEntity]);
-
-  const handleSubmit = async () => {
-    const entity =
-      selectedEntity === "Other – Please Specify"
-        ? otherEntity.trim()
-        : selectedEntity;
-    if (!entity) {
-      setError("Please select an entity");
-      return;
-    }
-    setLoading(true);
-    setError(null);
+  onClose,
+}: {
+  currentEntity: string;
+  entities: EntityOption[];
+  onClose: () => void;
+}) {
+  const router = useRouter();
+  const [value, setValue] = useState(currentEntity);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  async function submit(event: React.FormEvent) {
+    event.preventDefault();
+    setBusy(true);
+    setError("");
     try {
-      const result = await updateEntity(entity);
-      if (result.success) {
-        window.location.reload();
-      } else {
-        setError(result.error);
+      const result = await updateEntity(value);
+      if (!result.success) setError(result.error);
+      else {
+        onClose();
+        router.refresh();
       }
     } catch {
-      setError("Failed to update entity");
+      setError("Could not update your entity. Please try again.");
     } finally {
-      setLoading(false);
+      setBusy(false);
     }
-  };
-
-  if (!isOpen) return null;
-
+  }
   return (
-    <>
-      <div className="fixed inset-0 z-50 bg-black/50" onClick={onClose} />
-      <div className="fixed top-1/2 left-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-6 shadow-xl">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">Update Entity</h2>
-          <button
-            onClick={onClose}
-            className="rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
-          >
-            <X className="h-5 w-5" />
-          </button>
+    <Modal
+      open
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+      title="Update entity"
+      description="Choose your organisational affiliation."
+      closeLabel="Close entity dialog"
+      size="sm"
+    >
+      <form onSubmit={submit} className="space-y-4">
+        <EntityPicker
+          value={value}
+          onChange={setValue}
+          entities={entities}
+          disabled={busy}
+        />
+        {error && (
+          <p role="alert" className={typography.body}>
+            {error}
+          </p>
+        )}
+        <div className="flex gap-3">
+          <Button type="button" variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button disabled={busy || !value.trim()}>
+            {busy ? "Updating…" : "Update"}
+          </Button>
         </div>
-        <div className="space-y-4">
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-              Select your organisational entity
-            </label>
-            <EntityCombobox
-              value={selectedEntity}
-              onChange={setSelectedEntity}
-              entities={entities}
-              placeholder="Choose entity..."
-            />
-          </div>
-          {selectedEntity === "Other – Please Specify" && (
-            <input
-              type="text"
-              placeholder="Enter your organisational entity"
-              value={otherEntity}
-              onChange={(e) => setOtherEntity(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:border-un-blue focus:ring-1 focus:ring-un-blue focus:outline-none"
-            />
-          )}
-          {error && <p className="text-sm text-red-600">{error}</p>}
-          <div className="flex gap-3">
-            <button
-              onClick={onClose}
-              className="flex-1 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleSubmit}
-              disabled={
-                loading ||
-                !selectedEntity ||
-                (selectedEntity === "Other – Please Specify" &&
-                  !otherEntity.trim())
-              }
-              className="flex-1 rounded-lg bg-un-blue px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {loading ? "Updating..." : "Update"}
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
+      </form>
+    </Modal>
   );
 }

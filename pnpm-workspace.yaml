@@ -1,0 +1,6 @@
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
+# serve currently pins a vulnerable compression release.
+overrides:
+  compression: ^1.8.2

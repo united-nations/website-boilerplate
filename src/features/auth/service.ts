@@ -1,16 +1,8 @@
 import { cookies } from "next/headers";
-import { randomBytes, createHmac, timingSafeEqual } from "crypto";
+import { randomBytes } from "node:crypto";
+import { COOKIE_NAME, signSession, verifySession } from "./session";
 import { tables } from "../../lib/db/config";
 import { query } from "../../lib/db/db";
-
-const getSecret = () => {
-  const secret = process.env.AUTH_SECRET;
-  if (!secret && process.env.NODE_ENV === "production") {
-    throw new Error("AUTH_SECRET must be set in production");
-  }
-  return secret || "dev-secret-change-me";
-};
-const COOKIE_NAME = "auth_session";
 
 export async function isAllowedDomain(email: string): Promise<boolean> {
   const domain = email.toLowerCase().split("@")[1];
@@ -61,38 +53,6 @@ export async function upsertUser(email: string): Promise<string> {
     [email.toLowerCase()],
   );
   return rows[0].id;
-}
-
-function signSession(userId: string): string {
-  const payload = JSON.stringify({
-    userId,
-    exp: Date.now() + 30 * 24 * 60 * 60 * 1000,
-  });
-  const sig = createHmac("sha256", getSecret()).update(payload).digest("hex");
-  return Buffer.from(payload).toString("base64") + "." + sig;
-}
-
-export function verifySession(token: string): { userId: string } | null {
-  try {
-    const [payloadB64, sig] = token.split(".");
-    if (!payloadB64 || !sig) return null;
-    const payload = Buffer.from(payloadB64, "base64").toString();
-    const expectedSig = createHmac("sha256", getSecret())
-      .update(payload)
-      .digest("hex");
-    const sigBuf = Buffer.from(sig, "hex");
-    const expectedBuf = Buffer.from(expectedSig, "hex");
-    if (
-      sigBuf.length !== expectedBuf.length ||
-      !timingSafeEqual(sigBuf, expectedBuf)
-    )
-      return null;
-    const data = JSON.parse(payload);
-    if (data.exp < Date.now()) return null;
-    return { userId: data.userId };
-  } catch {
-    return null;
-  }
 }
 
 export async function createSession(userId: string) {

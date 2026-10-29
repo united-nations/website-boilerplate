@@ -1,16 +1,20 @@
 import nodemailer from "nodemailer";
-import { SITE_TITLE } from "@/components/Header";
+import { siteConfig } from "@/lib/site-config";
+const SITE_TITLE = siteConfig.name;
 import { getBaseUrl } from "@/lib/get-base-url";
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || "smtp.mailbox.org",
   port: Number(process.env.SMTP_PORT) || 587,
-  secure: false,
-  auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+  secure: Number(process.env.SMTP_PORT) === 465,
+  requireTLS: process.env.NODE_ENV === "production",
+  auth: process.env.SMTP_USER
+    ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+    : undefined,
 });
 
 export async function sendMagicLink(email: string, token: string) {
-  const baseUrl = await getBaseUrl();
+  const baseUrl = getBaseUrl();
   const link = `${baseUrl}/verify?token=${token}`;
   const logoUrl = `${baseUrl}/images/UN_Logo_Stacked_Colour_English.png`;
 
