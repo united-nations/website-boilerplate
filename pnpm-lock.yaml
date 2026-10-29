@@ -12,16 +12,16 @@ importers:
   .:
     dependencies:
       '@radix-ui/react-dialog':
-        specifier: ^1.1.23
+        specifier: ^1.3.1
         version: 1.3.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@radix-ui/react-dropdown-menu':
-        specifier: ^2.1.24
+        specifier: ^2.2.1
         version: 2.2.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@radix-ui/react-popover':
-        specifier: ^1.1.23
+        specifier: ^1.3.1
         version: 1.3.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@radix-ui/react-tooltip':
-        specifier: ^1.2.16
+        specifier: ^1.4.1
         version: 1.4.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@un-eosg/ui':
         specifier: github:UN-EOSG-Analytics/ui#4c974bf2c84a246846213d15b3855c6554420f86
@@ -33,7 +33,7 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       lucide-react:
-        specifier: ^1.24.0
+        specifier: ^1.63.0
         version: 1.63.0(@types/react@19.3.0)(react@19.3.1)
       next:
         specifier: 16.4.3
@@ -54,20 +54,20 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1
       tailwind-merge:
-        specifier: ^3.6.0
+        specifier: ^3.7.0
         version: 3.7.0
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
     devDependencies:
       '@playwright/test':
-        specifier: ^1.63.0
+        specifier: ^1.64.1
         version: 1.64.1
       '@tailwindcss/postcss':
         specifier: ^4.3.3
         version: 4.3.3
       '@types/node':
-        specifier: ^24
+        specifier: ^24.19.2
         version: 24.19.2
       '@types/nodemailer':
         specifier: ^8.0.1
@@ -76,10 +76,10 @@ importers:
         specifier: ^8.23.1
         version: 8.23.1
       '@types/react':
-        specifier: ^19
+        specifier: ^19.3.0
         version: 19.3.0
       '@types/react-dom':
-        specifier: ^19
+        specifier: ^19.3.0
         version: 19.3.0(@types/react@19.3.0)
       eslint:
         specifier: ^9.39.5
@@ -91,10 +91,10 @@ importers:
         specifier: ^3.9.10
         version: 3.9.10
       prettier-plugin-tailwindcss:
-        specifier: ^0.8.0
+        specifier: ^0.8.1
         version: 0.8.1(prettier@3.9.10)
       serve:
-        specifier: ^14.2.5
+        specifier: ^14.2.6
         version: 14.2.6(supports-color@7.2.0)
       tailwindcss:
         specifier: ^4.3.3
@@ -1373,6 +1373,10 @@ packages:
 
   chalk@5.0.1:
     resolution: {integrity: sha512-Fo07WOYGqMfCWHOzSXOt2CxDbC6skS/jO9ynEcmpANMoPrD+W1r1K6Vx7iNm+AQmETU1Xr2t+n8nzkV9t6xh3w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
+  chalk@5.6.2:
+    resolution: {integrity: sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
   class-variance-authority@0.7.1:
@@ -4058,7 +4062,7 @@ snapshots:
     dependencies:
       ansi-align: 3.0.1
       camelcase: 7.0.1
-      chalk: 5.0.1
+      chalk: 5.6.2
       cli-boxes: 3.0.0
       string-width: 5.1.2
       type-fest: 2.19.0
@@ -4123,6 +4127,8 @@ snapshots:
       supports-color: 7.2.0
 
   chalk@5.0.1: {}
+
+  chalk@5.6.2: {}
 
   class-variance-authority@0.7.1:
     dependencies:
