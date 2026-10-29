@@ -1,0 +1,47 @@
+name: Check both template variants
+on:
+  pull_request:
+  push:
+    branches: [main, template-with-auth]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint && pnpm typecheck && pnpm format:check && pnpm test
+      - run: pnpm build
+        env:
+          AUTH_SECRET: ci-build-secret-that-is-not-a-production-credential
+          BASE_URL: http://localhost:3000
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:browser
+        env:
+          AUTH_SECRET: ci-browser-secret-that-is-not-a-production-credential
+          BASE_URL: http://127.0.0.1:3100
+      # During coordinated PRs, point this at the companion PR branch.
+      # Remains informational until both variants land; release requires no drift.
+      - run: pnpm check:sync
+        continue-on-error: true
+      - name: Verify restricted role and safe entity bootstrap (auth only)
+        if: hashFiles('sql/auth_tables.sql') != ''
+        run: pnpm test:db
+        env:
+          TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/boilerplate_test
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: boilerplate_test
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5

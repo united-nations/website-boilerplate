@@ -1,11 +1,24 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "Install Dependencies",
-			"type": "shell",
-			"command": "uv sync && npm install",
-			"group": "build"
-		}
-	]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install dependencies",
+      "type": "shell",
+      "command": "pnpm install",
+      "group": "build"
+    },
+    {
+      "label": "Start website",
+      "type": "shell",
+      "command": "pnpm dev",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Check website",
+      "type": "shell",
+      "command": "pnpm lint && pnpm typecheck && pnpm build",
+      "group": "test"
+    }
+  ]
 }

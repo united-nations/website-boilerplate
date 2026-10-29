@@ -1,8 +1,8 @@
 "use client";
-
 import { useEffect } from "react";
-
-export default function Error({
+import { Button } from "@un-eosg/ui/components/button";
+import { typography } from "@un-eosg/ui/typography";
+export default function ErrorPage({
   error,
   reset,
 }: {
@@ -10,24 +10,16 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error(error);
   }, [error]);
-
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-4">
-      <h2 className="text-2xl font-bold text-foreground">
-        Something went wrong
-      </h2>
-      <p className="text-muted-foreground">
-        An unexpected error occurred. Please try again.
+    <main id="main-content" className="mx-auto max-w-xl space-y-4 p-8">
+      <h1 className={typography.cardTitle}>Something went wrong</h1>
+      <p className={typography.body}>
+        Please try again. If the problem continues, contact the website
+        administrator.
       </p>
-      <button
-        onClick={() => reset()}
-        className="rounded-md bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90"
-      >
-        Try again
-      </button>
-    </div>
+      <Button onClick={reset}>Try again</Button>
+    </main>
   );
 }
