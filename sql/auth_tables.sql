@@ -87,5 +87,6 @@ INSERT INTO myapp.allowed_domains (entity, domain) VALUES
   ('ITC', 'intracen.org'),
   ('UNAIDS', 'unaids.org'),
   ('UNSSC', 'unssc.org'),
-  ('UNU', 'unu.edu')
+  ('UNU', 'unu.edu'),
+  ('UNCCD', 'unccd.int')
 ON CONFLICT DO NOTHING;
