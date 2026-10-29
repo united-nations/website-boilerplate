@@ -56,4 +56,4 @@ Set `NEXT_PUBLIC_SITE_URL` to the real public origin before publishing. Public e
 
 ## For maintainers
 
-[Maintenance](docs/maintenance.md) covers dependency updates, checks, UI contributions and keeping both branches synchronized. Python data preparation in `python/` is optional; the website itself does not need Python. For that workflow, install Python 3.13+ and [uv](https://docs.astral.sh/uv/), then run `uv sync` and `uv run python python/data_prep.py`.
+[Maintenance](docs/maintenance.md) covers dependency updates, checks, UI contributions and keeping both branches synchronized. Python data preparation in `python/` is optional; the website itself does not need Python. For that workflow, install Python 3.13+ and [uv](https://docs.astral.sh/uv/), then run `uv sync`. The example script expects a CSV at `data/your_data.csv`; supply that file (or edit `input_path` in `python/data_prep.py`), then run `uv run python python/data_prep.py` to export it to `public/data/data.json`.

@@ -23,5 +23,12 @@
   "scripts/shared-files.json",
   "playwright.config.ts",
   "tests/site.spec.ts",
-  "tests/paths.test.mjs"
+  "tests/paths.test.mjs",
+  "AGENTS.md",
+  "pnpm-workspace.yaml",
+  "docs/auth-setup.md",
+  "pyproject.toml",
+  "uv.lock",
+  "python/data_prep.py",
+  ".github/copilot-instructions.md"
 ]

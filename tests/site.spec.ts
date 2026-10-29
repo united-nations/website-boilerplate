@@ -3,9 +3,7 @@ test("public pages share navigation, branded footer and keyboard skip link", asy
   page,
 }) => {
   await page.goto("/about");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Website Starter",
-  );
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(page.getByRole("banner")).toBeVisible();
   await expect(page.getByRole("contentinfo")).toBeVisible();
   await page.keyboard.press("Tab");

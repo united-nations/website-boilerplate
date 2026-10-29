@@ -65,12 +65,12 @@ Links expire after 15 minutes and are consumed once. Sessions use an HTTP-only s
 
 ## 5. Test and deploy
 
-`pnpm test` checks session signatures and input validation. For database tests create a **disposable database whose name ends in `_test`** and give its URL to:
+`pnpm test` checks session signatures and input validation. For database tests create a **disposable database whose name ends in `_test`** and use a local test administrator with `CREATEDB` and `CREATEROLE`, and give its URL to:
 
 ```bash
 TEST_DATABASE_URL='postgresql://local_admin@localhost/boilerplate_test?sslmode=disable' pnpm test:db
 ```
 
-These tests create and remove their own test objects and exercise restricted-role queries and existing-schema preservation. They refuse non-loopback hosts and database names without the `_test` suffix. CI runs them against a fresh PostgreSQL service. No real email is sent by automated tests.
+These tests create and remove their own test objects and exercise restricted-role queries and existing-schema preservation. They refuse non-loopback hosts and database names without the `_test` suffix. CI runs them against a fresh PostgreSQL service. Set `TEST_AUTH_BROWSER=1` when running `pnpm test:db` to also exercise the emailed link, entity selection/change, logout, and expired/reused links in Chromium; install Chromium first with `pnpm exec playwright install chromium`. These browser checks use a local SMTP fixture on port 2525 and the restricted database login. No real email is sent by automated tests.
 
 For production, run `pnpm build`, then `pnpm start`, on a Node.js host. Supply runtime database, secret and SMTP variables through the host's secret settings. Set `BASE_URL` and `NEXT_PUBLIC_SITE_URL` to the public origin; the auth variant uses the domain root. Configure database firewall access and verified TLS. `/api/health` can be used for host liveness checks. Do not use GitHub Pages, `out/`, or the static branch's Pages workflow for this version.
