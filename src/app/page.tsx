@@ -1,14 +1,15 @@
+import { redirect } from "next/navigation";
 import { typography } from "@un-eosg/ui/typography";
 import { EntityRef } from "@un-eosg/ui/components/concepts";
 import { SiteShell } from "@/components/SiteShell";
 import { BoilerplateShowcase } from "@/components/BoilerplateShowcase";
-import { SiteAccount } from "@/components/SiteAccount";
 import { getCurrentUser } from "@/features/auth/service";
 export const dynamic = "force-dynamic";
 export default async function Home() {
   const user = await getCurrentUser();
+  if (!user) redirect("/about");
   return (
-    <SiteShell account={<SiteAccount user={user} />}>
+    <SiteShell>
       <BoilerplateShowcase />
       {user && (
         <section className="mt-12 space-y-4">

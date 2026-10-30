@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { cookies } from "next/headers";
 import { randomBytes } from "node:crypto";
 import { COOKIE_NAME, signSession, verifySession } from "./session";
@@ -79,7 +80,7 @@ export async function clearSession() {
   cookieStore.delete(COOKIE_NAME);
 }
 
-export async function getCurrentUser() {
+export const getCurrentUser = cache(async () => {
   const session = await getSession();
   if (!session) return null;
   const rows = await query<{
@@ -91,4 +92,4 @@ export async function getCurrentUser() {
   ]);
   if (!rows[0]) return null;
   return { id: rows[0].id, email: rows[0].email, entity: rows[0].entity };
-}
+});

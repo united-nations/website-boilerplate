@@ -71,7 +71,9 @@ Allowed domains are initially seeded with UN system domains. Administrators can 
 
 ## 4. Start and verify
 
-Run `pnpm dev`, visit `/`, and choose **Sign in**. Request an email from an allowed domain, follow its link, and select an entity (or explicitly choose a custom affiliation). Returning users can complete sign-in with their existing affiliation. Home and About are public and show the account menu when signed in. Signed-out visitors see a sign-in link, and signing out returns to Home. The entity directory is loaded for signed-in accounts only, so opening either public page without a session does not require a database connection. The account menu lets users update their entity and sign out.
+Run `pnpm dev` and visit `/`. While signed out, the protected home page redirects to `/about`. About introduces the platform with features and three setup steps; **Get started** opens `/login`, and **Explore features** scrolls to the feature list. Request an email from an allowed domain, follow its link, and select an entity (or explicitly choose a custom affiliation). Returning users can complete sign-in with their existing affiliation.
+
+Every page uses the auth `SiteShell`: signed-out visitors see only public navigation and a sign-in button, including on login and verification pages. Signed-in visitors also see protected navigation and the account avatar menu. The brand links to About while signed out and Home while signed in. The avatar uses email initials because the starter does not collect profile photos. The account menu lets users update their entity and sign out; sign-out returns to About. Public pages do not query the database without a valid session. Session lookups are deduplicated within each server render, never shared between visitors.
 
 Links expire after 15 minutes and are consumed once. Sessions use an HTTP-only signed cookie lasting 30 days; sessions are not stored in a database table. Protected pages redirect unauthenticated visitors to About. Protected API routes return 401. The health endpoint `/api/health` returns liveness only and does not expose settings or credentials.
 

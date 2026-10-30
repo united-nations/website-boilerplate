@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { createServer } from "node:net";
 import { randomUUID } from "node:crypto";
+import { signSession } from "../src/features/auth/session";
 import pg from "pg";
 
 // Opt in only against an isolated local fixture database. No real email is sent.
@@ -62,7 +63,7 @@ test("email link, keyboard entity choice, custom affiliation, logout and single-
 }) => {
   const email = `browser-${randomUUID()}@un.org`;
   await page.goto("/");
-  await expect(page).toHaveURL(/\/$/);
+  await expect(page).toHaveURL(/\/about\/?$/);
   await page.getByRole("link", { name: "Sign in", exact: true }).click();
   await page.getByLabel("Email address").fill(email);
   await page.getByRole("button", { name: "Send sign-in link" }).click();
@@ -92,6 +93,36 @@ test("email link, keyboard entity choice, custom affiliation, logout and single-
     (item) => item.name === "auth_session",
   );
   expect(cookie?.httpOnly).toBe(true);
+  for (const path of ["/about", "/login", "/verify"]) {
+    await page.goto(path);
+    const header = page.getByRole("banner");
+    await expect(
+      header.getByRole("button", { name: "Your account" }),
+    ).toBeVisible();
+    await expect(
+      header.getByRole("link", { name: "Sign in", exact: true }),
+    ).toHaveCount(0);
+    await expect(
+      header.getByRole("link", { name: "Home", exact: true }),
+    ).toBeVisible();
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect(
+      header.getByRole("button", { name: "Your account" }),
+    ).toBeVisible();
+    await header.getByRole("button", { name: "Open navigation menu" }).click();
+    await expect(
+      page.getByRole("menuitem", { name: "Home", exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("menuitem", { name: "About", exact: true }),
+    ).toBeVisible();
+    await page.keyboard.press("Escape");
+    await page.setViewportSize({ width: 1280, height: 900 });
+  }
+  await page.goto("/about");
+  await page.getByRole("link", { name: "Open workspace", exact: true }).click();
+  await expect(page).toHaveURL(/\/$/);
+
   await page.getByRole("link", { name: "About", exact: true }).click();
   await expect(page).toHaveURL(/\/about\/?$/);
   await expect(
@@ -118,7 +149,7 @@ test("email link, keyboard entity choice, custom affiliation, logout and single-
     page.getByText("Independent test organisation").first(),
   ).toBeVisible();
   await page.getByRole("menuitem", { name: "Sign out", exact: true }).click();
-  await expect(page).toHaveURL(/\/$/);
+  await expect(page).toHaveURL(/\/about\/?$/);
   await expect(
     page.getByRole("link", { name: "Sign in", exact: true }),
   ).toBeVisible();
@@ -154,4 +185,25 @@ test("expired links cannot sign in", async ({ page }) => {
   await expect(page.locator("main").getByRole("alert")).toContainText(
     "Invalid or expired",
   );
+});
+
+test("a signed session for a missing user cannot open protected Home", async ({
+  page,
+  baseURL,
+}) => {
+  await page
+    .context()
+    .addCookies([
+      { name: "auth_session", value: signSession(randomUUID()), url: baseURL! },
+    ]);
+  await page.goto("/");
+  await expect(page).toHaveURL(/\/about\/?$/);
+  await expect(
+    page.getByRole("banner").getByRole("link", { name: "Home", exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    page
+      .getByRole("banner")
+      .getByRole("link", { name: "Sign in", exact: true }),
+  ).toBeVisible();
 });
