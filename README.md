@@ -41,7 +41,7 @@ This is a preview on your computer. Saving a file updates the preview; it does n
 ## Make your first change
 
 - Change the website name and description in `src/lib/site-config.ts`.
-- Replace the example homepage content in `src/app/page.tsx`. The UN80 colour showcase is sample content you can keep or replace. In the authenticated version, keep the account-loading code and account menu around your page content.
+- Replace the example homepage content in `src/app/page.tsx`. The UN80 colour showcase is sample content you can keep or replace. Keep the `SiteShell` wrapper so shared navigation and account controls continue to work.
 - Edit the About page in `src/app/about/page.tsx` to explain your website's purpose, sources and contact information.
 - Keep the surrounding tags, quotes and brackets intact when editing text. See [Customization](docs/customization.md) for a complete new-page example, navigation, downloads and UI components.
 

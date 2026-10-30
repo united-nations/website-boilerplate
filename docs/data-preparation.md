@@ -34,19 +34,33 @@ Run `pnpm dev` and visit `http://localhost:3000/data/data.json` to inspect the o
 
 ## Display the data on a page
 
-Create `src/app/data-example/page.tsx`:
+Create `src/app/data-example/page.tsx`. Keep this page as a Server Component so the authenticated version can load its session through `SiteShell`:
+
+```tsx
+import { SiteShell } from "@/components/SiteShell";
+import { DataExample } from "@/components/DataExample";
+
+export default function DataPage() {
+  return (
+    <SiteShell>
+      <DataExample />
+    </SiteShell>
+  );
+}
+```
+
+Create `src/components/DataExample.tsx` for the browser-side data loading:
 
 ```tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { typography } from "@un-eosg/ui/typography";
-import { SiteShell } from "@/components/SiteShell";
 import { withBasePath } from "@/lib/paths";
 
 type Row = { name: string; value: number };
 
-export default function DataExample() {
+export function DataExample() {
   const [rows, setRows] = useState<Row[] | null>(null);
   const [failed, setFailed] = useState(false);
 
@@ -69,7 +83,7 @@ export default function DataExample() {
   }, []);
 
   return (
-    <SiteShell>
+    <>
       <h1 className={typography.pageTitle}>Example data</h1>
       <p className={`${typography.meta} mt-4`}>
         Source: included demonstration CSV.
@@ -87,7 +101,7 @@ export default function DataExample() {
       ) : (
         <p role="status">Loading data…</p>
       )}
-    </SiteShell>
+    </>
   );
 }
 ```
