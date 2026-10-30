@@ -1,12 +1,12 @@
--- Database schema for UN Website template with auth
--- Replace 'myapp' with your app's schema name (must match DB_SCHEMA env var)
--- Run: psql $DATABASE_URL -f sql/auth_tables.sql
-
-CREATE SCHEMA IF NOT EXISTS myapp;
+-- Administrator-only app setup. Never changes the shared systemchart schema.
+-- psql "$DATABASE_ADMIN_URL" -v app_schema=myapp -f sql/auth_tables.sql
+\ir validate_schema.sql
+BEGIN;
+CREATE SCHEMA IF NOT EXISTS :"app_schema";
 
 -- Users table
-CREATE TABLE IF NOT EXISTS myapp.users (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+CREATE TABLE IF NOT EXISTS :"app_schema".users (
+  id UUID PRIMARY KEY DEFAULT pg_catalog.gen_random_uuid(),
   email TEXT UNIQUE NOT NULL,
   entity TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
@@ -15,30 +15,30 @@ CREATE TABLE IF NOT EXISTS myapp.users (
 );
 
 -- Magic tokens for passwordless login
-CREATE TABLE IF NOT EXISTS myapp.magic_tokens (
+CREATE TABLE IF NOT EXISTS :"app_schema".magic_tokens (
   token TEXT PRIMARY KEY,
   email TEXT NOT NULL,
   expires_at TIMESTAMPTZ NOT NULL,
   used_at TIMESTAMPTZ
 );
 
-CREATE INDEX IF NOT EXISTS idx_magic_tokens_expires ON myapp.magic_tokens (expires_at);
-CREATE INDEX IF NOT EXISTS idx_magic_tokens_cleanup ON myapp.magic_tokens (expires_at) WHERE used_at IS NULL;
+CREATE INDEX IF NOT EXISTS idx_magic_tokens_expires ON :"app_schema".magic_tokens (expires_at);
+CREATE INDEX IF NOT EXISTS idx_magic_tokens_cleanup ON :"app_schema".magic_tokens (expires_at) WHERE used_at IS NULL;
 
 -- Allowed email domains (configurable per-app)
 -- Entity '*' means global (allowed for all)
-CREATE TABLE IF NOT EXISTS myapp.allowed_domains (
+CREATE TABLE IF NOT EXISTS :"app_schema".allowed_domains (
   entity TEXT NOT NULL,
   domain TEXT NOT NULL,
   PRIMARY KEY (entity, domain)
 );
 
-COMMENT ON TABLE myapp.allowed_domains IS 'Allowed email domains. Entity ''*'' means allowed globally.';
+COMMENT ON TABLE :"app_schema".allowed_domains IS 'Allowed email domains. Entity ''*'' means allowed globally.';
 
 -- UN System email domains
 -- Entity '*' = global (allowed for all entities)
 -- Customize this list for your app - remove domains you don't need
-INSERT INTO myapp.allowed_domains (entity, domain) VALUES
+INSERT INTO :"app_schema".allowed_domains (entity, domain) VALUES
   -- UN Secretariat
   ('*', 'un.org'),
   
@@ -90,3 +90,5 @@ INSERT INTO myapp.allowed_domains (entity, domain) VALUES
   ('UNU', 'unu.edu'),
   ('UNCCD', 'unccd.int')
 ON CONFLICT DO NOTHING;
+
+COMMIT;

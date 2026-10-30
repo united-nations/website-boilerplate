@@ -1,29 +1,27 @@
-import { Suspense } from "react";
-import { Header } from "@/components/Header";
+import { typography } from "@un-eosg/ui/typography";
+import { SiteShell } from "@/components/SiteShell";
 import { VerifyForm } from "@/features/auth/ui/VerifyForm";
 import { fetchEntities } from "@/lib/data/entities";
-
+import { validToken } from "@/features/auth/validation";
 export const dynamic = "force-dynamic";
-
-export default async function VerifyPage() {
-  const entities = await fetchEntities();
-
+export default async function VerifyPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ token?: string }>;
+}) {
+  const { token } = await searchParams;
   return (
-    <div className="flex min-h-screen flex-col bg-white">
-      <Header maxWidth="6xl" />
-      <main className="flex flex-1 items-center justify-center px-4">
-        <div className="w-full max-w-sm">
-          <h2 className="mb-2 text-xl font-semibold text-foreground">
-            Complete Sign-In
-          </h2>
-          <p className="mb-6 text-sm text-gray-500">
-            Select your entity to continue
+    <SiteShell>
+      <div className="mx-auto max-w-sm space-y-6">
+        <h1 className={typography.cardTitle}>Complete sign-in</h1>
+        {validToken(token) ? (
+          <VerifyForm token={token} entities={await fetchEntities()} />
+        ) : (
+          <p role="alert" className={typography.body}>
+            Missing or invalid verification token. Request a new sign-in link.
           </p>
-          <Suspense fallback={<p className="text-gray-500">Loading...</p>}>
-            <VerifyForm entities={entities} />
-          </Suspense>
-        </div>
-      </main>
-    </div>
+        )}
+      </div>
+    </SiteShell>
   );
 }

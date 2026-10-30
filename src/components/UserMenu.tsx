@@ -1,52 +1,53 @@
 "use client";
-
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { AccountMenu } from "@un-eosg/ui/components/account-menu";
 import { EntityChangeDialog } from "./EntityChangeDialog";
-import type { EntityOption } from "./EntityCombobox";
-import { logout } from "@/features/auth/commands";
-
-interface Props {
+import type { EntityOption } from "./EntityPicker";
+export function UserMenu({
+  email,
+  entity,
+  entities,
+}: {
   email: string;
   entity?: string | null;
   entities: EntityOption[];
-}
-
-export function UserMenu({ email, entity, entities }: Props) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  async function handleLogout() {
-    await logout();
-  }
-
+}) {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
   return (
     <>
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600">{email}</span>
-          {entity && (
-            <button
-              onClick={() => setIsDialogOpen(true)}
-              className="rounded-full bg-un-blue/10 px-2 py-0.5 text-xs font-medium text-un-blue transition-colors hover:bg-un-blue/20"
-              title="Click to update entity"
-            >
-              {entity}
-            </button>
-          )}
-        </div>
-        <div className="h-4 w-px bg-gray-200" />
-        <button
-          onClick={handleLogout}
-          className="text-sm text-gray-500 transition-colors hover:text-gray-900"
-        >
-          Logout
-        </button>
-      </div>
-      <EntityChangeDialog
-        isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        currentEntity={entity || null}
-        entities={entities}
+      <AccountMenu
+        email={email}
+        entity={entity ? { label: "Entity", value: entity } : undefined}
+        labels={{
+          accountMenu: "Your account",
+          signedInAs: "Signed in as",
+          signOut: "Sign out",
+          signingOut: "Signing out…",
+          signOutError: "Could not sign out. Please try again.",
+        }}
+        actions={[
+          {
+            id: "entity",
+            label: "Update entity",
+            onSelect: () => setOpen(true),
+          },
+        ]}
+        onSignOut={async () => {
+          const response = await fetch("/api/auth/logout", { method: "POST" });
+          if (!response.ok) throw new Error("Sign out failed");
+          router.push("/about");
+          router.refresh();
+        }}
       />
+      {open && (
+        <EntityChangeDialog
+          currentEntity={entity || ""}
+          entities={entities}
+          onClose={() => setOpen(false)}
+        />
+      )}
     </>
   );
 }
