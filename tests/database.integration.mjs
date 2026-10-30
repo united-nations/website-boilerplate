@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { randomBytes, randomUUID } from "node:crypto";
-import { spawnSync } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import pg from "pg";
 import { bootstrapEntities } from "../scripts/bootstrap-entities.mjs";
 import { connectionOptions } from "../src/lib/db/connection-options.ts";
@@ -22,6 +22,8 @@ if (
 const database = `boilerplate_${randomUUID().replaceAll("-", "")}_test`;
 const runtimeRole = `starter_${randomUUID().replaceAll("-", "")}`;
 const unsafeRole = `${runtimeRole}_unsafe`;
+const appPassword = randomBytes(32).toString("hex");
+const promptRoles = [];
 const root = new pg.Client(connectionOptions({ DATABASE_URL: supplied }));
 const sandboxUrl = new URL(supplied);
 sandboxUrl.pathname = `/${database}`;
@@ -40,15 +42,20 @@ function psql(file, role = runtimeRole, schema = "starter") {
       "-X",
       "-v",
       "ON_ERROR_STOP=1",
-      "-v",
-      `app_schema=${schema}`,
-      "-v",
-      `app_role=${role}`,
+      ...(schema === null ? [] : ["-v", `app_schema=${schema}`]),
+      ...(role === null ? [] : ["-v", `app_role=${role}`]),
       "-f",
       file,
     ],
     {
       encoding: "utf8",
+      detached: true,
+      windowsHide: true,
+      timeout: 15000,
+      input:
+        file === "sql/app_role.sql"
+          ? `${appPassword}\n${appPassword}\n`
+          : undefined,
       env: {
         ...process.env,
         PGHOST: base.hostname,
@@ -63,11 +70,109 @@ function psql(file, role = runtimeRole, schema = "starter") {
   return result;
 }
 
+async function interactiveSetup(role, responses) {
+  const quote = (value) => "'" + value.replaceAll("'", "'\"'\"'") + "'";
+  const command = [
+    "psql",
+    "-X",
+    // A CI pager can block on SQL output before the password prompt.
+    "--pset=pager=off",
+    "-v",
+    "ON_ERROR_STOP=1",
+    "-v",
+    "app_schema=starter",
+    "-v",
+    `app_role=${role}`,
+    "-f",
+    "sql/app_role.sql",
+  ]
+    .map(quote)
+    .join(" ");
+  return new Promise((resolve, reject) => {
+    const child = spawn("script", ["-qfec", command, "/dev/null"], {
+      env: {
+        ...process.env,
+        PGHOST: base.hostname,
+        PGPORT: base.port || "5432",
+        PGDATABASE: database,
+        PGUSER: decodeURIComponent(base.username),
+        PGPASSWORD: decodeURIComponent(base.password),
+        PGSSLMODE: base.searchParams.get("sslmode") || "verify-full",
+      },
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+    let output = "";
+    let step = 0;
+    const timer = setTimeout(() => {
+      child.kill("SIGKILL");
+      const safeOutput = responses.reduce((text, response) => {
+        const secret = response.replace(/[\r\n\x03\x04]/g, "");
+        return secret ? text.replaceAll(secret, "[hidden input]") : text;
+      }, output);
+      reject(
+        new Error(
+          `Password prompt fixture timed out at response ${step + 1}. Terminal output: ${safeOutput}`,
+        ),
+      );
+    }, 15000);
+    child.once("error", (error) => {
+      clearTimeout(timer);
+      reject(error);
+    });
+    const receive = (chunk) => {
+      output += chunk.toString();
+      const prompt =
+        step === 0
+          ? `Enter new password for user "${role}": `
+          : "Enter it again: ";
+      if (step < responses.length && output.includes(prompt))
+        child.stdin.write(responses[step++]);
+    };
+    child.stdout.on("data", receive);
+    child.stderr.on("data", receive);
+    child.stdin.on("error", () => {});
+    child.once("close", (status) => {
+      clearTimeout(timer);
+      resolve({ status, output });
+    });
+  });
+}
+
 test("entity bootstrap and least-privilege app setup on disposable PostgreSQL", async (t) => {
   await root.connect();
   await root.query(`CREATE DATABASE ${database}`);
   try {
     await admin.connect();
+    await t.test(
+      "bare SQL invocations fail before creating schemas or roles",
+      async () => {
+        const before = (
+          await admin.query("SELECT nspname FROM pg_namespace ORDER BY nspname")
+        ).rows;
+        for (const file of ["sql/auth_tables.sql", "sql/app_role.sql"]) {
+          const missing = psql(file, null, null);
+          assert.notEqual(missing.status, 0);
+          assert.match(missing.stderr, /app_schema is required/);
+          assert.notEqual(psql(file, runtimeRole, "").status, 0);
+        }
+        assert.deepEqual(
+          (
+            await admin.query(
+              "SELECT nspname FROM pg_namespace ORDER BY nspname",
+            )
+          ).rows,
+          before,
+        );
+        assert.equal(
+          (
+            await admin.query("SELECT 1 FROM pg_roles WHERE rolname=$1", [
+              runtimeRole,
+            ])
+          ).rowCount,
+          0,
+        );
+      },
+    );
     await t.test(
       "invalid source and HTTP failures leave no schema behind",
       async () => {
@@ -169,6 +274,30 @@ test("entity bootstrap and least-privilege app setup on disposable PostgreSQL", 
         }
         const setup = psql("sql/app_role.sql");
         assert.equal(setup.status, 0, setup.stderr);
+        assert.ok(!`${setup.stdout}${setup.stderr}`.includes(appPassword));
+        const passwordState = await admin.query(
+          "SELECT rolcanlogin, rolpassword LIKE 'SCRAM-SHA-256$%' AS scram FROM pg_authid WHERE rolname=$1",
+          [runtimeRole],
+        );
+        assert.deepEqual(passwordState.rows[0], {
+          rolcanlogin: true,
+          scram: true,
+        });
+        const runtimeUrl = new URL(sandboxUrl);
+        runtimeUrl.username = runtimeRole;
+        runtimeUrl.password = appPassword;
+        const runtime = new pg.Client(
+          connectionOptions({ DATABASE_URL: runtimeUrl.toString() }),
+        );
+        try {
+          await runtime.connect();
+          assert.equal(
+            (await runtime.query("SELECT current_user AS role")).rows[0].role,
+            runtimeRole,
+          );
+        } finally {
+          await runtime.end();
+        }
         await admin.query(`SET ROLE ${runtimeRole}`);
         assert.equal(
           (
@@ -258,6 +387,35 @@ test("entity bootstrap and least-privilege app setup on disposable PostgreSQL", 
           0,
           "Existing cluster roles must not be modified or adopted",
         );
+      },
+    );
+    await t.test(
+      "psql password prompts hide input and roll back cancellation or mismatch",
+      { skip: process.platform !== "linux" },
+      async () => {
+        const secret = randomBytes(32).toString("hex");
+        for (const [suffix, responses, succeeds] of [
+          ["cancel", ["\x03"], false],
+          ["mismatch", [`${secret}\r`, "different-synthetic-secret\r"], false],
+          ["success", [`${secret}\r`, `${secret}\r`], true],
+        ]) {
+          const role = `${runtimeRole}_${suffix}`;
+          promptRoles.push(role);
+          const result = await interactiveSetup(role, responses);
+          assert.equal(
+            result.output.includes(secret),
+            false,
+            "Password must never be echoed",
+          );
+          assert.equal(result.status === 0, succeeds, result.output);
+          const { rows } = await admin.query(
+            "SELECT rolcanlogin, rolpassword LIKE 'SCRAM-SHA-256$%' AS scram FROM pg_authid WHERE rolname=$1",
+            [role],
+          );
+          if (succeeds)
+            assert.deepEqual(rows, [{ rolcanlogin: true, scram: true }]);
+          else assert.equal(rows.length, 0);
+        }
       },
     );
     if (process.env.TEST_AUTH_BROWSER === "1")
@@ -385,6 +543,8 @@ test("entity bootstrap and least-privilege app setup on disposable PostgreSQL", 
     await root.query(`DROP DATABASE ${database} WITH (FORCE)`);
     await root.query(`DROP ROLE IF EXISTS ${runtimeRole}`);
     await root.query(`DROP ROLE IF EXISTS ${unsafeRole}`);
+    for (const role of promptRoles)
+      await root.query(`DROP ROLE IF EXISTS ${role}`);
     await root.end();
   }
 });

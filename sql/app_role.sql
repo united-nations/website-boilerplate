@@ -1,6 +1,5 @@
--- Run once as an administrator; choose a new per-app login name.
+-- Run with psql as an administrator; the script prompts for the role password.
 -- psql "$DATABASE_ADMIN_URL" -v app_schema=myapp -v app_role=myapp_runtime -f sql/app_role.sql
--- Set the password interactively afterward: \password myapp_runtime
 \ir validate_schema.sql
 \if :{?app_role}
 \else
@@ -8,7 +7,7 @@
   SELECT 1 / 0; -- ON_ERROR_STOP makes an invalid setup exit nonzero.
 \endif
 BEGIN;
-SELECT format('CREATE ROLE %I LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS', :'app_role') \gexec
+SELECT format('CREATE ROLE %I NOLOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS', :'app_role') \gexec
 SELECT format('GRANT CONNECT ON DATABASE %I TO %I', current_database(), :'app_role') \gexec
 -- No public-schema grant is needed: UUID generation uses pg_catalog.
 GRANT USAGE ON SCHEMA :"app_schema", systemchart TO :"app_role";
@@ -41,4 +40,9 @@ BEGIN
     RAISE EXCEPTION 'Runtime login inherits write access to systemchart. Existing shared grants must be resolved by its owner.';
   END IF;
 END $$;
+-- psql prompts twice with hidden input and hashes the password client-side.
+-- Enter a nonempty password: psql treats empty input/EOF as clearing it.
+SET LOCAL password_encryption = 'scram-sha-256';
+\password :"app_role"
+SELECT format('ALTER ROLE %I LOGIN', :'app_role') \gexec
 COMMIT;
