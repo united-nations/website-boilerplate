@@ -1,7 +1,9 @@
 \set ON_ERROR_STOP on
 \if :{?app_schema}
 \else
-  \set app_schema myapp
+  DO $$ BEGIN
+    RAISE EXCEPTION 'app_schema is required. Supply -v app_schema=your_project_name.';
+  END $$;
 \endif
 SELECT :'app_schema' ~ '^[a-z][a-z0-9_]{0,62}$'
   AND :'app_schema' NOT IN ('public', 'systemchart', 'information_schema')

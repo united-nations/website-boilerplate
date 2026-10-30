@@ -40,16 +40,28 @@ Only the two required fields are imported; additional JSON metadata is not neede
 
 ## 3. Create app tables and the runtime login
 
-Run `psql` as a database administrator or an owner with the necessary permissions, against the intended database:
+Run `psql` as a database administrator or an owner with the necessary permissions, against the intended database. `app_schema` is mandatory: omitting it makes either script fail before creating anything. There is no default schema name. Replace `myapp` below with your project’s chosen schema:
 
 ```bash
 psql "$DATABASE_ADMIN_URL" -v app_schema=myapp -f sql/auth_tables.sql
 psql "$DATABASE_ADMIN_URL" -v app_schema=myapp -v app_role=myapp_runtime -f sql/app_role.sql
 ```
 
-In an interactive administrator `psql` session, set the new login's password using `\password myapp_runtime`. Passwords are not embedded in SQL files. `CREATE ROLE` is cluster-wide: role setup refuses to reuse an existing role, so choose a unique name for each new application. Existing applications can review and apply the documented grants manually. Auth table setup is rerunnable for the same application schema; it does not grant the runtime login ownership.
+The second SQL script invokes psql's `\password` command directly. It asks for the app-role password twice with **hidden input** and hashes it client-side using SCRAM. Use a password manager to generate and store a strong, nonempty password. No pnpm setup command or password argument is required.
 
-Set `DATABASE_URL` in `.env.local` to this runtime login. `DB_SCHEMA` must match `app_schema`. SQL scripts use quoted psql variables; the application separately validates its schema identifier.
+Role creation, grants, password assignment and enabling login are in one transaction. SQL errors, password mismatch or cancelling with Ctrl+C roll back the new role and grants. Existing roles are refused and their passwords are never changed.
+
+**psql behavior:** empty input or EOF clears the password instead of failing. This simpler flow intentionally uses psql's native behavior; do not submit an empty password or run it without an interactive terminal. If that happens, connect as an administrator and run `\password your_runtime_role` to set a nonempty password. There is no custom password-policy wrapper or privileged password-catalog check.
+
+After setup, verify the runtime connection using psql's normal hidden connection-password prompt:
+
+```bash
+psql -h your_database_host -d your_database_name -U myapp_runtime -W -c 'SELECT current_user;'
+```
+
+Use the same TLS settings required by your database (for example `PGSSLMODE=verify-full` for remote PostgreSQL). `CREATE ROLE` is cluster-wide, so choose a unique runtime role for each application. Auth table setup remains rerunnable for the same app schema.
+
+After setup succeeds, populate the initially empty `DATABASE_URL` in `.env.local` with the runtime login and the password you entered. Percent-encode username/password characters such as `@`, `:`, `/`, `#` and `%` when constructing the URL. Keep production connection strings in the host's secret settings. `DB_SCHEMA` must match `app_schema`. SQL scripts use quoted psql variables; the application separately validates its schema identifier.
 
 The role receives database `CONNECT`, schema `USAGE`, `SELECT/INSERT/UPDATE` on `users` and `magic_tokens`, and read access to `allowed_domains` and `systemchart.entities`. It receives no public-schema grants or document access, sequence permissions, `DELETE`, schema creation, ownership, role creation, or grant options. PostgreSQL's inherited and `PUBLIC` privileges can add access: the setup script checks effective access and aborts if the role could write to `systemchart` or create objects in application/public schemas. An administrator must resolve unsafe existing grants; the template does not revoke permissions from other applications.
 
@@ -65,12 +77,12 @@ Links expire after 15 minutes and are consumed once. Sessions use an HTTP-only s
 
 ## 5. Test and deploy
 
-`pnpm test` checks session signatures and input validation. For database tests create a **disposable database whose name ends in `_test`** and use a local test administrator with `CREATEDB` and `CREATEROLE`, and give its URL to:
+`pnpm test` checks session signatures and input validation. For database tests create a **disposable database whose name ends in `_test`** and use a local test administrator with `CREATEDB`, `CREATEROLE` and access to `pg_authid` (normally the disposable cluster's postgres superuser). The tests inspect only synthetic test-role password state; production setup does not require that catalog access. Give the test database URL to:
 
 ```bash
 TEST_DATABASE_URL='postgresql://local_admin@localhost/boilerplate_test?sslmode=disable' pnpm test:db
 ```
 
-These tests create and remove their own test objects and exercise restricted-role queries and existing-schema preservation. They refuse non-loopback hosts and database names without the `_test` suffix. CI runs them against a fresh PostgreSQL service. Set `TEST_AUTH_BROWSER=1` when running `pnpm test:db` to also exercise the emailed link, entity selection/change, logout, and expired/reused links in Chromium; install Chromium first with `pnpm exec playwright install chromium`. These browser checks use a local SMTP fixture on port 2525 and the restricted database login. No real email is sent by automated tests.
+On Linux, the password-prompt checks use the standard `script` terminal utility to verify hidden input, cancellation and mismatched confirmation. These tests create and remove their own test objects and exercise restricted-role queries and existing-schema preservation. They refuse non-loopback hosts and database names without the `_test` suffix. CI runs them against a fresh PostgreSQL service. Set `TEST_AUTH_BROWSER=1` when running `pnpm test:db` to also exercise the emailed link, entity selection/change, logout, and expired/reused links in Chromium; install Chromium first with `pnpm exec playwright install chromium`. These browser checks use a local SMTP fixture on port 2525 and the restricted database login. No real email is sent by automated tests.
 
 For production, run `pnpm build`, then `pnpm start`, on a Node.js host. Supply runtime database, secret and SMTP variables through the host's secret settings. Set `BASE_URL` and `NEXT_PUBLIC_SITE_URL` to the public origin; the auth variant uses the domain root. Configure database firewall access and verified TLS. `/api/health` can be used for host liveness checks. Do not use GitHub Pages, `out/`, or the static branch's Pages workflow for this version.
