@@ -1,59 +1,90 @@
 # UN Website Boilerplate
 
-A Next.js boilerplate using the shared [EOSG UI library](https://un-eosg-analytics.github.io/ui/). You can change the content without knowing how every part of the application works.
+A starting point for United Nations websites, with a shared header, footer, typography and colour palette from the [EOSG UI library](https://un-eosg-analytics.github.io/ui/).
 
-## Choose your version
+## Choose your starting point
 
-| Branch               | Choose this when…                                                            | Hosting                                  |
-| -------------------- | ---------------------------------------------------------------------------- | ---------------------------------------- |
-| `main`               | Everyone can see your website; no sign-in or database is needed.             | GitHub Pages or any static web host      |
-| `template-with-auth` | Visitors should sign in using an emailed link and select their organisation. | A Node.js host, plus PostgreSQL and SMTP |
+| Version              | Use it for                                                   | What you need to publish                        |
+| -------------------- | ------------------------------------------------------------ | ----------------------------------------------- |
+| `main`               | A public website                                             | GitHub Pages or another static web host         |
+| `template-with-auth` | A website with email-link sign-in and organisation selection | A Node.js host, PostgreSQL and an email service |
 
-On GitHub, choose **Use this template → Create a new repository**. Enable **Include all branches** if you need the authenticated version. Clone your new repository, open its folder in your editor, and open a terminal there. The terminal is where you type the commands below; do not type the surrounding backticks.
+You only need to develop the version you choose. The two branches are maintained together in the original boilerplate repository.
 
-To choose the authenticated version, run `git switch template-with-auth` before installing anything. Document search is not included in either version.
+## Create your own repository
+
+1. Sign in to GitHub and open [UN Website Boilerplate](https://github.com/united-nations/website-boilerplate).
+2. Choose **Use this template → Create a new repository**. Choose an owner and repository name, such as `my-website`. For the authenticated version, enable **Include all branches**.
+3. Install [Git](https://git-scm.com/downloads), [Node.js 24 LTS](https://nodejs.org/en/download), [pnpm 11.22.0](https://pnpm.io/installation), and a code editor such as [Visual Studio Code](https://code.visualstudio.com/). Node 22.18 or newer is also supported.
+4. In your new repository, use **Code → HTTPS** to copy its clone URL. Open a terminal and run these commands, replacing the URL and folder name with your own:
+
+   ```bash
+   git clone https://github.com/YOUR-ORGANISATION/my-website.git
+   cd my-website
+   ```
+
+5. For authentication, run `git switch template-with-auth`. In your new repository's **Settings → General → Default branch**, choose `template-with-auth` so future work opens on your chosen version. Leave the default branch as `main` for a public static website.
+6. Open the cloned folder in your editor. Run the remaining commands in a terminal inside that folder. In VS Code, use **Terminal → New Terminal**.
+
+GitHub creates a new history when you use a template. Your website does not need to merge between the two template branches. The [maintenance guide](docs/maintenance.md) distinguishes website maintenance from work on the original boilerplate.
 
 ## Start the website on your computer
 
-1. Install **Node.js 24 LTS** from [nodejs.org](https://nodejs.org/en/download) and **pnpm 11.22.0** using the [pnpm installation guide](https://pnpm.io/installation). Node 22.18 or newer is also supported. Use pnpm for this project; do not generate an npm lockfile.
-2. Check that installation worked: run `node --version`, then `pnpm --version`.
-3. In your project folder, run `pnpm install`. This downloads the website's dependencies. The first installation needs internet access, including access to the GitHub UI library.
-4. Copy `.env.example` to `.env.local`. On macOS/Linux use `cp .env.example .env.local`; in PowerShell use `Copy-Item .env.example .env.local`. These are local settings. Never commit passwords or `.env.local`.
-5. **Auth branch only:** complete database and email setup in `docs/auth-setup.md` on that branch first. Ask a database administrator to help with the administrator steps.
-6. Run `pnpm dev`. Keep this terminal open while you work.
-7. Open [localhost:3000](http://localhost:3000) in your browser. If the terminal reports a different port, open that address instead.
+1. Run `node --version` and `pnpm --version` to check your installations.
+2. Run `pnpm install` to download dependencies. The first installation needs internet access, including access to GitHub.
+3. Copy `.env.example` to `.env.local`. On macOS/Linux run `cp .env.example .env.local`; in PowerShell run `Copy-Item .env.example .env.local`. This file holds local settings and is excluded from Git. Keep passwords there, never in page files.
+4. **For the authenticated version:** follow `docs/auth-setup.md` in your checkout to configure the database and email service before continuing.
+5. Run `pnpm dev`. Keep the terminal open, then visit [localhost:3000](http://localhost:3000). If the terminal gives a different address, use that address.
 
-`pnpm dev` starts a development preview on your computer. It does not publish your changes. Save a file in your editor and the browser updates automatically. To stop the preview, click the terminal and press **Ctrl+C**. Start it again with `pnpm dev`.
+This is a preview on your computer. Saving a file updates the preview; it does not publish the website. To stop it, click the terminal and press **Ctrl+C**. Restart it with `pnpm dev`.
 
 ## Make your first change
 
-- Open `src/lib/site-config.ts`. Change `name` and `description`, save, and look at your browser.
-- Edit the text in `src/app/page.tsx` for the home page and `src/app/about/page.tsx` for About. Keep the surrounding JSX tags, quotes and brackets intact.
-- Put downloadable files in `public/`. A file at `public/guide.pdf` is served as `/guide.pdf`.
-- Navigation, page title and optional analytics are explained in [Customization](docs/customization.md).
+- Change the website name and description in `src/lib/site-config.ts`.
+- Replace the example homepage content in `src/app/page.tsx`. The UN80 colour showcase is sample content you can keep or replace. Keep the `SiteShell` wrapper so shared navigation and account controls continue to work.
+- Edit the About page in `src/app/about/page.tsx` to explain your website's purpose, sources and contact information.
+- Keep the surrounding tags, quotes and brackets intact when editing text. See [Customization](docs/customization.md) for a complete new-page example, navigation, downloads and UI components.
 
-Before sharing your changes, run `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build`. These detect common mistakes. If a command fails, read the first error and its file name; fixing that error often resolves later ones too.
+Before sharing changes, run:
 
-## Preview and publish
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+```
 
-On **main**, `pnpm build` creates a static website in `out/`. Run `pnpm start` to preview it at localhost:3000. For a GitHub project URL such as `https://organisation.github.io/my-site/`, set `BASE_PATH=/my-site` in `.env.local` before building. For a custom domain, leave it empty. Enable **Settings → Pages → Source → GitHub Actions** in your repository; the supplied workflow deploys pushes to `main` and derives the path automatically. A push to `main` can therefore publish the website.
+If a command fails, start with its first error and the named file. Save the correction and run the command again.
 
-On **template-with-auth**, `pnpm build` creates a server application and `pnpm start` runs it. Deploy to a Node.js host, configure the environment variables there, and connect PostgreSQL and SMTP. GitHub Pages cannot run authentication. See `docs/auth-setup.md` on the auth branch.
+## Save and publish your changes
 
-Set `NEXT_PUBLIC_SITE_URL` to the real public origin before publishing. Public environment variables and static content are visible to visitors. Changing build-time settings requires a rebuild.
+Git records changes in a **commit**; a **push** uploads your commits to GitHub. From the project folder:
+
+```bash
+git status
+git add src/app/page.tsx src/app/about/page.tsx src/lib/site-config.ts
+git commit -m "Customize website content"
+git push
+```
+
+Only add files you intend to share. If you changed other files, add their paths too. If Git asks for your identity or GitHub sign-in, follow its instructions; [GitHub's Git setup guide](https://docs.github.com/en/get-started/git-basics/set-up-git) explains these steps.
+
+For the public version, follow [Publish with GitHub Pages](docs/github-pages.md) to enable hosting in your new repository. Once enabled, pushes to `main` publish updates automatically. For authentication, use the deployment section of `docs/auth-setup.md` in that version.
+
+## More guides
+
+- [Customize content, pages and appearance](docs/customization.md)
+- [Publish with GitHub Pages](docs/github-pages.md)
+- [Prepare website data with Python](docs/data-preparation.md) — optional; Python is not needed to run the website
+- [Maintain dependencies and run checks](docs/maintenance.md)
 
 ## Common problems
 
-| Problem                                 | Try this                                                                                                   |
-| --------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `pnpm` or `node` is not recognised      | Finish installation, close your terminal, and open a new one.                                              |
-| `package.json` cannot be found          | Open a terminal in the repository folder, not its parent folder.                                           |
-| Port 3000 is occupied                   | Stop the other preview with Ctrl+C, or use the port shown in the terminal.                                 |
-| My change is not visible                | Save the file; confirm the preview terminal is still running and you have the right browser address.       |
-| Images or links fail after publishing   | Check `BASE_PATH`, rebuild, and use the URL helpers described in Customization.                            |
-| Auth reports a missing setting or table | Follow the auth setup guide and restart `pnpm dev` after editing `.env.local`.                             |
-| Sign-in email does not arrive           | Check the SMTP settings, spam folder, allowed domain and server logs; a request has a two-minute cooldown. |
-
-## For maintainers
-
-[Maintenance](docs/maintenance.md) covers dependency updates, checks, UI contributions and keeping both branches synchronized. Python data preparation in `python/` is optional; the website itself does not need Python. For that workflow, install Python 3.13+ and [uv](https://docs.astral.sh/uv/), then run `uv sync`. The example script expects a CSV at `data/your_data.csv`; supply that file (or edit `input_path` in `python/data_prep.py`), then run `uv run python python/data_prep.py` to export it to `public/data/data.json`.
+| Problem                                   | Try this                                                                                                                              |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm`, `node` or `git` is not recognised | Finish installation, then close and reopen your terminal.                                                                             |
+| `package.json` cannot be found            | Open the terminal inside the cloned project folder.                                                                                   |
+| Port 3000 is occupied                     | Use the address printed by `pnpm dev`, or stop the other preview.                                                                     |
+| A change is not visible                   | Save the file and check that the preview is running. For the published site, check the latest deployment in GitHub's **Actions** tab. |
+| Images or links fail on GitHub Pages      | Follow the base-path instructions in [Customization](docs/customization.md#links-images-and-downloads).                               |
+| Sign-in fails or email does not arrive    | Use the troubleshooting table in `docs/auth-setup.md` on the authenticated version.                                                   |

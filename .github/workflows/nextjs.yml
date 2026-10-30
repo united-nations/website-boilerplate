@@ -27,6 +27,8 @@ jobs:
         env:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
           NEXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.origin }}
+          NEXT_PUBLIC_ANALYTICS_SCRIPT_URL: ${{ vars.NEXT_PUBLIC_ANALYTICS_SCRIPT_URL }}
+          NEXT_PUBLIC_ANALYTICS_WEBSITE_ID: ${{ vars.NEXT_PUBLIC_ANALYTICS_WEBSITE_ID }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
