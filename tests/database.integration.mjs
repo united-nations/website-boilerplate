@@ -103,7 +103,15 @@ async function interactiveSetup(role, responses) {
     let step = 0;
     const timer = setTimeout(() => {
       child.kill("SIGKILL");
-      reject(new Error("Password prompt fixture timed out"));
+      const safeOutput = responses.reduce((text, response) => {
+        const secret = response.replace(/[\r\n\x03\x04]/g, "");
+        return secret ? text.replaceAll(secret, "[hidden input]") : text;
+      }, output);
+      reject(
+        new Error(
+          `Password prompt fixture timed out at response ${step + 1}. Terminal output: ${safeOutput}`,
+        ),
+      );
     }, 15000);
     child.once("error", (error) => {
       clearTimeout(timer);
