@@ -48,7 +48,7 @@ This section applies to contributors to `united-nations/website-boilerplate`, wh
 3. Run all applicable checks in both versions.
 4. Fetch current refs with `git fetch origin`. From main run `pnpm check:sync origin/template-with-auth`; from auth run `pnpm check:sync origin/main`. For coordinated PRs, use the companion PR branch instead.
 
-`scripts/shared-files.json` lists files that must be identical. The sync check also compares common scripts, tooling and dependency versions. Pages may have version-specific content and authentication code. The auth lockfile includes its additional server dependencies. Add new shared guides and foundation files to the manifest.
+`scripts/shared-files.json` lists files that must be identical. The sync check also compares common scripts, tooling and dependency versions. `SiteChrome` and `SiteHeader` are shared; the `SiteShell` adapters differ because only the authenticated version loads a session and selects account controls. Pages may have version-specific content and authentication code. The auth lockfile includes its additional server dependencies. Add new shared guides and foundation files to the manifest.
 
 The CI sync check runs only in the original boilerplate repository. During coordinated PRs it reports drift without blocking the PR; both branches must pass a comparison against their companion change before release. Generated websites still run the lint, type, unit, browser and build checks for their chosen version.
 

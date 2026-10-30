@@ -5,16 +5,24 @@ import { SiteHeader as SharedHeader } from "@un-eosg/ui/components/site-header";
 import { siteConfig } from "@/lib/site-config";
 import { withBasePath } from "@/lib/paths";
 
-export function SiteHeader({ children }: { children?: React.ReactNode }) {
+export function SiteHeader({
+  children,
+  navigation = siteConfig.navigation,
+  homeHref = "/",
+}: {
+  children?: React.ReactNode;
+  navigation?: readonly { href: string; label: string }[];
+  homeHref?: string;
+}) {
   const pathname = usePathname();
   return (
     <SharedHeader
       brand={siteConfig.brand}
       descriptor={siteConfig.name}
-      href={withBasePath("/")}
+      href={withBasePath(homeHref)}
       homeLabel={`${siteConfig.name} home`}
-      navItems={siteConfig.navigation.map((item) => ({
-        ...item,
+      navItems={navigation.map((item) => ({
+        label: item.label,
         href: withBasePath(item.href),
       }))}
       activeHref={withBasePath(pathname.replace(/\/$/, "") || "/")}

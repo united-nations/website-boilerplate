@@ -16,7 +16,7 @@
   "src/app/not-found.tsx",
   "src/components/SiteHeader.tsx",
   "src/components/SiteFooter.tsx",
-  "src/components/SiteShell.tsx",
+  "src/components/SiteChrome.tsx",
   "src/lib/site-config.ts",
   "src/lib/paths.ts",
   "scripts/check-template-sync.mjs",

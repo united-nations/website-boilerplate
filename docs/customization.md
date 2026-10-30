@@ -2,16 +2,16 @@
 
 ## Find the right file
 
-| What you want to change                              | File                                                        |
-| ---------------------------------------------------- | ----------------------------------------------------------- |
-| Website name, description and navigation             | `src/lib/site-config.ts`                                    |
-| Homepage content, including the example UN80 palette | `src/app/page.tsx`                                          |
-| About text, sources and contact information          | `src/app/about/page.tsx`                                    |
-| Header options and account slot                      | `src/components/SiteHeader.tsx`                             |
-| Footer options                                       | `src/components/SiteFooter.tsx`                             |
-| Shared page width and spacing                        | `src/lib/site-config.ts` and `src/components/SiteShell.tsx` |
-| Theme imports and colour-token mappings              | `src/app/globals.css`                                       |
-| Browser metadata and font loading                    | `src/app/layout.tsx`                                        |
+| What you want to change                              | File                                                         |
+| ---------------------------------------------------- | ------------------------------------------------------------ |
+| Website name, description and navigation             | `src/lib/site-config.ts`                                     |
+| Homepage content, including the example UN80 palette | `src/app/page.tsx`                                           |
+| About text, sources and contact information          | `src/app/about/page.tsx`                                     |
+| Header options and account slot                      | `src/components/SiteHeader.tsx`                              |
+| Footer options                                       | `src/components/SiteFooter.tsx`                              |
+| Shared page width and spacing                        | `src/lib/site-config.ts` and `src/components/SiteChrome.tsx` |
+| Theme imports and colour-token mappings              | `src/app/globals.css`                                        |
+| Browser metadata and font loading                    | `src/app/layout.tsx`                                         |
 
 The `name` setting controls the header descriptor and default browser title. `description` supplies default page metadata and the About introduction. Replace other example text directly in the page files. Keep secrets in `.env.local` or your hosting service's secret settings.
 
@@ -41,11 +41,11 @@ export default function Resources() {
 }
 ```
 
-Visit `/resources` in your preview. Add `{ href: "/resources", label: "Resources" }` to the `navigation` array in `src/lib/site-config.ts` to show it in the header.
+Visit `/resources` in your preview. Add `{ href: "/resources", label: "Resources", requiresAuth: false }` to the `navigation` array in `src/lib/site-config.ts` to show it in the header.
 
-`SiteShell` provides the skip link, header, footer and aligned main content area. Give each page one `h1`; use `h2` for its sections. The root layout supplies HTML, fonts and default metadata. A page's `metadata.title` appears with the website name in the browser tab.
+`SiteShell` wraps the shared `SiteChrome`, which provides the skip link, header, footer and aligned main content area. The static version renders this directly; the authenticated version also loads the session, selects navigation and supplies sign-in or account controls. Use `SiteShell` on every page without adding account controls yourself. On the authenticated version, the header brand links to About while signed out and Home while signed in. Give each page one `h1`; use `h2` for its sections. The root layout supplies HTML, fonts and default metadata. A page's `metadata.title` appears with the website name in the browser tab.
 
-On the authenticated version, new routes require sign-in by default. To make a page public, add its path to `PUBLIC_PATHS` in `src/proxy.ts`; a listed path also makes its child paths public. To retain account controls on a private page, follow the user lookup and `account` slot in the existing homepage. Keep authorization checks in server operations that read private information.
+On the authenticated version, new routes require sign-in by default. To make a page public, add its path to `PUBLIC_PATHS` in `src/proxy.ts`; a listed path also makes its child paths public. Set `requiresAuth: true` on navigation items intended for signed-in visitors and `false` on public items. The static version shows all items; the authenticated version adds restricted items after sign-in. Navigation visibility does not protect the route itself. Keep authorization checks in server operations that read private information.
 
 ## Use UI components and colours
 
