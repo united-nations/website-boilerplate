@@ -2,7 +2,7 @@
 
 This guide and `data/reference/` exist only on `template-with-auth`. Static websites do not need a System Chart seed.
 
-`systemchart-entities.json` contains **243 independently source-verified key/name pairs** for initial database setup. The seed was reconstructed from upstream evidence, then compared with a read-only database query; the database itself is **not** counted as source evidence. The per-entry source ledger, immutable commit paths, checksums and live Airtable match status are in `systemchart-provenance.json`. No token or leadership/personal data is included.
+`systemchart-entities.json` contains **243 independently source-verified key/name pairs** for initial database setup. The seed was reconstructed from upstream evidence, then compared with a read-only database query; the database itself is **not** counted as source evidence. The per-entry source ledger, immutable commit paths, checksums and Airtable audit results are in `systemchart-provenance.json`.
 
 ## Verified sources
 
@@ -14,9 +14,9 @@ This guide and `data/reference/` exist only on `template-with-auth`. Static webs
 
 All 243 seed entries have at least one exact immutable repository source. The ledger records source commits/paths and selectors for each one. Historical evidence establishes a name's origin; it does not assert that the entity is currently active or that every migration has been applied to every database.
 
-## Live Airtable API audit
+## Airtable snapshot: 30 October 2026
 
-A read-only source audit used metadata and paginated record GET requests against the same **All Entities** base/table used by Navigator. Source IDs, capture time and view counts are recorded in the ledger so the scope is reproducible. The token is never stored in the repository.
+The snapshot was captured at 02:59 UTC on 30 October 2026. A read-only source audit used metadata and paginated record GET requests against the same **All Entities** base/table used by Navigator. Source IDs, capture time and view counts are recorded in the ledger so the scope is reproducible. The token is never stored in the repository.
 
 | Scope                                                  | Records |
 | ------------------------------------------------------ | ------: |
@@ -27,11 +27,11 @@ A read-only source audit used metadata and paginated record GET requests against
 | Complete records with `on_display=False`               |      74 |
 | Complete records with `on_display=Maybe`               |      10 |
 
-There were no pending-form flags at audit time. `All` and `UN Entities – SHARED` both return 274 raw records; `shown on chart` returns 169 and `System Chart Hierarchy` returns 78. Navigator fetches the whole table, filters incomplete/pending records, then publishes only `on_display=True` rows. Its [169-entry public JSON](https://github.com/UN-EOSG-Analytics/un-system-chart-navigator/blob/a7cd08f84c9038f4733b60835e48a7ba3bd3917d/public/un-entities.json) exactly matches the live visible subset. It is not the full entity table.
+There were no pending-form flags at audit time. `All` and `UN Entities – SHARED` both returned 274 raw records; `shown on chart` returned 169 and `System Chart Hierarchy` returned 78. Navigator fetches the whole table, filters incomplete/pending records, then publishes only `on_display=True` rows. Its [169-entry public JSON](https://github.com/UN-EOSG-Analytics/un-system-chart-navigator/blob/a7cd08f84c9038f4733b60835e48a7ba3bd3917d/public/un-entities.json) exactly matched the visible subset at capture time. It is not the full entity table.
 
-Open's 253 real rows (excluding the two synthetic financial aggregates) match all 253 eligible Airtable rows after **five explicit normalizations in its pipeline**: `UN-Women` → `UN Women`, `OVRA` → `VRA`, and `SRSG-CAAC/SVC/VAC` → `OSRSG-CAAC/SVC/VAC`. Those are documented application mappings, not inferred aliases.
+Open's pinned export contains 253 real rows (excluding the two synthetic financial aggregates), which matched all 253 eligible Airtable rows after **five explicit normalizations in its pipeline**: `UN-Women` → `UN Women`, `OVRA` → `VRA`, and `SRSG-CAAC/SVC/VAC` → `OSRSG-CAAC/SVC/VAC`. Those are documented application mappings, not inferred aliases.
 
-Against the 243 database entries, live Airtable has **229 exact key/name matches**, **12 absent keys**, and **two differing long names** (`OSC-SEA` and `UNAIDS`). These cases are listed per row in the ledger. They retain historical/curated evidence in the seed rather than silently adopting new names or conflating related offices. Neither the 253 current records nor the 169 displayed records should be treated as an exact database replacement.
+Compared with the 243 database entries reviewed at the time, the Airtable snapshot had **229 exact key/name matches**, **12 absent keys**, and **two differing long names** (`OSC-SEA` and `UNAIDS`). These cases are listed per row in the ledger. They retain historical/curated evidence in the seed rather than silently adopting new names or conflating related offices. Neither the 253 complete records nor the 169 displayed records should be treated as an exact database replacement.
 
 ## Provisioning and updates
 
