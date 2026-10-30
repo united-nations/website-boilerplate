@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 
-input_path = Path("data") / "your_data.csv"
+input_path = Path("data") / "example.csv"
 df = pd.read_csv(input_path)
 
 output_path = Path("public") / "data" / "data.json"
