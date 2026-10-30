@@ -33,6 +33,8 @@ CI reports cross-branch drift while coordinated PRs are being landed; treat a cl
 
 ## Updating or contributing UI
 
+Both variants already pin `4c974bf2c84a246846213d15b3855c6554420f86`. This includes the shared entity picker, account menu, sign-in card and nested-dialog Escape fix; no manual dependency switch is needed after installing the template. That commit is available on [UI PR #4](https://github.com/UN-EOSG-Analytics/ui/pull/4), which is stacked on the existing `codex/login-system` work. Once those changes land, a future maintenance change can pin a release tag or merge commit in both variants.
+
 The dependency is pinned to a Git commit so changes are reviewed before adoption. To update it, run `pnpm add '@un-eosg/ui@github:UN-EOSG-Analytics/ui#COMMIT'` in both variants and commit both lockfiles. Do not use a mutable branch ref for released templates.
 
 For local UI work, install dependencies in the UI checkout, then follow its README's local-link workflow. Test the component inside a real consuming website as well as Storybook. New reusable compositions should have an accessible name, keyboard behavior, translated labels supplied as props, tokens, and stories including RTL. The template itself stays English-only. Data access, SMTP and authentication logic remain in the application.

@@ -22,9 +22,7 @@ Older installations using `AZURE_POSTGRES_*` settings remain supported. Prefer `
 
 ## 2. Decide where the entity directory comes from
 
-The picker reads only `entity` and `entity_long` from `systemchart.entities`. The public [UN entity JSON](https://raw.githubusercontent.com/UN-EOSG-Analytics/un-system-chart-navigator/refs/heads/main/public/un-entities.json) contains both fields.
-
-A read-only comparison on 29 October 2026 found 169 JSON records and 243 database records: 157 matching keys, 86 keys only in the database, 12 only in JSON, and one differing long name. This JSON is a useful independent starter list, **not a full replica or synchronization source** for the existing directory. It also uses some different keys (for example `UN-Women` versus `UN Women`). The picker supports an explicit custom affiliation for organisations missing from the list.
+The picker reads only `entity` and `entity_long` from `systemchart.entities`. The template now includes all **243 entries** from a read-only snapshot of the existing directory in `data/reference/systemchart-entities.json`. Independent setup uses this bundled file without Airtable credentials or a network download. See [Entity directory sources](entity-directory.md) for the Airtable/export lineage, Mandates curation, checksum and differences from the smaller 169-entry Navigator JSON and Open's 255-entry export.
 
 **Existing/shared database:** do not import anything. Ask the directory owner to confirm that `systemchart.entities` exposes those two columns, then proceed to app setup. The boilerplate never migrates, renames, updates or refreshes an existing directory.
 
@@ -36,9 +34,9 @@ DATABASE_ADMIN_URL='postgresql://administrator:password@host/database?sslmode=ve
 
 This environment prefix syntax is for macOS/Linux; in PowerShell set `$env:DATABASE_ADMIN_URL` first, then run the command. Avoid leaving credentials in shell history; use your organisation's secret handling or an injected environment variable. The website itself never reads `DATABASE_ADMIN_URL`.
 
-The bootstrap downloads and validates the JSON, and creates a minimal compatible `systemchart.entities` table **only if the entire schema does not exist**. If `systemchart` already exists, it exits without network access or writes, even if the schema is empty or its table is missing. Concurrent bootstrap attempts are serialized with a transaction advisory lock; ordinary `CREATE SCHEMA` fails safely if another tool creates it in the meantime. All inserts and schema creation are atomic. There is no overwrite, update, refresh or force option. Nothing imports automatically at startup, build, login or deployment.
+The bootstrap reads and validates the bundled JSON, and creates a minimal compatible `systemchart.entities` table **only if the entire schema does not exist**. If `systemchart` already exists, it exits without reading the seed file or writing anything, even if the schema is empty or its table is missing. Concurrent bootstrap attempts are serialized with a transaction advisory lock; ordinary `CREATE SCHEMA` fails safely if another tool creates it in the meantime. All inserts and schema creation are atomic. There is no overwrite, update, refresh or force option. Nothing imports automatically at startup, build, login or deployment.
 
-Only the two required fields are imported; additional JSON metadata is not needed. Imported keys must be unique, nonempty and fit the existing 255-character key convention. Source failures or invalid data abort without creating a partial schema. The source URL and import timestamp are recorded in a table comment.
+Only the two required fields are imported; additional JSON metadata is not needed. Imported keys must be unique, nonempty and fit the existing 255-character key convention. Source failures or invalid data abort without creating a partial schema. The bundled source path, its SHA-256 and import timestamp are recorded in a table comment.
 
 ## 3. Create app tables and the runtime login
 

@@ -333,6 +333,43 @@ test("entity bootstrap and least-privilege app setup on disposable PostgreSQL", 
         );
       },
     );
+    await t.test(
+      "default bootstrap imports the full bundled directory without fetching",
+      async () => {
+        await admin.query("DROP SCHEMA systemchart CASCADE");
+        const originalFetch = globalThis.fetch;
+        globalThis.fetch = () => {
+          throw new Error("Bootstrap must not fetch data");
+        };
+        try {
+          const result = await bootstrapEntities(admin);
+          assert.deepEqual(result, { created: true, count: 243 });
+          assert.equal(
+            (await admin.query("SELECT count(*) FROM systemchart.entities"))
+              .rows[0].count,
+            "243",
+          );
+          assert.equal(
+            (
+              await admin.query(
+                "SELECT entity FROM systemchart.entities WHERE entity='SR-RES2792'",
+              )
+            ).rowCount,
+            1,
+          );
+          assert.match(
+            (
+              await admin.query(
+                "SELECT obj_description('systemchart.entities'::regclass) AS comment",
+              )
+            ).rows[0].comment,
+            /SHA-256 [a-f0-9]{64}/,
+          );
+        } finally {
+          globalThis.fetch = originalFetch;
+        }
+      },
+    );
   } finally {
     await admin.end();
     await root.query(`DROP DATABASE ${database} WITH (FORCE)`);

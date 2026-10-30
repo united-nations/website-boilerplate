@@ -1,9 +1,15 @@
 import pg from "pg";
 import { pathToFileURL } from "node:url";
+import { readFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { connectionOptions } from "../src/lib/db/connection-options.ts";
 
-export const ENTITY_SOURCE =
-  "https://raw.githubusercontent.com/UN-EOSG-Analytics/un-system-chart-navigator/refs/heads/main/public/un-entities.json";
+export const ENTITY_SOURCE = "data/reference/systemchart-entities.json";
+async function loadBundledSource() {
+  return new Response(
+    await readFile(new URL(`../${ENTITY_SOURCE}`, import.meta.url)),
+  );
+}
 export function validateEntities(data) {
   if (!Array.isArray(data) || data.length === 0 || data.length > 10000)
     throw new Error(
@@ -33,7 +39,10 @@ export function validateEntities(data) {
 }
 
 /** Explicit provisioning only. An existing schema is always a no-op, even empty. */
-export async function bootstrapEntities(client, fetchSource = fetch) {
+export async function bootstrapEntities(
+  client,
+  loadSource = loadBundledSource,
+) {
   await client.query("BEGIN");
   try {
     // Same lock for every app using this bootstrap in the database.
@@ -45,12 +54,10 @@ export async function bootstrapEntities(client, fetchSource = fetch) {
       await client.query("COMMIT");
       return { created: false, count: 0 };
     }
-    const response = await fetchSource(ENTITY_SOURCE, {
-      signal: AbortSignal.timeout(30000),
-    });
+    const response = await loadSource();
     if (!response.ok)
       throw new Error(`Entity source returned HTTP ${response.status}.`);
-    // Bound downloaded data as well as the validated record count.
+    // Bound input bytes as well as the validated record count.
     const reader = response.body.getReader();
     const chunks = [];
     let bytes = 0;
@@ -65,9 +72,9 @@ export async function bootstrapEntities(client, fetchSource = fetch) {
     } finally {
       await reader.cancel();
     }
-    const rows = validateEntities(
-      JSON.parse(Buffer.concat(chunks).toString("utf8")),
-    );
+    const contents = Buffer.concat(chunks);
+    const checksum = createHash("sha256").update(contents).digest("hex");
+    const rows = validateEntities(JSON.parse(contents.toString("utf8")));
     // No IF NOT EXISTS: a competing external creator must cause a rollback,
     // never silently redirect inserts into somebody else's schema/table.
     await client.query("CREATE SCHEMA systemchart");
@@ -82,7 +89,7 @@ export async function bootstrapEntities(client, fetchSource = fetch) {
       .query(
         "SELECT format('COMMENT ON TABLE systemchart.entities IS %L', $1::text) AS sql",
         [
-          `Starter directory imported ${new Date().toISOString()} from ${ENTITY_SOURCE}; not synchronized with the shared directory.`,
+          `Starter directory imported ${new Date().toISOString()} from ${ENTITY_SOURCE} (SHA-256 ${checksum}); not synchronized with the shared directory.`,
         ],
       )
       .then(async ({ rows }) => client.query(rows[0].sql));
@@ -110,7 +117,7 @@ if (
     console.log(
       result.created
         ? `Created starter entity directory with ${result.count} records.`
-        : "systemchart already exists: no network fetch, schema changes or data writes performed.",
+        : "systemchart already exists: no seed read, schema changes or data writes performed.",
     );
   } catch (error) {
     console.error(
