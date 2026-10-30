@@ -1,6 +1,10 @@
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 import { pageContainer } from "@/lib/site-config";
+/** Shared page chrome: skip link, header, aligned main area and footer.
+ * RootLayout owns the HTML/fonts/metadata; pages supply their content and optional
+ * account control here. This wrapper has no authentication or database behavior.
+ */
 export function SiteShell({
   children,
   account,

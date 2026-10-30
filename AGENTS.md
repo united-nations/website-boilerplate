@@ -18,5 +18,5 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Keep secrets and database access in server code. Never add runtime writes or
   automatic imports to systemchart. The explicit administrator bootstrap must
   remain a no-op whenever that schema already exists.
-- The template is English-only. Document search is intentionally absent.
+- Document search is intentionally absent.
 - Keep setup steps in README and docs consistent with actual file locations.

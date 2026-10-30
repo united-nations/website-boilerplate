@@ -19,6 +19,7 @@ export function SiteHeader({ children }: { children?: React.ReactNode }) {
       }))}
       activeHref={withBasePath(pathname.replace(/\/$/, "") || "/")}
       mobileMenuLabel="Open navigation menu"
+      emblemPlacement="outboard"
       transparency="low"
       containerClassName="max-w-6xl px-6 sm:px-8 lg:px-16"
     >

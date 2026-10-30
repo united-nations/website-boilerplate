@@ -1,6 +1,6 @@
-# United Nations Website Starter
+# UN Website Boilerplate
 
-An English-language Next.js website using the shared [EOSG UI library](https://un-eosg-analytics.github.io/ui/). You can change the content without knowing how every part of the application works.
+A Next.js boilerplate using the shared [EOSG UI library](https://un-eosg-analytics.github.io/ui/). You can change the content without knowing how every part of the application works.
 
 ## Choose your version
 
@@ -19,7 +19,7 @@ To choose the authenticated version, run `git switch template-with-auth` before 
 2. Check that installation worked: run `node --version`, then `pnpm --version`.
 3. In your project folder, run `pnpm install`. This downloads the website's dependencies. The first installation needs internet access, including access to the GitHub UI library.
 4. Copy `.env.example` to `.env.local`. On macOS/Linux use `cp .env.example .env.local`; in PowerShell use `Copy-Item .env.example .env.local`. These are local settings. Never commit passwords or `.env.local`.
-5. **Auth branch only:** complete [database and email setup](docs/auth-setup.md) first. Ask a database administrator to help with the administrator steps.
+5. **Auth branch only:** complete database and email setup in `docs/auth-setup.md` on that branch first. Ask a database administrator to help with the administrator steps.
 6. Run `pnpm dev`. Keep this terminal open while you work.
 7. Open [localhost:3000](http://localhost:3000) in your browser. If the terminal reports a different port, open that address instead.
 
@@ -38,7 +38,7 @@ Before sharing your changes, run `pnpm lint`, `pnpm typecheck`, `pnpm test`, and
 
 On **main**, `pnpm build` creates a static website in `out/`. Run `pnpm start` to preview it at localhost:3000. For a GitHub project URL such as `https://organisation.github.io/my-site/`, set `BASE_PATH=/my-site` in `.env.local` before building. For a custom domain, leave it empty. Enable **Settings → Pages → Source → GitHub Actions** in your repository; the supplied workflow deploys pushes to `main` and derives the path automatically. A push to `main` can therefore publish the website.
 
-On **template-with-auth**, `pnpm build` creates a server application and `pnpm start` runs it. Deploy to a Node.js host, configure the environment variables there, and connect PostgreSQL and SMTP. GitHub Pages cannot run authentication. See [Auth setup](docs/auth-setup.md).
+On **template-with-auth**, `pnpm build` creates a server application and `pnpm start` runs it. Deploy to a Node.js host, configure the environment variables there, and connect PostgreSQL and SMTP. GitHub Pages cannot run authentication. See `docs/auth-setup.md` on the auth branch.
 
 Set `NEXT_PUBLIC_SITE_URL` to the real public origin before publishing. Public environment variables and static content are visible to visitors. Changing build-time settings requires a rebuild.
 
