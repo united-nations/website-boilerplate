@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+pnpm-lock.yaml
+uv.lock
+public
+.agents
+.claude
+.cursor
+playwright-report
+test-results
