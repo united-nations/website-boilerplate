@@ -25,6 +25,9 @@ CREATE TABLE IF NOT EXISTS :"app_schema".magic_tokens (
 CREATE INDEX IF NOT EXISTS idx_magic_tokens_expires ON :"app_schema".magic_tokens (expires_at);
 CREATE INDEX IF NOT EXISTS idx_magic_tokens_cleanup ON :"app_schema".magic_tokens (expires_at) WHERE used_at IS NULL;
 
+-- Seed only on first creation; reruns preserve administrator admission policy.
+SELECT to_regclass(format('%I.allowed_domains', :'app_schema')) IS NULL AS seed_allowed_domains \gset
+
 -- Allowed email domains (configurable per-app)
 -- Entity '*' means global (allowed for all)
 CREATE TABLE IF NOT EXISTS :"app_schema".allowed_domains (
@@ -35,6 +38,7 @@ CREATE TABLE IF NOT EXISTS :"app_schema".allowed_domains (
 
 COMMENT ON TABLE :"app_schema".allowed_domains IS 'Allowed email domains. Entity ''*'' means allowed globally.';
 
+\if :seed_allowed_domains
 -- UN System email domains
 -- Entity '*' = global (allowed for all entities)
 -- Customize this list for your app - remove domains you don't need
@@ -90,5 +94,6 @@ INSERT INTO :"app_schema".allowed_domains (entity, domain) VALUES
   ('UNU', 'unu.edu'),
   ('UNCCD', 'unccd.int')
 ON CONFLICT DO NOTHING;
+\endif
 
 COMMIT;

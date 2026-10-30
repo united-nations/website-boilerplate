@@ -264,6 +264,48 @@ test("entity bootstrap and least-privilege app setup on disposable PostgreSQL", 
       },
     );
     await t.test(
+      "table setup preserves edited and empty allowed-domain policies",
+      async () => {
+        const schema = "domain_policy_fixture";
+        const initial = psql("sql/auth_tables.sql", runtimeRole, schema);
+        assert.equal(initial.status, 0, initial.stderr);
+        assert.ok(
+          (await admin.query(`SELECT * FROM ${schema}.allowed_domains`))
+            .rowCount > 0,
+        );
+        await admin.query(
+          `DELETE FROM ${schema}.allowed_domains WHERE domain = 'un.org'`,
+        );
+        await admin.query(
+          `INSERT INTO ${schema}.allowed_domains VALUES ('*', 'example.org')`,
+        );
+        const before = (
+          await admin.query(
+            `SELECT * FROM ${schema}.allowed_domains ORDER BY entity, domain`,
+          )
+        ).rows;
+        const rerun = psql("sql/auth_tables.sql", runtimeRole, schema);
+        assert.equal(rerun.status, 0, rerun.stderr);
+        assert.deepEqual(
+          (
+            await admin.query(
+              `SELECT * FROM ${schema}.allowed_domains ORDER BY entity, domain`,
+            )
+          ).rows,
+          before,
+        );
+        await admin.query(`TRUNCATE ${schema}.allowed_domains`);
+        const emptyRerun = psql("sql/auth_tables.sql", runtimeRole, schema);
+        assert.equal(emptyRerun.status, 0, emptyRerun.stderr);
+        assert.equal(
+          (await admin.query(`SELECT * FROM ${schema}.allowed_domains`))
+            .rowCount,
+          0,
+        );
+        await admin.query(`DROP SCHEMA ${schema} CASCADE`);
+      },
+    );
+    await t.test(
       "auth setup is rerunnable; runtime role exercises every required query",
       async () => {
         // Prove the app does not rely on PostgreSQL's default public USAGE.

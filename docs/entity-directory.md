@@ -16,7 +16,7 @@ All 243 seed entries have at least one exact immutable repository source. The le
 
 ## Live Airtable API audit
 
-The supplied credentials were used for read-only metadata and paginated record GET requests against the same **All Entities** base/table used by Navigator. Source IDs, capture time and view counts are recorded in the ledger so the scope is reproducible. The token is never stored in the repository.
+A read-only source audit used metadata and paginated record GET requests against the same **All Entities** base/table used by Navigator. Source IDs, capture time and view counts are recorded in the ledger so the scope is reproducible. The token is never stored in the repository.
 
 | Scope                                                  | Records |
 | ------------------------------------------------------ | ------: |
