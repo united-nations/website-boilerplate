@@ -29,5 +29,8 @@
   "pyproject.toml",
   "uv.lock",
   "python/data_prep.py",
-  "src/components/BoilerplateShowcase.tsx"
+  "docs/github-pages.md",
+  "docs/data-preparation.md",
+  "data/example.csv",
+  "public/data/data.json"
 ]

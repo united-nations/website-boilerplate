@@ -1,10 +1,13 @@
 # Maintenance
 
-## Routine checks
+## Maintain a website created from this template
 
-Use the Node version in `.node-version` and the pnpm version in `package.json`. Install with `pnpm install --frozen-lockfile` in CI. Locally, run:
+Once you have created your own website, develop the version you chose on its working branch. You do not need to keep a second version of your website synchronized. GitHub's template creation copies files into new branch histories; it does not preserve the original boilerplate's merge history. See [GitHub's template documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+
+Use the Node version in `.node-version` and pnpm version in `package.json`. Commit `pnpm-lock.yaml` whenever dependency versions change. Use pnpm consistently.
 
 ```bash
+pnpm install
 pnpm lint
 pnpm typecheck
 pnpm format:check
@@ -12,29 +15,47 @@ pnpm test
 pnpm build
 pnpm exec playwright install chromium
 pnpm test:browser
-pnpm audit
-pnpm outdated
 ```
 
-`pnpm format` fixes formatting. If a preview is already running, set `PLAYWRIGHT_BASE_URL` to its origin when running browser tests (for example `PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 pnpm test:browser`) so the tests reuse it. Browser tests check the shared shell at desktop and mobile sizes, including keyboard navigation. The auth branch adds session tests and isolated PostgreSQL tests (`pnpm test:db`, see `docs/auth-setup.md` on that branch). Never point database tests at a shared or production database.
+`pnpm format` fixes formatting. On Linux, Playwright may also need system dependencies: use `pnpm exec playwright install --with-deps chromium` with the necessary administrator access. Browser tests normally start a preview on port 3100. To reuse a running preview, set `PLAYWRIGHT_BASE_URL` to its origin. On macOS/Linux, for example:
 
-Use `pnpm update` for updates within declared ranges. Review major upgrades and peer dependencies before using `pnpm add package@latest`. Keep `next` and `eslint-config-next` aligned, and React/React DOM aligned. ESLint 9 is retained because Next's React/import/accessibility plugins do not yet declare ESLint 10 support. TypeScript 6 is the tested compiler baseline; upgrade major versions with a separate compatibility review. Run `pnpm peers check` after changes. Commit `pnpm-lock.yaml`; do not add `package-lock.json` or a second package manager's lockfile.
+```bash
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 pnpm test:browser
+```
 
-## Two variants, one shared foundation
+In PowerShell, set `$env:PLAYWRIGHT_BASE_URL = 'http://127.0.0.1:3000'` before running `pnpm test:browser`. Browser tests check navigation, the footer, mobile layout and keyboard access. The authenticated version also has database and end-to-end sign-in tests; follow `docs/auth-setup.md` there. Use a disposable local database for those tests.
 
-1. Make shared changes on `main` (or a PR targeting it).
-2. Merge those commits into `template-with-auth` (or its companion PR). Keep static export configuration on main, server configuration and authentication on auth.
-3. Run all applicable checks in **both** variants.
-4. Run `pnpm check:sync origin/template-with-auth` from main and `pnpm check:sync origin/main` from auth. During paired PRs, substitute the companion branch ref. `scripts/shared-files.json` defines identical files; dependency versions, tooling and common scripts are checked too.
+### Update dependencies
 
-Main is the shared foundation; the auth branch includes main in its Git ancestry and adds server/authentication functionality on top. Make shared edits once on main and merge them into auth, rather than implementing the same edit independently. README and general guides are deliberately identical. Authentication setup, entity seed data and provenance live only on the auth branch. Dependencies required only for authentication may differ. Lockfiles differ because their dependency sets differ. Update the shared-file manifest when adding a new common foundation file.
+Run `pnpm outdated` to list available updates and `pnpm audit` to inspect reported vulnerabilities. `pnpm update` updates within the declared ranges; review release notes before major upgrades. Keep `next` and `eslint-config-next` aligned, and React and React DOM aligned. Run `pnpm peers check` and the checks above after changes. In CI, use `pnpm install --frozen-lockfile` so installation matches the committed lockfile.
 
-CI reports cross-branch drift while coordinated PRs are being landed; treat a clean sync check as a release requirement. It also builds and checks the actual selected variant on pull requests and pushes. Main additionally has a separate GitHub Pages deployment workflow. Auth has no automatic deployment target: configure your server host deliberately.
+The shared UI dependency is pinned to a Git commit in `package.json`. To adopt a reviewed UI commit:
 
-## Updating or contributing UI
+```bash
+pnpm add '@un-eosg/ui@github:UN-EOSG-Analytics/ui#COMMIT'
+```
 
-Both variants already pin `10414dc7a607ee9ff5da4bc7fc66b209b49196bb`. This includes the shared entity picker, account menu, sign-in card nested-dialog Escape fix and centralized official footer copy in all six languages; no manual dependency switch is needed after installing the template. That commit is available on [UI PR #4](https://github.com/UN-EOSG-Analytics/ui/pull/4), which is stacked on the existing `codex/login-system` work. Once those changes land, a future maintenance change can pin a release tag or merge commit in both variants.
+Replace `COMMIT` with its full commit hash, test the website, and commit both `package.json` and `pnpm-lock.yaml`. Pin an immutable commit or release rather than a moving branch.
 
-The dependency is pinned to a Git commit so changes are reviewed before adoption. To update it, run `pnpm add '@un-eosg/ui@github:UN-EOSG-Analytics/ui#COMMIT'` in both variants and commit both lockfiles. Do not use a mutable branch ref for released templates.
+Python dependencies are separate. If you use the [data preparation workflow](data-preparation.md), update them with `uv lock --upgrade`, run `uv sync`, regenerate and inspect your output, and commit the reviewed `uv.lock` change.
 
-For local UI work, install dependencies in the UI checkout, then follow its README's local-link workflow. Test the component inside a real consuming website as well as Storybook. New reusable compositions should have an accessible name, keyboard behavior, translated labels supplied as props, tokens, and stories including RTL. Data access, SMTP and authentication logic remain in the application.
+## Maintain the original boilerplate repository
+
+This section applies to contributors to `united-nations/website-boilerplate`, where `main` and `template-with-auth` share Git ancestry. It does not describe the branch histories of repositories generated with GitHub's template button.
+
+1. Make shared changes once on `main`, or a branch targeting it.
+2. Merge those commits into `template-with-auth`, or its companion branch. Keep static export configuration on main and authentication/server configuration on auth.
+3. Run all applicable checks in both versions.
+4. Fetch current refs with `git fetch origin`. From main run `pnpm check:sync origin/template-with-auth`; from auth run `pnpm check:sync origin/main`. For coordinated PRs, use the companion PR branch instead.
+
+`scripts/shared-files.json` lists files that must be identical. The sync check also compares common scripts, tooling and dependency versions. Pages may have version-specific content and authentication code. The auth lockfile includes its additional server dependencies. Add new shared guides and foundation files to the manifest.
+
+The CI sync check runs only in the original boilerplate repository. During coordinated PRs it reports drift without blocking the PR; both branches must pass a comparison against their companion change before release. Generated websites still run the lint, type, unit, browser and build checks for their chosen version.
+
+The static branch has a separate Pages deployment workflow. The auth branch has no automatic hosting target. Check [the publishing guide](github-pages.md) when changing deployment configuration.
+
+## Contribute to the UI library
+
+Browse the [UI catalogue](https://un-eosg-analytics.github.io/ui/) before adding a composition. Keep reusable components, typography, colour tokens and official footer copy in the UI library; keep site-specific text, database access and authentication logic in the website.
+
+For local UI work, follow the UI repository's README for installation and local linking. Test changes in its catalogue and in a consuming website. Reusable components need accessible labels, keyboard behavior, token-based styles and appropriate stories, including RTL where applicable. Adopt the reviewed UI commit in both boilerplate versions and run their checks.

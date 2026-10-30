@@ -31,6 +31,7 @@ jobs:
       # During coordinated PRs, point this at the companion PR branch.
       # Remains informational until both variants land; release requires no drift.
       - run: pnpm check:sync
+        if: github.repository == 'united-nations/website-boilerplate'
         continue-on-error: ${{ github.event_name == 'pull_request' }}
       - name: Verify restricted role and safe entity bootstrap (auth only)
         if: hashFiles('sql/auth_tables.sql') != ''
