@@ -1,133 +1,5935 @@
 {
-  "snapshot": "systemchart-entities.json",
+  "seed": "systemchart-entities.json",
+  "seedSha256": "2df6686445656fc4b7b145d39533d602a1f53ffa184296ec410e4599bbb36a62",
   "rowCount": 243,
-  "sha256": "2df6686445656fc4b7b145d39533d602a1f53ffa184296ec410e4599bbb36a62",
-  "capturedAt": "2026-10-30T02:18:03.197069+00:00",
-  "source": "Read-only SELECT entity, entity_long FROM systemchart.entities ORDER BY entity COLLATE \"C\"",
-  "scope": "Entity keys and display names only; no credentials, people, timestamps or other database tables. Exact snapshot; not an inferred union of external directories.",
-  "comparisons": [
+  "method": "Reconstructed exact keys and names from immutable repository exports/SQL literals/CSV evidence. Compared with a read-only DB snapshot; DB contents are not counted as independent evidence. No inferred alias merges. Historical source records are not an assertion of current activity.",
+  "sources": [
     {
-      "repository": "UN-EOSG-Analytics/budget-explorer",
-      "checkoutCommit": "6a19e2299fe76eb6aab7de1bd745ef03c1b53f70",
-      "path": "data/input/2025-12-05_un-entities.json",
-      "sha256": "e7d7a8df8406baa224c89a6124f3c59eec06c5b03e53531ed2f4a0561ad821d4",
-      "rowCount": 221,
-      "sharedKeyCount": 210,
-      "databaseOnlyKeys": [
-        "ACABQ",
-        "AHC Indian Ocean",
-        "ASMT",
-        "C-24",
-        "COPUOS",
-        "Credentials Committee",
-        "GOM-Cyprus",
-        "General Committee",
-        "High-level Committee on South-South Cooperation",
-        "IAAC",
-        "IIMM",
-        "Investments Committee",
-        "OSESG-SCRES1559",
-        "OSESG-SYRIA",
-        "PESG-WS",
-        "PoE-Iran",
-        "PoE-RES2745",
-        "SC-RES1559",
-        "SESG-GL",
-        "SESG-Horn of Africa",
-        "SR-RES2792",
-        "Special Committee on Peacekeeping Operations",
-        "Special Committee on the Charter",
-        "Special Committee to Investigate Israeli Practices",
-        "UN Women",
-        "UNDP UNFPA UNOPS EB",
-        "UNFCCC",
-        "UNHCR Executive Committee",
-        "UNJSPF",
-        "UNRWA AdCom",
-        "UNSCEAR",
-        "UNSDG-SWEO",
-        "UNSOH"
-      ],
-      "sourceOnlyKeys": [
-        "Ad Hoc Bodies",
-        "Boards",
-        "IIM",
-        "OPEG-WS",
-        "OSE Syria",
-        "Other Committees",
-        "SESG GL",
-        "SESG Horn of Africa",
-        "Standing Committees",
-        "UN-Women",
-        "Working Groups"
-      ],
-      "differentNames": []
+      "id": "navigator-full-reference",
+      "kind": "immutable-repository-file",
+      "repository": "UN-EOSG-Analytics/un-system-chart-navigator",
+      "commit": "e57930cb4c893c2923a85d713035cde9b89ac007",
+      "path": "data/output/entity_reference.csv",
+      "url": "https://github.com/UN-EOSG-Analytics/un-system-chart-navigator/blob/e57930cb4c893c2923a85d713035cde9b89ac007/data/output/entity_reference.csv",
+      "sha256": "ee5716c0a7312442a137fb0e1de17284cf77b9559005080801a8081ad3af9537",
+      "rowCount": 237,
+      "scope": "All complete entity/name records fetched before the later on_display filter; historical source, not current membership."
     },
     {
+      "id": "navigator-published",
+      "kind": "immutable-repository-file",
+      "repository": "UN-EOSG-Analytics/un-system-chart-navigator",
+      "commit": "a7cd08f84c9038f4733b60835e48a7ba3bd3917d",
+      "path": "public/un-entities.json",
+      "url": "https://github.com/UN-EOSG-Analytics/un-system-chart-navigator/blob/a7cd08f84c9038f4733b60835e48a7ba3bd3917d/public/un-entities.json",
+      "sha256": "90c39df0d458aac6b873389e355c2477944daec78427933f221c2052fca8b7d8",
+      "rowCount": 169
+    },
+    {
+      "id": "navigator-fetch-code",
+      "kind": "immutable-repository-file",
+      "repository": "UN-EOSG-Analytics/un-system-chart-navigator",
+      "commit": "a7cd08f84c9038f4733b60835e48a7ba3bd3917d",
+      "path": "python/01-fetch_from_airtable.py",
+      "url": "https://github.com/UN-EOSG-Analytics/un-system-chart-navigator/blob/a7cd08f84c9038f4733b60835e48a7ba3bd3917d/python/01-fetch_from_airtable.py",
+      "sha256": "0c7846f1130f9bde52f0ccbde221c7bdccb30281122cbe85a2feaedd01448640"
+    },
+    {
+      "id": "navigator-process-code",
+      "kind": "immutable-repository-file",
+      "repository": "UN-EOSG-Analytics/un-system-chart-navigator",
+      "commit": "a7cd08f84c9038f4733b60835e48a7ba3bd3917d",
+      "path": "python/02-process_entities_data.py",
+      "url": "https://github.com/UN-EOSG-Analytics/un-system-chart-navigator/blob/a7cd08f84c9038f4733b60835e48a7ba3bd3917d/python/02-process_entities_data.py",
+      "sha256": "f1479d0d2675fb352f9966d4206453979b0948df9504d5cc02cf87e8c6fd0ee3"
+    },
+    {
+      "id": "navigator-api-code",
+      "kind": "immutable-repository-file",
+      "repository": "UN-EOSG-Analytics/un-system-chart-navigator",
+      "commit": "a7cd08f84c9038f4733b60835e48a7ba3bd3917d",
+      "path": "python/api/airtable.py",
+      "url": "https://github.com/UN-EOSG-Analytics/un-system-chart-navigator/blob/a7cd08f84c9038f4733b60835e48a7ba3bd3917d/python/api/airtable.py",
+      "sha256": "09f79dc3c8fa84ef699ee789fc47e90c5e28d7b00899311c1ae778bd1fd7c69a"
+    },
+    {
+      "id": "mandates-pkm-import",
+      "kind": "immutable-repository-file",
+      "repository": "united-nations/mandates",
+      "commit": "326b80dad7d8164e4d1b824370a05ebe24579f18",
+      "path": "sql/migrations/009_import_pkm.sql",
+      "url": "https://github.com/united-nations/mandates/blob/326b80dad7d8164e4d1b824370a05ebe24579f18/sql/migrations/009_import_pkm.sql",
+      "sha256": "c3e34e7136c78f51401ce59c42a6457511866396279b65cd5c09de1aab1e7171"
+    },
+    {
+      "id": "mandates-spm-curation",
+      "kind": "immutable-repository-file",
+      "repository": "united-nations/mandates",
+      "commit": "326b80dad7d8164e4d1b824370a05ebe24579f18",
+      "path": "sql/migrations/032_rename_spm_entities.sql",
+      "url": "https://github.com/united-nations/mandates/blob/326b80dad7d8164e4d1b824370a05ebe24579f18/sql/migrations/032_rename_spm_entities.sql",
+      "sha256": "9ec308fd305afb8e116684a666e8fe325143816c92dee52bb19ddbe5de866051"
+    },
+    {
+      "id": "mandates-section1-import",
+      "kind": "immutable-repository-file",
+      "repository": "united-nations/mandates",
+      "commit": "326b80dad7d8164e4d1b824370a05ebe24579f18",
+      "path": "sql/migrations/022_import_ppb2027_section1.sql",
+      "url": "https://github.com/united-nations/mandates/blob/326b80dad7d8164e4d1b824370a05ebe24579f18/sql/migrations/022_import_ppb2027_section1.sql",
+      "sha256": "d6ec02223e0011a4bae9102eebbe39bcce81edada80cf01de404acb913a9852d"
+    },
+    {
+      "id": "mandates-section1-data",
+      "kind": "immutable-repository-file",
+      "repository": "united-nations/mandates",
+      "commit": "326b80dad7d8164e4d1b824370a05ebe24579f18",
+      "path": "data/processed/ppb2027/all_mandates_resolved.csv",
+      "url": "https://github.com/united-nations/mandates/blob/326b80dad7d8164e4d1b824370a05ebe24579f18/data/processed/ppb2027/all_mandates_resolved.csv",
+      "sha256": "515617eb09fa7ee13b55acd501eb856736d4325cdf9ccd07f0cf3c73747341d1",
+      "gitBlobSha": "e74aa85c44d18c298e0d199fa51420504eee7304"
+    },
+    {
+      "id": "open-published",
+      "kind": "immutable-repository-file",
       "repository": "united-nations/transparency",
-      "checkoutCommit": "d06c027b0d44a3ed5878874a19467a1dff21b041",
+      "commit": "d06c027b0d44a3ed5878874a19467a1dff21b041",
       "path": "public/data/entities.json",
+      "url": "https://github.com/united-nations/transparency/blob/d06c027b0d44a3ed5878874a19467a1dff21b041/public/data/entities.json",
       "sha256": "b5ef06e3708d89fa4147fc543ddfc9cdbbab6ab87112c910f35666951dc8f0de",
-      "rowCount": 255,
-      "sharedKeyCount": 228,
-      "databaseOnlyKeys": [
-        "GOM-Cyprus",
-        "OSASG-Genocide",
-        "OSESG-SCRES1559",
-        "OVRA",
-        "PBSO",
-        "PoE-Iran",
-        "SC-RES1559",
-        "SR-RES2792",
-        "SRSG-CAAC",
-        "SRSG-SVC",
-        "SRSG-VAC",
-        "UNGGIM",
-        "UNPC",
-        "UNPFII",
-        "UNSDG-SWEO"
-      ],
-      "sourceOnlyKeys": [
-        "BIG",
-        "CBD",
-        "CESCR",
-        "CPC",
-        "DOALOS",
-        "GHS",
-        "IARC",
-        "INCB",
-        "ISAR",
-        "Minamata Convention",
-        "OSRSG-CAAC",
-        "OSRSG-SVC",
-        "OSRSG-VAC",
-        "PAHO",
-        "PBC",
-        "PBPSO",
-        "PFII",
-        "Peacekeeping Operations",
-        "UN Secretariat",
-        "UN-GGIM",
-        "UN-Oceans",
-        "UNAIDS PCB",
-        "UNICC",
-        "UNITAID",
-        "UNSDG",
-        "UNTC",
-        "VRA"
-      ],
-      "differentNames": [
+      "rowCount": 255
+    },
+    {
+      "id": "open-normalization-code",
+      "kind": "immutable-repository-file",
+      "repository": "united-nations/transparency",
+      "commit": "d06c027b0d44a3ed5878874a19467a1dff21b041",
+      "path": "python/utils.py",
+      "url": "https://github.com/united-nations/transparency/blob/d06c027b0d44a3ed5878874a19467a1dff21b041/python/utils.py",
+      "sha256": "a50a3dd5942cdb8a7ca986e804ffe96d3a41d1f784284405431a9fd0267ea5a6"
+    },
+    {
+      "id": "airtable-live",
+      "kind": "read-only-api-records",
+      "baseId": "appJtP9H7xvsl3yAN",
+      "tableId": "tblUbh0OZdOiZyrZ3",
+      "tableName": "All Entities",
+      "apiUrl": "https://api.airtable.com/v0/appJtP9H7xvsl3yAN/tblUbh0OZdOiZyrZ3",
+      "capturedAt": "2026-10-30T02:59:35.818058+00:00",
+      "projectedSourceSha256": "a7564be7fad0f67031e2f0df8cf6a796b816326df2b90f5080df44547d7dd047",
+      "rawRecordCount": 274,
+      "completeReviewedRecordCount": 253,
+      "visibleRecordCount": 169,
+      "scope": "All table records; reject added_via_form TRUE and missing entity/entity_long. Published JSON additionally requires on_display True. No leadership/personal fields exported."
+    }
+  ],
+  "airtableScope": {
+    "baseId": "appJtP9H7xvsl3yAN",
+    "tableId": "tblUbh0OZdOiZyrZ3",
+    "tableName": "All Entities",
+    "capturedAt": "2026-10-30T02:59:35.818058+00:00",
+    "rawRows": 274,
+    "rowsWithBothNamesAndNotPending": 253,
+    "pendingFormRows": 0,
+    "rowsMissingEntityOrLongName": 21,
+    "publishedRows": 169,
+    "validHiddenRows": 74,
+    "validMaybeRows": 10,
+    "views": [
+      {
+        "name": "All",
+        "recordCount": 274,
+        "databaseKeyMatches": 231
+      },
+      {
+        "name": "UN Entities – SHARED",
+        "recordCount": 274,
+        "databaseKeyMatches": 231
+      },
+      {
+        "name": "shown on chart",
+        "recordCount": 169,
+        "databaseKeyMatches": 157
+      },
+      {
+        "name": "System Chart Hierarchy",
+        "recordCount": 78,
+        "databaseKeyMatches": 77
+      }
+    ],
+    "databaseKeysPresent": 231,
+    "databaseExactNames": 229,
+    "databaseMissingCurrentKeys": [
+      "GOM-Cyprus",
+      "OSASG-Genocide",
+      "OSESG-SCRES1559",
+      "PBSO",
+      "PoE-Iran",
+      "SC-RES1559",
+      "SR-RES2792",
+      "UN Women",
+      "UNGGIM",
+      "UNPC",
+      "UNPFII",
+      "UNSDG-SWEO"
+    ],
+    "databaseChangedCurrentNames": [
+      {
+        "entity": "OSC-SEA",
+        "historicalName": "Office of the Special Coordinator on Improving the UN Response to Sexual Exploitation and Abuse",
+        "currentName": "Office of the United Nations Special Coordinator on Improving the United Nations Response to Sexual Exploitation and Abuse"
+      },
+      {
+        "entity": "UNAIDS",
+        "historicalName": "Joint United Nations Programme on HIV/AIDS",
+        "currentName": "Joint United Nations Programme on HIV and AIDS"
+      }
+    ],
+    "published169ExactKeyNameMatch": true,
+    "open253ExactMatchBeforeNormalization": 248,
+    "open253ExactMatchAfterDocumentedNormalization": true,
+    "documentedOpenKeyNormalizations": {
+      "UN-Women": "UN Women",
+      "OVRA": "VRA",
+      "SRSG-SVC": "OSRSG-SVC",
+      "SRSG-VAC": "OSRSG-VAC",
+      "SRSG-CAAC": "OSRSG-CAAC"
+    }
+  },
+  "entries": [
+    {
+      "entity": "1518 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 1518 (2003)",
+      "sources": [
         {
-          "entity": "OSC-SEA",
-          "database": "Office of the Special Coordinator on Improving the UN Response to Sexual Exploitation and Abuse",
-          "source": "Office of the United Nations Special Coordinator on Improving the United Nations Response to Sexual Exploitation and Abuse"
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "1518 Committee"
+          }
         },
         {
-          "entity": "UNAIDS",
-          "database": "Joint United Nations Programme on HIV/AIDS",
-          "source": "Joint United Nations Programme on HIV and AIDS"
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recudSf8ud6g7Mmwe"
         }
-      ]
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recudSf8ud6g7Mmwe",
+        "entity_long": "Security Council Committee established pursuant to resolution 1518 (2003)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "1533 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 1533 (2004) concerning the Democratic Republic of the Congo",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "1533 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec8tqqm0nhvFXXuK"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec8tqqm0nhvFXXuK",
+        "entity_long": "Security Council Committee established pursuant to resolution 1533 (2004) concerning the Democratic Republic of the Congo",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "1591 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 1591 (2005) concerning the Sudan",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "1591 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec5g6e9hYZXmJllv"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec5g6e9hYZXmJllv",
+        "entity_long": "Security Council Committee established pursuant to resolution 1591 (2005) concerning the Sudan",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "1636 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 1636 (2005)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "1636 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recoMEQSUn3RGll6t"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recoMEQSUn3RGll6t",
+        "entity_long": "Security Council Committee established pursuant to resolution 1636 (2005)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "1718 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 1718 (2006)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "1718 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recHc0xHCBfoxy6F8"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recHc0xHCBfoxy6F8",
+        "entity_long": "Security Council Committee established pursuant to resolution 1718 (2006)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "1737 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 1737 (2006)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "1737 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec2SCzpPsaVZnOWR"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec2SCzpPsaVZnOWR",
+        "entity_long": "Security Council Committee established pursuant to resolution 1737 (2006)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "1970 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 1970 (2011) concerning Libya",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "1970 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recXuwHUt75ThAbsS"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recXuwHUt75ThAbsS",
+        "entity_long": "Security Council Committee established pursuant to resolution 1970 (2011) concerning Libya",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "1988 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 1988 (2011)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "1988 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recFFckrGh0nscen7"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recFFckrGh0nscen7",
+        "entity_long": "Security Council Committee established pursuant to resolution 1988 (2011)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "2048 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 2048 (2012) concerning Guinea-Bissau",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "2048 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reclBQSkzGGLJqHAh"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reclBQSkzGGLJqHAh",
+        "entity_long": "Security Council Committee established pursuant to resolution 2048 (2012) concerning Guinea-Bissau",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "2140 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 2140 (2014)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "2140 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recAfbfMJNLLOmtOk"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recAfbfMJNLLOmtOk",
+        "entity_long": "Security Council Committee established pursuant to resolution 2140 (2014)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "2206 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 2206 (2015) concerning South Sudan",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "2206 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rectKaccdpHMvzAJU"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rectKaccdpHMvzAJU",
+        "entity_long": "Security Council Committee established pursuant to resolution 2206 (2015) concerning South Sudan",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "2253 Committee",
+      "entity_long": "Security Council Committee pursuant to resolutions 1267 (1999) 1989 (2011) and 2253 (2015) concerning Islamic State in Iraq and the Levant (Da’esh), Al-Qaida and associated individuals, groups, undertakings and entities",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "2253 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reclI9faynH4SbaKq"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reclI9faynH4SbaKq",
+        "entity_long": "Security Council Committee pursuant to resolutions 1267 (1999) 1989 (2011) and 2253 (2015) concerning Islamic State in Iraq and the Levant (Da’esh), Al-Qaida and associated individuals, groups, undertakings and entities",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "2253 Ombudsperson",
+      "entity_long": "Ombudsperson to the ISIL (Da'esh) and Al-Qaida Sanctions Committee",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "2253 Ombudsperson"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recmJId4FO8dP9CqW"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recmJId4FO8dP9CqW",
+        "entity_long": "Ombudsperson to the ISIL (Da'esh) and Al-Qaida Sanctions Committee",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "2653 Committee",
+      "entity_long": "Security Council Committee established pursuant to resolution 2653 (2022) concerning Haiti",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "2653 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recU88qlgr47EP76H"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recU88qlgr47EP76H",
+        "entity_long": "Security Council Committee established pursuant to resolution 2653 (2022) concerning Haiti",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "2745 Committee",
+      "entity_long": "Security Council Committee pursuant to resolution 2745 (2024)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "2745 Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recnha80eiPMaBb9J"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recnha80eiPMaBb9J",
+        "entity_long": "Security Council Committee pursuant to resolution 2745 (2024)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "ABDM",
+      "entity_long": "Advisory Board on Disarmament Matters",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ABDM"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec9fPHZvvVbHcnI6"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec9fPHZvvVbHcnI6",
+        "entity_long": "Advisory Board on Disarmament Matters",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ACABQ",
+      "entity_long": "Advisory Committee on Administrative and Budgetary Questions",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ACABQ"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec0ojV9ygldZ54lg"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec0ojV9ygldZ54lg",
+        "entity_long": "Advisory Committee on Administrative and Budgetary Questions",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "AHC Indian Ocean",
+      "entity_long": "Ad Hoc Committee on the Indian Ocean",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "AHC Indian Ocean"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recCpDbQmjQny5ytk"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recCpDbQmjQny5ytk",
+        "entity_long": "Ad Hoc Committee on the Indian Ocean",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "ASMT",
+      "entity_long": "Analytical Support and Sanctions Monitoring Team pursuant to resolutions 1526 (2004) and 2253 (2015) concerning Islamic State in Iraq and the Levant (ISIL) (Da’esh), Al-Qaida and the Taliban and associated individuals and entities",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ASMT"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recb0GgyNrfaD4Oz2"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recb0GgyNrfaD4Oz2",
+        "entity_long": "Analytical Support and Sanctions Monitoring Team pursuant to resolutions 1526 (2004) and 2253 (2015) concerning Islamic State in Iraq and the Levant (ISIL) (Da’esh), Al-Qaida and the Taliban and associated individuals and entities",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "Al-Shabaab Committee",
+      "entity_long": "Security Council Committee pursuant to resolution 2713 (2023) concerning Al-Shabaab",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Al-Shabaab Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recJWLLJ4JW0cAoaM"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recJWLLJ4JW0cAoaM",
+        "entity_long": "Security Council Committee pursuant to resolution 2713 (2023) concerning Al-Shabaab",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "BINUH",
+      "entity_long": "United Nations Integrated Office in Haiti",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "BINUH"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recSZyZHOHKDbGhJL"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recSZyZHOHKDbGhJL",
+        "entity_long": "United Nations Integrated Office in Haiti",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "Board of Auditors",
+      "entity_long": "Board of Auditors",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Board of Auditors"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recyjr8pDI9LC3r2t"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recyjr8pDI9LC3r2t",
+        "entity_long": "Board of Auditors",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "C-24",
+      "entity_long": "Special Committee on the Situation with regard to the Implementation of the Declaration on the Granting of Independence to Colonial Countries and Peoples",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "C-24"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recmmTOUoegW52o2G"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recmmTOUoegW52o2G",
+        "entity_long": "Special Committee on the Situation with regard to the Implementation of the Declaration on the Granting of Independence to Colonial Countries and Peoples",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "CCPCJ",
+      "entity_long": "United Nations Commission on Crime Prevention and Criminal Justice",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CCPCJ"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recGEImaUu5k1LzGT"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recGEImaUu5k1LzGT",
+        "entity_long": "United Nations Commission on Crime Prevention and Criminal Justice",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "CDP",
+      "entity_long": "Committee for Development Policy",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CDP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rectkaEeoZvO65Ahz"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rectkaEeoZvO65Ahz",
+        "entity_long": "Committee for Development Policy",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "CEB",
+      "entity_long": "Secretariat of the UN System Chief Executives Board for Coordination",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CEB"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recsFC6T0ZKEMEJQ1"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recsFC6T0ZKEMEJQ1",
+        "entity_long": "Secretariat of the UN System Chief Executives Board for Coordination",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "CEPA",
+      "entity_long": "Committee of Experts on Public Administration",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CEPA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recuL2yjZA250pUB7"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recuL2yjZA250pUB7",
+        "entity_long": "Committee of Experts on Public Administration",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "CND",
+      "entity_long": "United Nations Commission on Narcotic Drugs",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CND"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recOSIBVne90WCNxx"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recOSIBVne90WCNxx",
+        "entity_long": "United Nations Commission on Narcotic Drugs",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "CNMC",
+      "entity_long": "United Nations Support for the Cameroon-Nigeria Mixed Commission",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CNMC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recGudYcdfjhjBzPa"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recGudYcdfjhjBzPa",
+        "entity_long": "United Nations Support for the Cameroon-Nigeria Mixed Commission",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "COPUOS",
+      "entity_long": "Committee on the Peaceful Uses of Outer Space",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "COPUOS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recAiEgIi5czB9OTc"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recAiEgIi5czB9OTc",
+        "entity_long": "Committee on the Peaceful Uses of Outer Space",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "CPD",
+      "entity_long": "United Nations Commission on Population and Development",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CPD"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec6cVfnhr9GzX0Hk"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec6cVfnhr9GzX0Hk",
+        "entity_long": "United Nations Commission on Population and Development",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "CSTD",
+      "entity_long": "United Nations Commission on Science and Technology for Development",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CSTD"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec3qTmVlDDVXw00k"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec3qTmVlDDVXw00k",
+        "entity_long": "United Nations Commission on Science and Technology for Development",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "CSW",
+      "entity_long": "United Nations Commission on the Status of Women",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CSW"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reccQ3hjgDLMqdvzA"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reccQ3hjgDLMqdvzA",
+        "entity_long": "United Nations Commission on the Status of Women",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "CSocD",
+      "entity_long": "United Nations Commission for Social Development",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CSocD"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recgjtGqf6Bc2hf6r"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recgjtGqf6Bc2hf6r",
+        "entity_long": "United Nations Commission for Social Development",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "CTBTO",
+      "entity_long": "Preparatory Commission for the Comprehensive Nuclear-Test-Ban Treaty Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CTBTO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recJyl1TzkSmTWUzM"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recJyl1TzkSmTWUzM",
+        "entity_long": "Preparatory Commission for the Comprehensive Nuclear-Test-Ban Treaty Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "CTC",
+      "entity_long": "Counter-Terrorism Committee",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CTC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec20nlHWHhTwdUur"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec20nlHWHhTwdUur",
+        "entity_long": "Counter-Terrorism Committee",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "CTED",
+      "entity_long": "Counter-Terrorism Committee Executive Directorate",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "CTED"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reccTK7EVU2sFp0uA"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reccTK7EVU2sFp0uA",
+        "entity_long": "Counter-Terrorism Committee Executive Directorate",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "Credentials Committee",
+      "entity_long": "Credentials Committee",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Credentials Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recKzqUYxXlkpNupJ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recKzqUYxXlkpNupJ",
+        "entity_long": "Credentials Committee",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "DA",
+      "entity_long": "Development Account",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "DA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recnioeNrdQNJUasl"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recnioeNrdQNJUasl",
+        "entity_long": "Development Account",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "DCO",
+      "entity_long": "Development Coordination Office ",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "DCO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reckfbfmHFmL1GR5X"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reckfbfmHFmL1GR5X",
+        "entity_long": "Development Coordination Office ",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "DESA",
+      "entity_long": "Department of Economic and Social Affairs",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "DESA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recOs5gBofGjKDrcE"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recOs5gBofGjKDrcE",
+        "entity_long": "Department of Economic and Social Affairs",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "DGACM",
+      "entity_long": "Department for General Assembly and Conference Management",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "DGACM"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recX99f6NvxX8Ft7p"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recX99f6NvxX8Ft7p",
+        "entity_long": "Department for General Assembly and Conference Management",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "DGC",
+      "entity_long": "Department of Global Communications",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "DGC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recVnkVxU48jphUJj"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recVnkVxU48jphUJj",
+        "entity_long": "Department of Global Communications",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "DMSPC",
+      "entity_long": "Department of Management Strategy, Policy and Compliance",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "DMSPC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recwv9tyo7BadQejK"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recwv9tyo7BadQejK",
+        "entity_long": "Department of Management Strategy, Policy and Compliance",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "DOS",
+      "entity_long": "Department of Operational Support",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "DOS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recJXM4q1qfX37JPj"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recJXM4q1qfX37JPj",
+        "entity_long": "Department of Operational Support",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "DPO",
+      "entity_long": "Department of Peace Operations",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "DPO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recqaF7RmTPNN9VPr"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recqaF7RmTPNN9VPr",
+        "entity_long": "Department of Peace Operations",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "DPPA",
+      "entity_long": "Department of Political and Peacebuilding Affairs",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "DPPA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recid2uT0NCwfjntt"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recid2uT0NCwfjntt",
+        "entity_long": "Department of Political and Peacebuilding Affairs",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "DSS",
+      "entity_long": "Department of Safety and Security",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "DSS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rect1MYMj5Q8pJicq"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rect1MYMj5Q8pJicq",
+        "entity_long": "Department of Safety and Security",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ECA",
+      "entity_long": "Economic Commission for Africa",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ECA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recxndYw1TgLU9w1d"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recxndYw1TgLU9w1d",
+        "entity_long": "Economic Commission for Africa",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ECE",
+      "entity_long": "Economic Commission for Europe",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ECE"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recvxJhz4HZD8A7DW"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recvxJhz4HZD8A7DW",
+        "entity_long": "Economic Commission for Europe",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ECLAC",
+      "entity_long": "Economic Commission for Latin America and the Caribbean",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ECLAC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recSG3XLBq8T1ODHA"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recSG3XLBq8T1ODHA",
+        "entity_long": "Economic Commission for Latin America and the Caribbean",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "EOSG",
+      "entity_long": "Executive Office of the Secretary-General",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "EOSG"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recnPtOYKtMK71eDR"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recnPtOYKtMK71eDR",
+        "entity_long": "Executive Office of the Secretary-General",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ESCAP",
+      "entity_long": "Economic and Social Commission for Asia and the Pacific",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ESCAP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec4cT8fdTPBWIdLF"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec4cT8fdTPBWIdLF",
+        "entity_long": "Economic and Social Commission for Asia and the Pacific",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ESCWA",
+      "entity_long": "Economic and Social Commission for Western Asia",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ESCWA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recRbBKnLKQ1SCqiu"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recRbBKnLKQ1SCqiu",
+        "entity_long": "Economic and Social Commission for Western Asia",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "Ethics Office",
+      "entity_long": "United Nations Ethics Office",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Ethics Office"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recyODC2QoLjSFM7Y"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recyODC2QoLjSFM7Y",
+        "entity_long": "United Nations Ethics Office",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "FAO",
+      "entity_long": "Food and Agriculture Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "FAO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec34mTr76akEumoS"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec34mTr76akEumoS",
+        "entity_long": "Food and Agriculture Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "FP-Delisting",
+      "entity_long": "Focal Point for De-listing",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "FP-Delisting"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recnfDGdly4EwcAqi"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recnfDGdly4EwcAqi",
+        "entity_long": "Focal Point for De-listing",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "Fifth Committee",
+      "entity_long": "Administrative and Budgetary Committee",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Fifth Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recb1o7tJGgojo4XZ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recb1o7tJGgojo4XZ",
+        "entity_long": "Administrative and Budgetary Committee",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "First Committee",
+      "entity_long": "Disarmament and International Security",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "First Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recBpBLTjYahyv6gP"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recBpBLTjYahyv6gP",
+        "entity_long": "Disarmament and International Security",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "Fourth Committee",
+      "entity_long": "Special Political and Decolonization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Fourth Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recbADaJDd2oeY6PZ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recbADaJDd2oeY6PZ",
+        "entity_long": "Special Political and Decolonization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "GOM-Cyprus",
+      "entity_long": "Mission of the Secretary-General’s Good Offices in Cyprus",
+      "sources": [
+        {
+          "sourceId": "mandates-spm-curation",
+          "match": "explicit-key-and-name-literals",
+          "selector": {
+            "entity": "GOM-Cyprus"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "General Committee",
+      "entity_long": "General Committee",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "General Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recpXvpJOrzKWOFll"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recpXvpJOrzKWOFll",
+        "entity_long": "General Committee",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "GoE-DRC",
+      "entity_long": "Group of Experts on the Democratic Republic of the Congo",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "GoE-DRC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recBnzdRxwKlLAs7t"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recBnzdRxwKlLAs7t",
+        "entity_long": "Group of Experts on the Democratic Republic of the Congo",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "HLPF",
+      "entity_long": "High-level Political Forum on Sustainable Development",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "HLPF"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recIdB3zEg9k3LcA1"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recIdB3zEg9k3LcA1",
+        "entity_long": "High-level Political Forum on Sustainable Development",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "HRC",
+      "entity_long": "Human Rights Council",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "HRC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recZgh2dBZQxv4CZV"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recZgh2dBZQxv4CZV",
+        "entity_long": "Human Rights Council",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "High-level Committee on South-South Cooperation",
+      "entity_long": "High-level Committee on South-South Cooperation",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "High-level Committee on South-South Cooperation"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recTkCXGkQwj7iUjN"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recTkCXGkQwj7iUjN",
+        "entity_long": "High-level Committee on South-South Cooperation",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "IAAC",
+      "entity_long": "Independent Audit Advisory Committee",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "IAAC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recF6cy6ItbhWOHk8"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recF6cy6ItbhWOHk8",
+        "entity_long": "Independent Audit Advisory Committee",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "IAEA",
+      "entity_long": "International Atomic Energy Agency",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "IAEA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recncAmoLow3joz7t"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recncAmoLow3joz7t",
+        "entity_long": "International Atomic Energy Agency",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ICAO",
+      "entity_long": "International Civil Aviation Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ICAO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recoWyTcy03jBMarj"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recoWyTcy03jBMarj",
+        "entity_long": "International Civil Aviation Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ICC",
+      "entity_long": "International Criminal Court",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ICC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec0bNSqNgqo95dai"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec0bNSqNgqo95dai",
+        "entity_long": "International Criminal Court",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ICJ",
+      "entity_long": "International Court of Justice",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ICJ"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recOOLbZemD5LgGj4"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recOOLbZemD5LgGj4",
+        "entity_long": "International Court of Justice",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ICSC",
+      "entity_long": "International Civil Service Commission",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ICSC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recJJOi4LgzwXCf8y"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recJJOi4LgzwXCf8y",
+        "entity_long": "International Civil Service Commission",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "IFAD",
+      "entity_long": "International Fund for Agricultural Development",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "IFAD"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recq8le2JmCvOVZUj"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recq8le2JmCvOVZUj",
+        "entity_long": "International Fund for Agricultural Development",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "IIIM",
+      "entity_long": "International, Impartial and Independent Mechanism to Assist in the Investigation and Prosecution of Persons Responsible for the Most Serious Crimes under International Law Committed in the Syrian Arab Republic since March 2011",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "IIIM"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recy7YnXXyHHd3CY4"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recy7YnXXyHHd3CY4",
+        "entity_long": "International, Impartial and Independent Mechanism to Assist in the Investigation and Prosecution of Persons Responsible for the Most Serious Crimes under International Law Committed in the Syrian Arab Republic since March 2011",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "IIMM",
+      "entity_long": "Independent Investigative Mechanism for Myanmar",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "IIMM"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recNA16uoctYIGPO4"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recNA16uoctYIGPO4",
+        "entity_long": "Independent Investigative Mechanism for Myanmar",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "IIMP",
+      "entity_long": "Independent Institution on Missing Persons in the Syrian Arab Republic",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "IIMP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reclHRkid64dk3Gjs"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reclHRkid64dk3Gjs",
+        "entity_long": "Independent Institution on Missing Persons in the Syrian Arab Republic",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ILC",
+      "entity_long": "International Law Commission",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ILC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recfnGmbX8HIZ9at6"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recfnGmbX8HIZ9at6",
+        "entity_long": "International Law Commission",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ILO",
+      "entity_long": "International Labor Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ILO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rectSWiGQEmZwFpam"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rectSWiGQEmZwFpam",
+        "entity_long": "International Labor Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "IMF",
+      "entity_long": "International Monetary Fund",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "IMF"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recLFYcap9SbigiSH"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recLFYcap9SbigiSH",
+        "entity_long": "International Monetary Fund",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "IMO",
+      "entity_long": "International Maritime Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "IMO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rechM09wNlTVl2QJo"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rechM09wNlTVl2QJo",
+        "entity_long": "International Maritime Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "IOM",
+      "entity_long": "International Organization for Migration",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "IOM"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recAvkx0Bp6WUtbyA"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recAvkx0Bp6WUtbyA",
+        "entity_long": "International Organization for Migration",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "IRMCT",
+      "entity_long": "International Residual Mechanism for Criminal Tribunals",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "IRMCT"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recg12eacmmC2YzWg"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recg12eacmmC2YzWg",
+        "entity_long": "International Residual Mechanism for Criminal Tribunals",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "ISA",
+      "entity_long": "International Seabed Authority",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ISA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recGpY4POIb9tjpcd"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recGpY4POIb9tjpcd",
+        "entity_long": "International Seabed Authority",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ITC",
+      "entity_long": "International Trade Centre",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ITC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reclfZOhn467DV17Q"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reclfZOhn467DV17Q",
+        "entity_long": "International Trade Centre",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ITLOS",
+      "entity_long": "International Tribunal for the Law of the Sea",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ITLOS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec0JYTIt0d2UirTG"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec0JYTIt0d2UirTG",
+        "entity_long": "International Tribunal for the Law of the Sea",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ITU",
+      "entity_long": "International Telecommunication Union",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ITU"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recXdCZaQNk8fN6pC"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recXdCZaQNk8fN6pC",
+        "entity_long": "International Telecommunication Union",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "Investments Committee",
+      "entity_long": "Investments Committee",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Investments Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recgHq9xnJDlplipG"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recgHq9xnJDlplipG",
+        "entity_long": "Investments Committee",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "JIU",
+      "entity_long": "Joint Inspection Unit",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "JIU"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recKb8UBK0ppNGHMO"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recKb8UBK0ppNGHMO",
+        "entity_long": "Joint Inspection Unit",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "KJSO",
+      "entity_long": "Kuwait Joint Support Office",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "KJSO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "receNKXgqI5uPln2D"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "receNKXgqI5uPln2D",
+        "entity_long": "Kuwait Joint Support Office",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "MINURSO",
+      "entity_long": "United Nations Mission for the Referendum in Western Sahara",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "MINURSO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recNkBvmVMaW1tqW3"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recNkBvmVMaW1tqW3",
+        "entity_long": "United Nations Mission for the Referendum in Western Sahara",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "MINUSCA",
+      "entity_long": "United Nations Multidimensional Integrated Stabilization Mission in the Central African Republic",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "MINUSCA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recSGMvnraoKPlX7M"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recSGMvnraoKPlX7M",
+        "entity_long": "United Nations Multidimensional Integrated Stabilization Mission in the Central African Republic",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "MINUSMA",
+      "entity_long": "United Nations Multidimensional Integrated Stabilization Mission in Mali",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "MINUSMA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recSMrnLUUB6SukYJ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recSMrnLUUB6SukYJ",
+        "entity_long": "United Nations Multidimensional Integrated Stabilization Mission in Mali",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "MONUSCO",
+      "entity_long": "United Nations Organization Stabilization Mission in the Democratic Republic of the Congo",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "MONUSCO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recTi0QSF0WJyGvIT"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recTi0QSF0WJyGvIT",
+        "entity_long": "United Nations Organization Stabilization Mission in the Democratic Republic of the Congo",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "MSC",
+      "entity_long": "Military Staff Committee",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "MSC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recEonud8DHCCvCQH"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recEonud8DHCCvCQH",
+        "entity_long": "Military Staff Committee",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "NGO Committee",
+      "entity_long": "Committee on Non-Governmental Organizations",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "NGO Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec5SVGmazsf7H1JZ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec5SVGmazsf7H1JZ",
+        "entity_long": "Committee on Non-Governmental Organizations",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OAJ",
+      "entity_long": "Office of Administration of Justice",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OAJ"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec9LNHf75uRnmHnM"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec9LNHf75uRnmHnM",
+        "entity_long": "Office of Administration of Justice",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OCHA",
+      "entity_long": "Office for the Coordination of Humanitarian Affairs",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OCHA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec74fnI62TBYdoqM"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec74fnI62TBYdoqM",
+        "entity_long": "Office for the Coordination of Humanitarian Affairs",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OCT",
+      "entity_long": "Office of Counter-Terrorism",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OCT"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reckHDXweiNKELYAZ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reckHDXweiNKELYAZ",
+        "entity_long": "Office of Counter-Terrorism",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ODA",
+      "entity_long": "Office for Disarmament Affairs",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ODA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec79p1gxr2WdZATe"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec79p1gxr2WdZATe",
+        "entity_long": "Office for Disarmament Affairs",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ODET",
+      "entity_long": "Office for Digital and Emerging Technologies",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ODET"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recrho7nxX31PpMXf"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recrho7nxX31PpMXf",
+        "entity_long": "Office for Digital and Emerging Technologies",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "ODPP",
+      "entity_long": "Office of Data Protection and Privacy",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "ODPP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recsrLkP0BweOawh7"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recsrLkP0BweOawh7",
+        "entity_long": "Office of Data Protection and Privacy",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OHCHR",
+      "entity_long": "Office of the United Nations High Commissioner for Human Rights",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OHCHR"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recxZqYNC0k2r1gRk"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recxZqYNC0k2r1gRk",
+        "entity_long": "Office of the United Nations High Commissioner for Human Rights",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OICT",
+      "entity_long": "Office of Information and Communications Technology",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OICT"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recgMjRpIumg9wRFt"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recgMjRpIumg9wRFt",
+        "entity_long": "Office of Information and Communications Technology",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OIOS",
+      "entity_long": "Office of Internal Oversight Services",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OIOS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recrMUBCbLx9uGl3Q"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recrMUBCbLx9uGl3Q",
+        "entity_long": "Office of Internal Oversight Services",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OLA",
+      "entity_long": "Office of Legal Affairs",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OLA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recK6nxb3zyMzvwE8"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recK6nxb3zyMzvwE8",
+        "entity_long": "Office of Legal Affairs",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OMBUD-RES1904",
+      "entity_long": "Office of the Ombudsperson established pursuant to Security Council resolution 1904 (2009)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OMBUD-RES1904"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recosEkpdpTaMyfPA"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recosEkpdpTaMyfPA",
+        "entity_long": "Office of the Ombudsperson established pursuant to Security Council resolution 1904 (2009)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "OOSA",
+      "entity_long": "Office for Outer Space Affairs",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OOSA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec3b56aenxUD3sai"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec3b56aenxUD3sai",
+        "entity_long": "Office for Outer Space Affairs",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OPCW",
+      "entity_long": "Organisation for the Prohibition of Chemical Weapons",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OPCW"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recxthOEnic68zag0"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recxthOEnic68zag0",
+        "entity_long": "Organisation for the Prohibition of Chemical Weapons",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OSAA",
+      "entity_long": "Office of the Special Adviser on Africa",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OSAA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reck7IEYTtqoHBHCq"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reck7IEYTtqoHBHCq",
+        "entity_long": "Office of the Special Adviser on Africa",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OSACAJT",
+      "entity_long": "Office of the Special Adviser on Climate Action and Just Transition",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OSACAJT"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reccoUuX20wq7286K"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reccoUuX20wq7286K",
+        "entity_long": "Office of the Special Adviser on Climate Action and Just Transition",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "OSASG-Cyprus",
+      "entity_long": "Office of the Special Adviser to the Secretary-General on Cyprus",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OSASG-Cyprus"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec2KzmTAK9Usa6zB"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec2KzmTAK9Usa6zB",
+        "entity_long": "Office of the Special Adviser to the Secretary-General on Cyprus",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OSASG-Genocide",
+      "entity_long": "Office of the Special Adviser to the Secretary-General on the Prevention of Genocide",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OSASG-Genocide"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "OSC-SEA",
+      "entity_long": "Office of the Special Coordinator on Improving the UN Response to Sexual Exploitation and Abuse",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OSC-SEA"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "current-name-differs",
+        "recordId": "recWmjhBsoaoB4cv2",
+        "entity_long": "Office of the United Nations Special Coordinator on Improving the United Nations Response to Sexual Exploitation and Abuse",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OSESG-SCRES1559",
+      "entity_long": "Office of the Special Envoy of the Secretary-General for the implementation of Security Council resolution 1559 (2004)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OSESG-SCRES1559"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "OSESG-SYRIA",
+      "entity_long": "Office of the Special Envoy of the Secretary-General for Syria",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OSESG-SYRIA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recarBduCii0diPVg"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recarBduCii0diPVg",
+        "entity_long": "Office of the Special Envoy of the Secretary-General for Syria",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OSESGY",
+      "entity_long": "Office of the Special Envoy of the Secretary-General for Yemen",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OSESGY"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec86X5ivN9oChGqI"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec86X5ivN9oChGqI",
+        "entity_long": "Office of the Special Envoy of the Secretary-General for Yemen",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "OVRA",
+      "entity_long": "Office of the Victims' Rights Advocate",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "OVRA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec3CIlH9lUgRAdfw"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec3CIlH9lUgRAdfw",
+        "entity_long": "Office of the Victims' Rights Advocate",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "PBSO",
+      "entity_long": "Peacebuilding Support Office",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "PBSO"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "PESG-Sudan",
+      "entity_long": "Office of the Personal Envoy of the Secretary-General for the Sudan",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "PESG-Sudan"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec6b5dgcABolgwoD"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec6b5dgcABolgwoD",
+        "entity_long": "Office of the Personal Envoy of the Secretary-General for the Sudan",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "PESG-WS",
+      "entity_long": "Personal Envoy of the Secretary-General for Western Sahara",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "PESG-WS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recWTP7Mqw8o4zP4T"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recWTP7Mqw8o4zP4T",
+        "entity_long": "Personal Envoy of the Secretary-General for Western Sahara",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "PoE-CAR",
+      "entity_long": "Panel of Experts on the Central African Republic",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "PoE-CAR"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recyg2xLyhGOwMigv"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recyg2xLyhGOwMigv",
+        "entity_long": "Panel of Experts on the Central African Republic",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "PoE-Haiti",
+      "entity_long": "Panel of Experts on Haiti",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "PoE-Haiti"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recdrNefGS2UtJSIW"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recdrNefGS2UtJSIW",
+        "entity_long": "Panel of Experts on Haiti",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "PoE-Iran",
+      "entity_long": "Panel of Experts on the Islamic Republic of Iran",
+      "sources": [
+        {
+          "sourceId": "mandates-spm-curation",
+          "match": "explicit-key-and-name-literals",
+          "selector": {
+            "entity": "PoE-Iran"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "PoE-Libya",
+      "entity_long": "Panel of Experts on Libya",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "PoE-Libya"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recrhrAvNybRPGvmB"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recrhrAvNybRPGvmB",
+        "entity_long": "Panel of Experts on Libya",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "PoE-RES2713",
+      "entity_long": "Panel of Experts pursuant to resolution 2713 (2023)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "PoE-RES2713"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec6sbobZJQgj0CJb"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec6sbobZJQgj0CJb",
+        "entity_long": "Panel of Experts pursuant to resolution 2713 (2023)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "PoE-RES2745",
+      "entity_long": "Panel of Experts pursuant to resolution 2745 (2024)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "PoE-RES2745"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recwnIQzSBomHReZC"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recwnIQzSBomHReZC",
+        "entity_long": "Panel of Experts pursuant to resolution 2745 (2024)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "PoE-S.Sudan",
+      "entity_long": "Panel of Experts on South Sudan",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "PoE-S.Sudan"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recI0vvX1SC9v9zJ7"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recI0vvX1SC9v9zJ7",
+        "entity_long": "Panel of Experts on South Sudan",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "PoE-Sudan",
+      "entity_long": "Panel of Experts on the Sudan",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "PoE-Sudan"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recIkVEO23wDYT2Vu"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recIkVEO23wDYT2Vu",
+        "entity_long": "Panel of Experts on the Sudan",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "PoE-Yemen",
+      "entity_long": "Panel of Experts on Yemen",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "PoE-Yemen"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recDVMzTvy4UMgY6j"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recDVMzTvy4UMgY6j",
+        "entity_long": "Panel of Experts on Yemen",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "RSCE",
+      "entity_long": "Regional Service Centre in Entebbe, Uganda",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "RSCE"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recPVYJ9vnq3t8ai2"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recPVYJ9vnq3t8ai2",
+        "entity_long": "Regional Service Centre in Entebbe, Uganda",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "SASG-PGRP",
+      "entity_long": "Office of the Special Advisers to the Secretary-General on the Prevention of Genocide and the Responsibility to Protect",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SASG-PGRP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "receK2JnmVGbZB8AA"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "receK2JnmVGbZB8AA",
+        "entity_long": "Office of the Special Advisers to the Secretary-General on the Prevention of Genocide and the Responsibility to Protect",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "SASG-SID",
+      "entity_long": "Office of the Special Adviser to the Secretary-General on Solutions to Internal Displacement",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SASG-SID"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recdi8mM0PoyEcyXr"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recdi8mM0PoyEcyXr",
+        "entity_long": "Office of the Special Adviser to the Secretary-General on Solutions to Internal Displacement",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "SC-RES1540",
+      "entity_long": "Support to the Security Council Committee established pursuant to resolution 1540 (2004) on the non-proliferation of all weapons of mass destruction",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SC-RES1540"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recjs5t6N4n57Xaca"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recjs5t6N4n57Xaca",
+        "entity_long": "Support to the Security Council Committee established pursuant to resolution 1540 (2004) on the non-proliferation of all weapons of mass destruction",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "SC-RES1559",
+      "entity_long": "Support for the implementation of Security Council resolution 1559 (2004)",
+      "sources": [
+        {
+          "sourceId": "mandates-spm-curation",
+          "match": "explicit-key-and-name-literals",
+          "selector": {
+            "entity": "SC-RES1559"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "SC-RES1718",
+      "entity_long": "Support to the Security Council Committee established pursuant to resolution 1718 (2006)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SC-RES1718"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recyL2Lqkch7Gq8Bz"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recyL2Lqkch7Gq8Bz",
+        "entity_long": "Support to the Security Council Committee established pursuant to resolution 1718 (2006)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "SC-RES2231",
+      "entity_long": "Implementation of Security Council resolution 2231 (2015)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SC-RES2231"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec3jqpdCJKl0SIS3"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec3jqpdCJKl0SIS3",
+        "entity_long": "Implementation of Security Council resolution 2231 (2015)",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "SESG-GL",
+      "entity_long": "Office of the Special Envoy of the Secretary-General for the Great Lakes Region",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SESG-GL"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rechj1IFTcRUp2zH4"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rechj1IFTcRUp2zH4",
+        "entity_long": "Office of the Special Envoy of the Secretary-General for the Great Lakes Region",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "SESG-Horn of Africa",
+      "entity_long": "Office of the Special Envoy of the Secretary-General for the Horn of Africa",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SESG-Horn of Africa"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reci5RMvEPI9ZfIKE"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reci5RMvEPI9ZfIKE",
+        "entity_long": "Office of the Special Envoy of the Secretary-General for the Horn of Africa",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "SESG-MYR",
+      "entity_long": "Office of the Special Envoy of the Secretary-General on Myanmar",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SESG-MYR"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recJPNSsC5a3qlvBL"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recJPNSsC5a3qlvBL",
+        "entity_long": "Office of the Special Envoy of the Secretary-General on Myanmar",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "SR-RES2792",
+      "entity_long": "Senior Representative for the implementation of Security Council resolution 2792 (2025)",
+      "sources": [
+        {
+          "sourceId": "mandates-spm-curation",
+          "match": "explicit-key-and-name-literals",
+          "selector": {
+            "entity": "SR-RES2792"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "SRSG-CAAC",
+      "entity_long": "Office of the Special Representative of the Secretary-General for Children and Armed Conflict",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SRSG-CAAC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "receIHZlzrc3NIg7a"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "receIHZlzrc3NIg7a",
+        "entity_long": "Office of the Special Representative of the Secretary-General for Children and Armed Conflict",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "SRSG-SVC",
+      "entity_long": "Office of the Special Representative of the Secretary-General on Sexual Violence in Conflict",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SRSG-SVC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recQNuaMZcSFpXPi9"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recQNuaMZcSFpXPi9",
+        "entity_long": "Office of the Special Representative of the Secretary-General on Sexual Violence in Conflict",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "SRSG-VAC",
+      "entity_long": "Office of the Special Representative of the Secretary-General on Violence against Children",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SRSG-VAC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recTcGOgw0JgxvTQg"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recTcGOgw0JgxvTQg",
+        "entity_long": "Office of the Special Representative of the Secretary-General on Violence against Children",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "SWEO",
+      "entity_long": "United Nations Sustainable Development Group System-Wide Evaluation Office",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "SWEO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec56BW3bX5ybNqUu"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec56BW3bX5ybNqUu",
+        "entity_long": "United Nations Sustainable Development Group System-Wide Evaluation Office",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "Sanctions WG",
+      "entity_long": "Informal Working Group on General Security Council Sanctions Issues",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Sanctions WG"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recs0CPY9cyFVCAj3"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recs0CPY9cyFVCAj3",
+        "entity_long": "Informal Working Group on General Security Council Sanctions Issues",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "Second Committee",
+      "entity_long": "Economic and Financial Committee",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Second Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recHFpnhzZSbUxmw5"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recHFpnhzZSbUxmw5",
+        "entity_long": "Economic and Financial Committee",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "Sixth Committee",
+      "entity_long": "Legal",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Sixth Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec9qt58ggrQkxgjT"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec9qt58ggrQkxgjT",
+        "entity_long": "Legal",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "Special Committee on Peacekeeping Operations",
+      "entity_long": "Special Committee on Peacekeeping Operations",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Special Committee on Peacekeeping Operations"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reczuCvUlUsjGtsuo"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reczuCvUlUsjGtsuo",
+        "entity_long": "Special Committee on Peacekeeping Operations",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "Special Committee on the Charter",
+      "entity_long": "Special Committee on the Charter of the United Nations and on the Strengthening of the Role of the Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Special Committee on the Charter"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recKEwcGci6STSp4Q"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recKEwcGci6STSp4Q",
+        "entity_long": "Special Committee on the Charter of the United Nations and on the Strengthening of the Role of the Organization",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "Special Committee to Investigate Israeli Practices",
+      "entity_long": "Special Committee to Investigate Israeli Practices Affecting the Human Rights of the Palestinian People and Other Arabs of the Occupied Territories",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Special Committee to Investigate Israeli Practices"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec73KlTfWrCeSjsA"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec73KlTfWrCeSjsA",
+        "entity_long": "Special Committee to Investigate Israeli Practices Affecting the Human Rights of the Palestinian People and Other Arabs of the Occupied Territories",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "StatCom",
+      "entity_long": "United Nations Statistical Commission",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "StatCom"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recMfmpuLo0J0lLOi"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recMfmpuLo0J0lLOi",
+        "entity_long": "United Nations Statistical Commission",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "TDB",
+      "entity_long": "Trade and Development Board",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "TDB"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recIAqt7coUH7GEgj"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recIAqt7coUH7GEgj",
+        "entity_long": "Trade and Development Board",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "Third Committee",
+      "entity_long": "Social, Humanitarian & Cultural Issues",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "Third Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recCdZmXTZ6Z7MQgI"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recCdZmXTZ6Z7MQgI",
+        "entity_long": "Social, Humanitarian & Cultural Issues",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UN Tourism",
+      "entity_long": "World Tourism Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UN Tourism"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recnvjNBmhubzvWIl"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recnvjNBmhubzvWIl",
+        "entity_long": "World Tourism Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UN Women",
+      "entity_long": "United Nations Entity for Gender Equality and the Empowerment of Women",
+      "sources": [
+        {
+          "sourceId": "open-published",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UN Women"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "UN Youth",
+      "entity_long": "United Nations Youth Office",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UN Youth"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recMF9tGtzMfwevGl"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recMF9tGtzMfwevGl",
+        "entity_long": "United Nations Youth Office",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UN-Habitat",
+      "entity_long": "United Nations Human Settlements Programme",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UN-Habitat"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recX6tEWXoIrfBpYt"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recX6tEWXoIrfBpYt",
+        "entity_long": "United Nations Human Settlements Programme",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UN-Habitat Assembly",
+      "entity_long": "United Nations Habitat Assembly of the United Nations Human Settlements Programme",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UN-Habitat Assembly"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recIphQzX8ju7uXbW"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recIphQzX8ju7uXbW",
+        "entity_long": "United Nations Habitat Assembly of the United Nations Human Settlements Programme",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UN-OHRLLS",
+      "entity_long": "Office of the High Representative for the Least Developed Countries, Landlocked Developing Countries and Small Island Developing States",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UN-OHRLLS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recW3R0wN2gL8MqlT"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recW3R0wN2gL8MqlT",
+        "entity_long": "Office of the High Representative for the Least Developed Countries, Landlocked Developing Countries and Small Island Developing States",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNAIDS",
+      "entity_long": "Joint United Nations Programme on HIV/AIDS",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNAIDS"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "current-name-differs",
+        "recordId": "rec7h7mAuF6fpgZUm",
+        "entity_long": "Joint United Nations Programme on HIV and AIDS",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNAMA",
+      "entity_long": "United Nations Assistance Mission in Afghanistan",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNAMA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recAZ0pHMtrrXDjNH"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recAZ0pHMtrrXDjNH",
+        "entity_long": "United Nations Assistance Mission in Afghanistan",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNAMI",
+      "entity_long": "United Nations Assistance Mission for Iraq",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNAMI"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recFM9lcLQKNpE7GL"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recFM9lcLQKNpE7GL",
+        "entity_long": "United Nations Assistance Mission for Iraq",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNAOC",
+      "entity_long": "United Nations Alliance of Civilizations",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNAOC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recl1wBnKvoYenYOt"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recl1wBnKvoYenYOt",
+        "entity_long": "United Nations Alliance of Civilizations",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNCCD",
+      "entity_long": "United Nations Convention to Combat Desertification",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNCCD"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec3yNuGujvDv0B5y"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec3yNuGujvDv0B5y",
+        "entity_long": "United Nations Convention to Combat Desertification",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNCDF",
+      "entity_long": "United Nations Capital Development Fund",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNCDF"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rechT5Kq5PvgEg3ki"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rechT5Kq5PvgEg3ki",
+        "entity_long": "United Nations Capital Development Fund",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNCITRAL",
+      "entity_long": "United Nations Commission on International Trade Law",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNCITRAL"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recG7vLH0wjxAtosm"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recG7vLH0wjxAtosm",
+        "entity_long": "United Nations Commission on International Trade Law",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNCTAD",
+      "entity_long": "United Nations Conference on Trade and Development",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNCTAD"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec6ytSiz63IOwWaj"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec6ytSiz63IOwWaj",
+        "entity_long": "United Nations Conference on Trade and Development",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNDC",
+      "entity_long": "Disarmament Commission",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNDC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recguLpVcwvmCQhal"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recguLpVcwvmCQhal",
+        "entity_long": "Disarmament Commission",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNDEF",
+      "entity_long": "United Nations Democracy Fund",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNDEF"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recOALIF5xKjV3FsS"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recOALIF5xKjV3FsS",
+        "entity_long": "United Nations Democracy Fund",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNDOF",
+      "entity_long": "United Nations Disengagement Observer Force",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNDOF"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recl37Ls73tFqUFoW"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recl37Ls73tFqUFoW",
+        "entity_long": "United Nations Disengagement Observer Force",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNDP",
+      "entity_long": "United Nations Development Programme",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNDP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reciqPKthtKwAt9ko"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reciqPKthtKwAt9ko",
+        "entity_long": "United Nations Development Programme",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNDP UNFPA UNOPS EB",
+      "entity_long": "Executive Board of UNDP, UNFPA and UNOPS",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNDP UNFPA UNOPS EB"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recbhXQduBLLUjOIS"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recbhXQduBLLUjOIS",
+        "entity_long": "Executive Board of UNDP, UNFPA and UNOPS",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNDRR",
+      "entity_long": "United Nations Office for Disaster Risk Reduction",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNDRR"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recZT21ua2mIGNLxZ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recZT21ua2mIGNLxZ",
+        "entity_long": "United Nations Office for Disaster Risk Reduction",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNEA",
+      "entity_long": "United Nations Environment Assembly",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNEA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec6wgojs0NF9CoTw"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec6wgojs0NF9CoTw",
+        "entity_long": "United Nations Environment Assembly",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNEP",
+      "entity_long": "United Nations Environment Programme",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNEP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec9LNcHiHps3azcb"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec9LNcHiHps3azcb",
+        "entity_long": "United Nations Environment Programme",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNESCO",
+      "entity_long": "United Nations Educational, Scientific and Cultural Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNESCO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recPpfw0tYHgLyOeq"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recPpfw0tYHgLyOeq",
+        "entity_long": "United Nations Educational, Scientific and Cultural Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNFCCC",
+      "entity_long": "United Nations Framework Convention on Climate Change Secretariat",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNFCCC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reczw1bFmYTxxZA9n"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reczw1bFmYTxxZA9n",
+        "entity_long": "United Nations Framework Convention on Climate Change Secretariat",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNFF",
+      "entity_long": "United Nations Forum on Forests",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNFF"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recvcjFU8qzuxPqKU"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recvcjFU8qzuxPqKU",
+        "entity_long": "United Nations Forum on Forests",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNFICYP",
+      "entity_long": "United Nations Peacekeeping Force in Cyprus",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNFICYP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recJgMPLS2LeeUry0"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recJgMPLS2LeeUry0",
+        "entity_long": "United Nations Peacekeeping Force in Cyprus",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNFPA",
+      "entity_long": "United Nations Population Fund",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNFPA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recEUmuDCpJgwW6nX"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recEUmuDCpJgwW6nX",
+        "entity_long": "United Nations Population Fund",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNGC",
+      "entity_long": "United Nations Global Compact",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNGC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recBFnqMRXHR63qRB"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recBFnqMRXHR63qRB",
+        "entity_long": "United Nations Global Compact",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNGEGN",
+      "entity_long": "United Nations Group of Experts on Geographical Names",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNGEGN"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recYzCtvnl5ueVQRA"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recYzCtvnl5ueVQRA",
+        "entity_long": "United Nations Group of Experts on Geographical Names",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNGGIM",
+      "entity_long": "Committee of Experts on Global Geospatial Information Management",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNGGIM"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "UNGSC Brindisi",
+      "entity_long": "United Nations Logistics Base at Brindisi, Italy",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNGSC Brindisi"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec9SsCUYENfxKzXI"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec9SsCUYENfxKzXI",
+        "entity_long": "United Nations Logistics Base at Brindisi, Italy",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNHCR",
+      "entity_long": "Office of the United Nations High Commissioner for Refugees",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNHCR"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recONyAkgZp8PtL2n"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recONyAkgZp8PtL2n",
+        "entity_long": "Office of the United Nations High Commissioner for Refugees",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNHCR Executive Committee",
+      "entity_long": "Executive Committee of High Commissioner’s Programme (UNHCR)",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNHCR Executive Committee"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec3qAOneqtOm5vkf"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec3qAOneqtOm5vkf",
+        "entity_long": "Executive Committee of High Commissioner’s Programme (UNHCR)",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "UNICEF",
+      "entity_long": "United Nations Children's Fund",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNICEF"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recJHYfjKsCmaAsiv"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recJHYfjKsCmaAsiv",
+        "entity_long": "United Nations Children's Fund",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNICEF EB",
+      "entity_long": "Executive Board of the United Nations Children's Fund",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNICEF EB"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recWoppNv5MfjuSgh"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recWoppNv5MfjuSgh",
+        "entity_long": "Executive Board of the United Nations Children's Fund",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNICRI",
+      "entity_long": "United Nations Interregional Crime and Justice Research Institute",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNICRI"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recd7sPvBpm8rMezZ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recd7sPvBpm8rMezZ",
+        "entity_long": "United Nations Interregional Crime and Justice Research Institute",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNIDIR",
+      "entity_long": "United Nations Institute for Disarmament Research",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNIDIR"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recDcJPvmMUbIVM71"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recDcJPvmMUbIVM71",
+        "entity_long": "United Nations Institute for Disarmament Research",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNIDO",
+      "entity_long": "United Nations Industrial Development Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNIDO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recqvDvB4CrX1b91c"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recqvDvB4CrX1b91c",
+        "entity_long": "United Nations Industrial Development Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNIFIL",
+      "entity_long": "United Nations Interim Force in Lebanon",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNIFIL"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recINYmYvywXyHJu5"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recINYmYvywXyHJu5",
+        "entity_long": "United Nations Interim Force in Lebanon",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNISFA",
+      "entity_long": "United Nations Interim Security Force for Abyei",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNISFA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recIBWjQCGzvMEnR2"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recIBWjQCGzvMEnR2",
+        "entity_long": "United Nations Interim Security Force for Abyei",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNITAR",
+      "entity_long": "United Nations Institute for Training and Research",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNITAR"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reckpBKtUMGE1GoCX"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reckpBKtUMGE1GoCX",
+        "entity_long": "United Nations Institute for Training and Research",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNJSPB",
+      "entity_long": "United Nations Joint Staff Pension Board",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNJSPB"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recnd5LrmTAy4vrAM"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recnd5LrmTAy4vrAM",
+        "entity_long": "United Nations Joint Staff Pension Board",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNJSPF",
+      "entity_long": "United Nations Joint Staff Pension Fund",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNJSPF"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recK82y1Q9V2YulPg"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recK82y1Q9V2YulPg",
+        "entity_long": "United Nations Joint Staff Pension Fund",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNMHA",
+      "entity_long": "United Nations Mission to Support the Hudaydah Agreement",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNMHA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recceiLlGz4XetoTk"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recceiLlGz4XetoTk",
+        "entity_long": "United Nations Mission to Support the Hudaydah Agreement",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNMIK",
+      "entity_long": "United Nations Interim Administration Mission in Kosovo",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNMIK"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recTYrT0ED3nvKkm0"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recTYrT0ED3nvKkm0",
+        "entity_long": "United Nations Interim Administration Mission in Kosovo",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNMISS",
+      "entity_long": "United Nations Mission in South Sudan",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNMISS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec1iC0ulqpufwWld"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec1iC0ulqpufwWld",
+        "entity_long": "United Nations Mission in South Sudan",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNMOGIP",
+      "entity_long": "United Nations Military Observer Group in India and Pakistan",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNMOGIP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recIffj1OTiF3Tevr"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recIffj1OTiF3Tevr",
+        "entity_long": "United Nations Military Observer Group in India and Pakistan",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNOAU",
+      "entity_long": "United Nations Office to the African Union",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNOAU"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec1XtwC1aZhORQYy"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec1XtwC1aZhORQYy",
+        "entity_long": "United Nations Office to the African Union",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNOCA",
+      "entity_long": "United Nations Regional Office for Central Africa",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNOCA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recQfGYFxHIaE8hHM"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recQfGYFxHIaE8hHM",
+        "entity_long": "United Nations Regional Office for Central Africa",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNODC",
+      "entity_long": "United Nations Office on Drugs and Crime",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNODC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recMy60x38xLtIpZz"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recMy60x38xLtIpZz",
+        "entity_long": "United Nations Office on Drugs and Crime",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNOG",
+      "entity_long": "United Nations Office at Geneva",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNOG"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recX6jnou30u0z6yL"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recX6jnou30u0z6yL",
+        "entity_long": "United Nations Office at Geneva",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNOMS",
+      "entity_long": "Office of the United Nations Ombudsman and Mediation Services",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNOMS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recf5StOJVveEzaXx"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recf5StOJVveEzaXx",
+        "entity_long": "Office of the United Nations Ombudsman and Mediation Services",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNON",
+      "entity_long": "United Nations Office at Nairobi",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNON"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recrebLDcJecDWgxd"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recrebLDcJecDWgxd",
+        "entity_long": "United Nations Office at Nairobi",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNOP",
+      "entity_long": "United Nations Office for Partnerships",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNOP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recqzjkhO6V9P3eMo"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recqzjkhO6V9P3eMo",
+        "entity_long": "United Nations Office for Partnerships",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNOPS",
+      "entity_long": "United Nations Office for Project Services",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNOPS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recZhS67PVtqOQSoF"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recZhS67PVtqOQSoF",
+        "entity_long": "United Nations Office for Project Services",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNOSSC",
+      "entity_long": "United Nations Office for South-South Cooperation",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNOSSC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec1NeAMfma8ZyECI"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec1NeAMfma8ZyECI",
+        "entity_long": "United Nations Office for South-South Cooperation",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNOV",
+      "entity_long": "United Nations Office at Vienna",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNOV"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recJM3uGFcDnnweGg"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recJM3uGFcDnnweGg",
+        "entity_long": "United Nations Office at Vienna",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNOWAS",
+      "entity_long": "United Nations Office for West Africa and the Sahel",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNOWAS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reckyRWzz3dnm0mTp"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reckyRWzz3dnm0mTp",
+        "entity_long": "United Nations Office for West Africa and the Sahel",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNPC",
+      "entity_long": "Peacebuilding Commission",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNPC"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "UNPFII",
+      "entity_long": "United Nations Permanent Forum on Indigenous Issues",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNPFII"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "UNRCCA",
+      "entity_long": "United Nations Regional Centre for Preventive Diplomacy for Central Asia",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNRCCA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recaCElRcDsyGhlmQ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recaCElRcDsyGhlmQ",
+        "entity_long": "United Nations Regional Centre for Preventive Diplomacy for Central Asia",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNRGID",
+      "entity_long": "Office of the United Nations Representative to the Geneva International Discussions",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNRGID"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recOZJ5TWD7yxP5Ho"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recOZJ5TWD7yxP5Ho",
+        "entity_long": "Office of the United Nations Representative to the Geneva International Discussions",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNRISD",
+      "entity_long": "United Nations Research Institute for Social Development",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNRISD"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recR2RJnkj1FXqvRc"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recR2RJnkj1FXqvRc",
+        "entity_long": "United Nations Research Institute for Social Development",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNRWA",
+      "entity_long": "United Nations Relief and Works Agency for Palestine Refugees in the Near East",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNRWA"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recKgsxmdU1T4hpfd"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recKgsxmdU1T4hpfd",
+        "entity_long": "United Nations Relief and Works Agency for Palestine Refugees in the Near East",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNRWA AdCom",
+      "entity_long": "Advisory Commission on the United Nations Relief and Works Agency for Palestine Refugees in the Near East",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNRWA AdCom"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recNQXkappAo5YKIQ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recNQXkappAo5YKIQ",
+        "entity_long": "Advisory Commission on the United Nations Relief and Works Agency for Palestine Refugees in the Near East",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNRoD",
+      "entity_long": "United Nations Register of Damage Caused by the Construction of the Wall in the Occupied Palestinian Territory",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNRoD"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recKSJlcSGDVtfFp5"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recKSJlcSGDVtfFp5",
+        "entity_long": "United Nations Register of Damage Caused by the Construction of the Wall in the Occupied Palestinian Territory",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNSCEAR",
+      "entity_long": "United Nations Scientific Committee on the Effects of Atomic Radiation",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNSCEAR"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recgqIhMwjCeovZuv"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recgqIhMwjCeovZuv",
+        "entity_long": "United Nations Scientific Committee on the Effects of Atomic Radiation",
+        "on_display": "Maybe"
+      }
+    },
+    {
+      "entity": "UNSCO",
+      "entity_long": "Office of the United Nations Special Coordinator for the Middle East Peace Process",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNSCO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recj1O39nAknJLfIE"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recj1O39nAknJLfIE",
+        "entity_long": "Office of the United Nations Special Coordinator for the Middle East Peace Process",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNSCOL",
+      "entity_long": "Office of the United Nations Special Coordinator for Lebanon",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNSCOL"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recH7Y3G9utGV0te7"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recH7Y3G9utGV0te7",
+        "entity_long": "Office of the United Nations Special Coordinator for Lebanon",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNSDG-SWEO",
+      "entity_long": "United Nations Sustainable Development Group System-Wide Evaluation Office",
+      "sources": [
+        {
+          "sourceId": "mandates-section1-data",
+          "match": "exact-key-and-name",
+          "selector": {
+            "Entity": "UNSDG-SWEO",
+            "Entity-Long": "United Nations Sustainable Development Group System-Wide Evaluation Office"
+          }
+        },
+        {
+          "sourceId": "mandates-section1-import",
+          "match": "documented-import-of-staging-entity-and-name",
+          "selector": {
+            "entity": "UNSDG-SWEO"
+          }
+        }
+      ],
+      "currentAirtable": {
+        "status": "missing-current-key"
+      }
+    },
+    {
+      "entity": "UNSMIL",
+      "entity_long": "United Nations Support Mission in Libya",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNSMIL"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recpQloobkwt3BPCM"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recpQloobkwt3BPCM",
+        "entity_long": "United Nations Support Mission in Libya",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNSOH",
+      "entity_long": "United Nations Support Office in Haiti",
+      "sources": [
+        {
+          "sourceId": "mandates-pkm-import",
+          "match": "explicit-key-and-name-literals",
+          "selector": {
+            "entity": "UNSOH"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recBse59rB5WiztPZ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recBse59rB5WiztPZ",
+        "entity_long": "United Nations Support Office in Haiti",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNSOM",
+      "entity_long": "United Nations Assistance Mission in Somalia",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNSOM"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recxx0qzRVPAP7aC1"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recxx0qzRVPAP7aC1",
+        "entity_long": "United Nations Assistance Mission in Somalia",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNSOS",
+      "entity_long": "United Nations Support Office in Somalia",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNSOS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recbbv7PT5pCrle2a"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recbbv7PT5pCrle2a",
+        "entity_long": "United Nations Support Office in Somalia",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNSSC",
+      "entity_long": "United Nations System Staff College",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNSSC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recazcd4SruQmAfvV"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recazcd4SruQmAfvV",
+        "entity_long": "United Nations System Staff College",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNSU",
+      "entity_long": "United Nations Staff Union",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNSU"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec1hjeJKGrlEmacY"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec1hjeJKGrlEmacY",
+        "entity_long": "United Nations Staff Union",
+        "on_display": "False"
+      }
+    },
+    {
+      "entity": "UNTMIS",
+      "entity_long": "United Nations Transitional Assistance Mission in Somalia",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNTMIS"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "reci6RxD6wBoTMzpi"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "reci6RxD6wBoTMzpi",
+        "entity_long": "United Nations Transitional Assistance Mission in Somalia",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNTSO",
+      "entity_long": "United Nations Truce Supervision Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNTSO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "receOanKc4qg3gnVW"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "receOanKc4qg3gnVW",
+        "entity_long": "United Nations Truce Supervision Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNU",
+      "entity_long": "United Nations University",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNU"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recG4RoIoiSORL27U"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recG4RoIoiSORL27U",
+        "entity_long": "United Nations University",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNU Council",
+      "entity_long": "Council of the United Nations University",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNU Council"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recicuhk1aQJvckyh"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recicuhk1aQJvckyh",
+        "entity_long": "Council of the United Nations University",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNV",
+      "entity_long": "United Nations Volunteers",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNV"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rect4lFOJ3JsQDYxJ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rect4lFOJ3JsQDYxJ",
+        "entity_long": "United Nations Volunteers",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UNVMC",
+      "entity_long": "United Nations Verification Mission in Colombia",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UNVMC"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recLdAFBv3eX1iuCw"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recLdAFBv3eX1iuCw",
+        "entity_long": "United Nations Verification Mission in Colombia",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "UPU",
+      "entity_long": "Universal Postal Union",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "UPU"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recm3IxFOyV8KwuGT"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recm3IxFOyV8KwuGT",
+        "entity_long": "Universal Postal Union",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "WFP",
+      "entity_long": "World Food Programme",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "WFP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recCSIo9wPQRNDSGh"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recCSIo9wPQRNDSGh",
+        "entity_long": "World Food Programme",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "WFP EB",
+      "entity_long": "Executive Board of the World Food Programme",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "WFP EB"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recnDKxtNdZNlDxTQ"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recnDKxtNdZNlDxTQ",
+        "entity_long": "Executive Board of the World Food Programme",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "WHO",
+      "entity_long": "World Health Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "WHO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recmlYC8rd0jdC1O0"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recmlYC8rd0jdC1O0",
+        "entity_long": "World Health Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "WIPO",
+      "entity_long": "World Intellectual Property Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "WIPO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "rec3qLxtWnB24gTMn"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "rec3qLxtWnB24gTMn",
+        "entity_long": "World Intellectual Property Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "WMO",
+      "entity_long": "World Meteorological Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "WMO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recAWfKIp6i3drxo5"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recAWfKIp6i3drxo5",
+        "entity_long": "World Meteorological Organization",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "WORLD BANK GROUP",
+      "entity_long": "World Bank Group",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "WORLD BANK GROUP"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recZyqVrECd08Bhyu"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recZyqVrECd08Bhyu",
+        "entity_long": "World Bank Group",
+        "on_display": "True"
+      }
+    },
+    {
+      "entity": "WTO",
+      "entity_long": "World Trade Organization",
+      "sources": [
+        {
+          "sourceId": "navigator-full-reference",
+          "match": "exact-key-and-name",
+          "selector": {
+            "entity": "WTO"
+          }
+        },
+        {
+          "sourceId": "airtable-live",
+          "match": "exact-key-and-name",
+          "recordId": "recMLIDzbl1KFfbdP"
+        }
+      ],
+      "currentAirtable": {
+        "status": "exact-key-and-name",
+        "recordId": "recMLIDzbl1KFfbdP",
+        "entity_long": "World Trade Organization",
+        "on_display": "True"
+      }
     }
   ]
 }

@@ -6,7 +6,7 @@ CREATE SCHEMA IF NOT EXISTS :"app_schema";
 
 -- Users table
 CREATE TABLE IF NOT EXISTS :"app_schema".users (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  id UUID PRIMARY KEY DEFAULT pg_catalog.gen_random_uuid(),
   email TEXT UNIQUE NOT NULL,
   entity TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),

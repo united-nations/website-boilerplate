@@ -10,6 +10,7 @@
 BEGIN;
 SELECT format('CREATE ROLE %I LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS', :'app_role') \gexec
 SELECT format('GRANT CONNECT ON DATABASE %I TO %I', current_database(), :'app_role') \gexec
+-- No public-schema grant is needed: UUID generation uses pg_catalog.
 GRANT USAGE ON SCHEMA :"app_schema", systemchart TO :"app_role";
 GRANT SELECT, INSERT, UPDATE ON :"app_schema".users, :"app_schema".magic_tokens TO :"app_role";
 GRANT SELECT ON :"app_schema".allowed_domains, systemchart.entities TO :"app_role";

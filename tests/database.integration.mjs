@@ -161,6 +161,8 @@ test("entity bootstrap and least-privilege app setup on disposable PostgreSQL", 
     await t.test(
       "auth setup is rerunnable; runtime role exercises every required query",
       async () => {
+        // Prove the app does not rely on PostgreSQL's default public USAGE.
+        await admin.query("REVOKE USAGE ON SCHEMA public FROM PUBLIC");
         for (let i = 0; i < 2; i++) {
           const result = psql("sql/auth_tables.sql");
           assert.equal(result.status, 0, result.stderr);
@@ -168,6 +170,14 @@ test("entity bootstrap and least-privilege app setup on disposable PostgreSQL", 
         const setup = psql("sql/app_role.sql");
         assert.equal(setup.status, 0, setup.stderr);
         await admin.query(`SET ROLE ${runtimeRole}`);
+        assert.equal(
+          (
+            await admin.query(
+              "SELECT has_schema_privilege(current_user, 'public', 'USAGE') AS allowed",
+            )
+          ).rows[0].allowed,
+          false,
+        );
         try {
           assert.equal(
             (

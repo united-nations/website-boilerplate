@@ -1,7 +1,7 @@
 /** Start here when adapting the template. Public values only; no secrets. */
 export const siteConfig = {
   brand: "United Nations",
-  name: "Website Starter",
+  name: "Website Boilerplate",
   description:
     "A starting point for clear, accessible United Nations websites.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",

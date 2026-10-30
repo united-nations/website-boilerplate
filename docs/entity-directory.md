@@ -1,27 +1,40 @@
-# Entity directory: sources and the bundled snapshot
+# Verified entity seed and Airtable scope
 
-`data/reference/systemchart-entities.json` contains the **243 exact entity keys and display names** observed in the shared PostgreSQL `systemchart.entities` directory. It is a read-only snapshot of `entity` and `entity_long`, sorted by key. No database host, credentials, personal details, or other tables are included. Its capture time, SHA-256 and source comparisons are recorded in `data/reference/systemchart-provenance.json`.
+This guide and `data/reference/` exist only on `template-with-auth`. Static websites do not need a System Chart seed.
 
-The auth template's explicit administrator bootstrap uses this bundled snapshot. It needs no Airtable credentials or download, and never reads the seed or writes anything if `systemchart` already exists. The static template includes the same reference files for documentation; it does not connect to PostgreSQL.
+`systemchart-entities.json` contains **243 independently source-verified key/name pairs** for initial database setup. The seed was reconstructed from upstream evidence, then compared with a read-only database query; the database itself is **not** counted as source evidence. The per-entry source ledger, immutable commit paths, checksums and live Airtable match status are in `systemchart-provenance.json`. No token or leadership/personal data is included.
 
-## Where the larger directory comes from
+## Verified sources
 
-The repository evidence points to an Airtable-derived directory plus application-specific curation. It does **not** establish a complete history of every database import:
+- **236 exact pairs** come from the System Chart Navigator's historical [`data/output/entity_reference.csv`](https://github.com/UN-EOSG-Analytics/un-system-chart-navigator/blob/e57930cb4c893c2923a85d713035cde9b89ac007/data/output/entity_reference.csv). This full intermediate export has 237 rows; its `UN-Women` key is not substituted for the database's `UN Women` key.
+- **GOM-Cyprus, SC-RES1559, SR-RES2792 and PoE-Iran** have explicit key and long-name literals in Mandates migration `032_rename_spm_entities.sql`.
+- **UNSOH** has an explicit definition in Mandates migration `009_import_pkm.sql`.
+- **UNSDG-SWEO** is present in the committed Section 1 resolved CSV and its import is documented by migration `022_import_ppb2027_section1.sql`.
+- **UN Women** has an exact key/name pair in Open's pinned published export.
 
-- **Open's Airtable pipeline:** `python/01-fetch_from_airtable.py` in the Open checkout (`united-nations/transparency`) reads `table.all(view="All")`, normalizes entity keys and exports `public/data/entities.json`. Its current local export has 255 rows. Two are synthetic financial aggregates, **UN Secretariat** and **Peacekeeping Operations**; they should not be treated as additional organisations merely because they occur in that export. Programme Budget's `assets/references/system-chart-entities.json` independently records the remaining 253 name pairs and documents the same Airtable lineage.
-- **Historical export:** [Budget Explorer's 5 December 2025 JSON](https://github.com/UN-EOSG-Analytics/budget-explorer/blob/6a19e2299fe76eb6aab7de1bd745ef03c1b53f70/data/input/2025-12-05_un-entities.json) has 221 rows. Of these, 210 keys occur in the database and all 210 long names match exactly. Its remaining keys include grouping headings and different abbreviations. This is strong evidence of shared lineage, not proof of the original import command.
-- **Mandates curation:** [`sql/migrations/009_import_pkm.sql`](https://github.com/united-nations/mandates/blob/326b80dad7d8164e4d1b824370a05ebe24579f18/sql/migrations/009_import_pkm.sql) registers UNSOH; migrations `022_import_ppb2027_section1.sql` and `033_import_ppb2027_spm.sql` register entities from their budget staging data. [`032_rename_spm_entities.sql`](https://github.com/united-nations/mandates/blob/326b80dad7d8164e4d1b824370a05ebe24579f18/sql/migrations/032_rename_spm_entities.sql) records the GOM-Cyprus and SC-RES1559 renames and adds SR-RES2792 and PoE-Iran. These establish that the database also receives curated budget-driven changes. A migration file alone does not prove its current application state: the snapshot retains the database's actual keys, including older keys that coexist with newer ones.
+All 243 seed entries have at least one exact immutable repository source. The ledger records source commits/paths and selectors for each one. Historical evidence establishes a name's origin; it does not assert that the entity is currently active or that every migration has been applied to every database.
 
-## Why not simply replace the 169-entry source URL?
+## Live Airtable API audit
 
-The smaller Navigator JSON is not a full export of the existing database. The initial comparison found 157 matching keys, 86 database-only keys, 12 JSON-only keys and one differing long name.
+The supplied credentials were used for read-only metadata and paginated record GET requests against the same **All Entities** base/table used by Navigator. Source IDs, capture time and view counts are recorded in the ledger so the scope is reproducible. The token is never stored in the repository.
 
-Open's larger export is closer, but it is also not an exact replacement: **228 matching keys, 15 database-only keys, 27 Open-only keys, and two differing long names**. Examples include `OVRA` versus `VRA`, `UNGGIM` versus `UN-GGIM`, and `SRSG-*` versus `OSRSG-*`. Some may describe renamed or related offices; the boilerplate does not infer equivalence or merge them. The two synthetic financial aggregates also account for part of the Open-only set.
+| Scope                                                  | Records |
+| ------------------------------------------------------ | ------: |
+| All table records                                      |     274 |
+| Complete key + long name, not pending form submissions |     253 |
+| Missing a key or long name                             |      21 |
+| `on_display=True`                                      |     169 |
+| Complete records with `on_display=False`               |      74 |
+| Complete records with `on_display=Maybe`               |      10 |
 
-The bundled snapshot therefore preserves the established database choices exactly. It is a reproducible starter directory, not a promise of current membership, an official acronym authority, or a complete replica of all System Chart metadata. Users may explicitly choose a custom affiliation where needed; affiliation remains self-reported.
+There were no pending-form flags at audit time. `All` and `UN Entities – SHARED` both return 274 raw records; `shown on chart` returns 169 and `System Chart Hierarchy` returns 78. Navigator fetches the whole table, filters incomplete/pending records, then publishes only `on_display=True` rows. Its [169-entry public JSON](https://github.com/UN-EOSG-Analytics/un-system-chart-navigator/blob/a7cd08f84c9038f4733b60835e48a7ba3bd3917d/public/un-entities.json) exactly matches the live visible subset. It is not the full entity table.
 
-## Refreshing
+Open's 253 real rows (excluding the two synthetic financial aggregates) match all 253 eligible Airtable rows after **five explicit normalizations in its pipeline**: `UN-Women` → `UN Women`, `OVRA` → `VRA`, and `SRSG-CAAC/SVC/VAC` → `OSRSG-CAAC/SVC/VAC`. Those are documented application mappings, not inferred aliases.
 
-Refresh only through a deliberate read-only export by a directory maintainer, followed by review. Export the two fields in the query recorded in the provenance file, update the capture time/hash/comparison evidence, and keep the files identical in both template variants. `pnpm test` checks shape, uniqueness, sorting and the checksum. Review aliases and source changes; do not automatically union directories.
+Against the 243 database entries, live Airtable has **229 exact key/name matches**, **12 absent keys**, and **two differing long names** (`OSC-SEA` and `UNAIDS`). These cases are listed per row in the ledger. They retain historical/curated evidence in the seed rather than silently adopting new names or conflating related offices. Neither the 253 current records nor the 169 displayed records should be treated as an exact database replacement.
 
-Updating these files changes only what **future independent databases** are initially seeded with. It never synchronizes, renames, inserts into, or overwrites an existing `systemchart` schema. Keep that guard when changing the bootstrap.
+## Provisioning and updates
+
+The administrator bootstrap uses the bundled verified seed with no network access. It creates and populates `systemchart` only if that entire schema is absent. An existing schema is always a no-op, even when empty or missing its entities table. There is no automatic synchronization or force/overwrite option.
+
+Review future source changes explicitly. Every added or renamed seed entry needs an exact key/name source and a corresponding ledger entry. Update the seed checksum after reviewing the diff. `pnpm test` checks checksum, shape, unique/sorted keys and per-entry immutable evidence. Never add an entry solely because it appears in a database export, and never union differently named source records by inference.

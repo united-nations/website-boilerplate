@@ -2,11 +2,11 @@
 
 ## Name, navigation and content
 
-Start with `src/lib/site-config.ts`: `brand`, `name`, `description`, navigation and optional analytics are defined there. Keep secrets in environment variables, never in this file. `src/app/layout.tsx` derives the document title, description and Open Graph metadata from these settings. The template is English-only (`lang="en"`).
+Start with `src/lib/site-config.ts`: `brand`, `name`, `description`, navigation and optional analytics are defined there. Keep secrets in environment variables, never in this file. `src/app/layout.tsx` derives the document title, description and Open Graph metadata from these settings.
 
 Edit page content in `src/app/page.tsx` and `src/app/about/page.tsx`. To add a page, create `src/app/resources/page.tsx` and export a React component. Wrap it in `SiteShell`, use one `h1`, and add its URL to `siteConfig.navigation`. On the auth branch, also decide whether it should be public in `src/proxy.ts`. Protection is checked again by server operations that access private information.
 
-`SiteShell` supplies a skip link, shared header and footer, page width and the main landmark. Its `account` slot accepts authentication controls. Match page margins to this shell rather than creating a second width convention.
+`SiteShell` is a thin page wrapper: it supplies the skip link, shared header/footer, page width and main landmark. It does not fetch data or implement authentication; `RootLayout` owns HTML, fonts and metadata. Its `account` slot accepts authentication controls. Match page margins to this shell rather than creating a second width convention.
 
 ## Components and colours
 
@@ -22,7 +22,7 @@ import { typography } from "@un-eosg/ui/typography";
 
 Use `buttonVariants` for an actual link, rather than putting a button inside a link. Use the shared `Modal` for dialogs. The auth branch uses `SignInCard`, `AccountMenu` and `EntitySelect`; the latter only displays supplied data and calls `onChange`.
 
-`src/app/globals.css` imports the shared theme. Product semantics such as `--primary`, `--border` and `--muted` refer to those tokens. Use `bg-background`, `text-foreground`, `text-muted-foreground` and `text-un-blue-text`. Avoid copying the palette or inventing colours and text sizes. Roboto is loaded by the root layout. Shared header and footer logos are bundled by the UI dependency.
+`src/app/globals.css` imports the shared theme. Product semantics such as `--primary`, `--border` and `--muted` refer to those tokens. Use `bg-background`, `text-foreground`, `text-muted-foreground` and `text-un-blue-text`. Avoid copying the palette or inventing colours and text sizes. Roboto is loaded by the root layout. Shared header and footer logos are bundled by the UI dependency. The header places its emblem outside the main content width on wide screens and moves it inline on smaller screens. `BoilerplateShowcase` retains the UN80 palette using shared colour tokens. Official footer copy is selected centrally by locale in the UI library; applications do not need to supply labels.
 
 The UI library intentionally leaves low-level shadcn primitives in applications when needed; prefer its shared compositions first. Do not copy a shared component into this repository to customize it: pass props, compose a wrapper, or contribute a reusable improvement to UI.
 

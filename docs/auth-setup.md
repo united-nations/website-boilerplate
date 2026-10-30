@@ -22,7 +22,7 @@ Older installations using `AZURE_POSTGRES_*` settings remain supported. Prefer `
 
 ## 2. Decide where the entity directory comes from
 
-The picker reads only `entity` and `entity_long` from `systemchart.entities`. The template now includes all **243 entries** from a read-only snapshot of the existing directory in `data/reference/systemchart-entities.json`. Independent setup uses this bundled file without Airtable credentials or a network download. See [Entity directory sources](entity-directory.md) for the Airtable/export lineage, Mandates curation, checksum and differences from the smaller 169-entry Navigator JSON and Open's 255-entry export.
+The picker reads only `entity` and `entity_long` from `systemchart.entities`. The template includes **243 independently source-verified entries**, reconstructed from historical System Chart exports, explicit Mandates curation and Open’s published export in `data/reference/systemchart-entities.json`. Independent setup uses this bundled file without Airtable credentials or a network download. See [Entity directory sources](entity-directory.md) for the Airtable/export lineage, Mandates curation, checksum and differences from the smaller 169-entry Navigator JSON and Open's 255-entry export.
 
 **Existing/shared database:** do not import anything. Ask the directory owner to confirm that `systemchart.entities` exposes those two columns, then proceed to app setup. The boilerplate never migrates, renames, updates or refreshes an existing directory.
 
@@ -51,7 +51,9 @@ In an interactive administrator `psql` session, set the new login's password usi
 
 Set `DATABASE_URL` in `.env.local` to this runtime login. `DB_SCHEMA` must match `app_schema`. SQL scripts use quoted psql variables; the application separately validates its schema identifier.
 
-The role receives database `CONNECT`, schema `USAGE`, `SELECT/INSERT/UPDATE` on `users` and `magic_tokens`, and read access to `allowed_domains` and `systemchart.entities`. It receives no document access, sequence permissions, `DELETE`, schema creation, ownership, role creation, or grant options. PostgreSQL's inherited and `PUBLIC` privileges can add access: the setup script checks effective access and aborts if the role could write to `systemchart` or create objects in application/public schemas. An administrator must resolve unsafe existing grants; the template does not revoke permissions from other applications.
+The role receives database `CONNECT`, schema `USAGE`, `SELECT/INSERT/UPDATE` on `users` and `magic_tokens`, and read access to `allowed_domains` and `systemchart.entities`. It receives no public-schema grants or document access, sequence permissions, `DELETE`, schema creation, ownership, role creation, or grant options. PostgreSQL's inherited and `PUBLIC` privileges can add access: the setup script checks effective access and aborts if the role could write to `systemchart` or create objects in application/public schemas. An administrator must resolve unsafe existing grants; the template does not revoke permissions from other applications.
+
+UUID defaults explicitly use `pg_catalog.gen_random_uuid()`; neither the document-search tables nor a function in `public` is required. The isolated database tests revoke public-schema usage before running the runtime auth queries.
 
 Allowed domains are initially seeded with UN system domains. Administrators can adjust the list in the app's `allowed_domains` table. `entity='*'` means a global domain entry; currently admission checks the domain only, and affiliation is self-reported, not an authorization role. Do not use a selected entity as proof that a visitor represents that organisation.
 

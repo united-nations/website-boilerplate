@@ -17,9 +17,32 @@ test("bundled entity directory preserves reviewed keys, names and provenance", a
   assert.equal(rows.length, provenance.rowCount);
   assert.equal(
     createHash("sha256").update(bytes).digest("hex"),
-    provenance.sha256,
+    provenance.seedSha256,
   );
+  const sources = new Map(
+    provenance.sources.map((source) => [source.id, source]),
+  );
+  const evidence = new Map(
+    provenance.entries.map((entry) => [entry.entity, entry]),
+  );
+  assert.equal(evidence.size, rows.length);
   const keys = rows.map((row) => {
+    const entry = evidence.get(row.entity);
+    assert.equal(entry?.entity_long, row.entity_long);
+    assert.ok(
+      entry.sources.some((reference) => {
+        const source = sources.get(reference.sourceId);
+        return (
+          source?.kind === "immutable-repository-file" &&
+          /^[a-f0-9]{40}$/.test(source.commit) &&
+          /^[a-f0-9]{64}$/.test(source.sha256) &&
+          ["exact-key-and-name", "explicit-key-and-name-literals"].includes(
+            reference.match,
+          )
+        );
+      }),
+      `Missing exact upstream evidence for ${row.entity}`,
+    );
     assert.deepEqual(Object.keys(row).sort(), ["entity", "entity_long"]);
     assert.equal(typeof row.entity, "string");
     assert.ok(row.entity.length > 0 && row.entity.length <= 255);
