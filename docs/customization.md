@@ -1,47 +1,78 @@
 # Customize your website
 
-## Name, navigation and content
+## Find the right file
 
-Start with `src/lib/site-config.ts`: `brand`, `name`, `description`, navigation and optional analytics are defined there. Keep secrets in environment variables, never in this file. `src/app/layout.tsx` derives the document title, description and Open Graph metadata from these settings.
+| What you want to change                              | File                                                        |
+| ---------------------------------------------------- | ----------------------------------------------------------- |
+| Website name, description and navigation             | `src/lib/site-config.ts`                                    |
+| Homepage content, including the example UN80 palette | `src/app/page.tsx`                                          |
+| About text, sources and contact information          | `src/app/about/page.tsx`                                    |
+| Header options and account slot                      | `src/components/SiteHeader.tsx`                             |
+| Footer options                                       | `src/components/SiteFooter.tsx`                             |
+| Shared page width and spacing                        | `src/lib/site-config.ts` and `src/components/SiteShell.tsx` |
+| Theme imports and colour-token mappings              | `src/app/globals.css`                                       |
+| Browser metadata and font loading                    | `src/app/layout.tsx`                                        |
 
-Edit page content in `src/app/page.tsx` and `src/app/about/page.tsx`. To add a page, create `src/app/resources/page.tsx` and export a React component. Wrap it in `SiteShell`, use one `h1`, and add its URL to `siteConfig.navigation`. On the auth branch, also decide whether it should be public in `src/proxy.ts`. Protection is checked again by server operations that access private information.
+The `name` setting controls the header descriptor and default browser title. `description` supplies default page metadata and the About introduction. Replace other example text directly in the page files. Keep secrets in `.env.local` or your hosting service's secret settings.
 
-`SiteShell` is a thin page wrapper: it supplies the skip link, shared header/footer, page width and main landmark. It does not fetch data or implement authentication; `RootLayout` owns HTML, fonts and metadata. Its `account` slot accepts authentication controls. Match page margins to this shell rather than creating a second width convention.
+## Add a page
 
-## Components and colours
-
-Browse the [UI catalogue](https://un-eosg-analytics.github.io/ui/) before adding a component:
+Create `src/app/resources/page.tsx` with this complete example:
 
 ```tsx
-import { Button } from "@un-eosg/ui/components/button";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { buttonVariants } from "@un-eosg/ui/components/button";
 import { typography } from "@un-eosg/ui/typography";
+import { SiteShell } from "@/components/SiteShell";
 
-<h2 className={typography.sectionTitle}>Resources</h2>
-<Button onClick={handleAction}>Continue</Button>
+export const metadata: Metadata = { title: "Resources" };
+
+export default function Resources() {
+  return (
+    <SiteShell>
+      <h1 className={typography.pageTitle}>Resources</h1>
+      <p className={`${typography.body} mt-4`}>Find out more about our work.</p>
+      <Link href="/about" className={buttonVariants({ className: "mt-6" })}>
+        About this website
+      </Link>
+    </SiteShell>
+  );
+}
 ```
 
-Use `buttonVariants` for an actual link, rather than putting a button inside a link. Use the shared `Modal` for dialogs. The auth branch uses `SignInCard`, `AccountMenu` and `EntitySelect`; the latter only displays supplied data and calls `onChange`.
+Visit `/resources` in your preview. Add `{ href: "/resources", label: "Resources" }` to the `navigation` array in `src/lib/site-config.ts` to show it in the header.
 
-`src/app/globals.css` imports the shared theme. Product semantics such as `--primary`, `--border` and `--muted` refer to those tokens. Use `bg-background`, `text-foreground`, `text-muted-foreground` and `text-un-blue-text`. Avoid copying the palette or inventing colours and text sizes. Roboto is loaded by the root layout. Shared header and footer logos are bundled by the UI dependency. The header places its emblem outside the main content width on wide screens and moves it inline on smaller screens. `BoilerplateShowcase` retains the UN80 palette using shared colour tokens. Official footer copy is selected centrally by locale in the UI library; applications do not need to supply labels.
+`SiteShell` provides the skip link, header, footer and aligned main content area. Give each page one `h1`; use `h2` for its sections. The root layout supplies HTML, fonts and default metadata. A page's `metadata.title` appears with the website name in the browser tab.
 
-The UI library intentionally leaves low-level shadcn primitives in applications when needed; prefer its shared compositions first. Do not copy a shared component into this repository to customize it: pass props, compose a wrapper, or contribute a reusable improvement to UI.
+On the authenticated version, new routes require sign-in by default. To make a page public, add its path to `PUBLIC_PATHS` in `src/proxy.ts`; a listed path also makes its child paths public. To retain account controls on a private page, follow the user lookup and `account` slot in the existing homepage. Keep authorization checks in server operations that read private information.
 
-## Links, images and static data
+## Use UI components and colours
 
-`next/link` automatically handles the configured base path. Plain HTML `href`/`src` attributes and `fetch` do not. Use `withBasePath` from `src/lib/paths.ts`:
+Browse the [UI catalogue](https://un-eosg-analytics.github.io/ui/) before building a new component. Import components from `@un-eosg/ui/components/...` and typography from `@un-eosg/ui/typography`. For links styled as buttons, use `Link` with `buttonVariants` as above. For actions, use `Button`; for dialogs, use the shared `Modal`.
+
+Pages are Server Components by default. Interactive controls with event handlers such as `onClick` belong in a separate component whose first line is `"use client"`. Import that component into your page. Database access and secrets belong in server code, never in a client component.
+
+`globals.css` imports the shared theme. Use classes such as `bg-background`, `text-foreground`, `text-muted-foreground` and `text-un-blue-text`, and the typography styles in the example. The homepage lists UN80 colour tokens you can use elsewhere. Keep full class names in source files so Tailwind can discover them.
+
+The UI library supplies header/footer logos and official footer text. Set shared-component options in the local header/footer wrappers. The header's `emblemPlacement="outboard"` places the emblem outside the content width on wide screens. Contribute reusable UI changes to the UI library; keep website-specific content in your application.
+
+## Links, images and downloads
+
+Put downloadable files and images in `public/`. For example, `public/guide.pdf` is served at `/guide.pdf`; do not include `public` in its URL.
+
+`next/link` adds the configured base path automatically. For raw HTML links, image `src` attributes and browser `fetch` calls, use `withBasePath` so URLs also work at a GitHub project address such as `/my-website/`:
 
 ```tsx
-<a href={withBasePath("/guide.pdf")}>Download guide</a>
+import { withBasePath } from "@/lib/paths";
+
+<a href={withBasePath("/guide.pdf")}>Download guide</a>;
 ```
 
-```ts
-const response = await fetch(withBasePath("/data/example.json"));
-if (!response.ok) throw new Error("Could not load data");
-const data = await response.json();
-```
+Only pass site-relative paths beginning with `/` to this helper. Leave external URLs such as `https://www.un.org/` unchanged. On the authenticated version, files outside the public paths in `src/proxy.ts` also require sign-in; explicitly allow any downloads intended for signed-out visitors.
 
-Put browser-readable data in `public/data/`. Include source, update date and limitations in your page or About page. Database calls belong in server code on the auth branch; never expose credentials in a client component.
+## Data and analytics
 
-## Analytics
+[Prepare website data with Python](data-preparation.md) walks through CSV conversion and displaying the result. The website can also use JSON you prepare without Python. Put browser-readable data in `public/data/`, and explain its source, update date and limitations on the page or About page.
 
-Analytics is off by default. To use an Umami-compatible service, set both `NEXT_PUBLIC_ANALYTICS_SCRIPT_URL` and `NEXT_PUBLIC_ANALYTICS_WEBSITE_ID`. Rebuild after changing them. Remove or replace the small integration in the root layout if your service uses another API.
+Analytics is off by default. For a local build, set both `NEXT_PUBLIC_ANALYTICS_SCRIPT_URL` and `NEXT_PUBLIC_ANALYTICS_WEBSITE_ID` in `.env.local`, then rebuild. For GitHub Pages, configure repository variables as described in [the publishing guide](github-pages.md#analytics-and-other-build-settings). On a Node.js host, supply them at build time. The integration supports Umami-compatible services; adapt `src/app/layout.tsx` for other providers.
