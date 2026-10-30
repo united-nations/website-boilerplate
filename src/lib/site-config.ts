@@ -6,8 +6,8 @@ export const siteConfig = {
     "A starting point for clear, accessible United Nations websites.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   navigation: [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
+    { href: "/", label: "Home", requiresAuth: true },
+    { href: "/about", label: "About", requiresAuth: false },
   ],
   analytics: {
     scriptUrl: process.env.NEXT_PUBLIC_ANALYTICS_SCRIPT_URL,

@@ -37,7 +37,7 @@ export function UserMenu({
         onSignOut={async () => {
           const response = await fetch("/api/auth/logout", { method: "POST" });
           if (!response.ok) throw new Error("Sign out failed");
-          router.push("/");
+          router.push("/about");
           router.refresh();
         }}
       />

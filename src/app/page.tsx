@@ -1,8 +1,8 @@
+import { redirect } from "next/navigation";
 import { typography } from "@un-eosg/ui/typography";
 import { EntityRef } from "@un-eosg/ui/components/concepts";
 import { SiteShell } from "@/components/SiteShell";
 import { siteConfig } from "@/lib/site-config";
-import { SiteAccount } from "@/components/SiteAccount";
 import { getCurrentUser } from "@/features/auth/service";
 // Complete class names keep Tailwind's source scanner and shared theme in sync.
 const palette = [
@@ -28,8 +28,9 @@ const palette = [
 export const dynamic = "force-dynamic";
 export default async function Home() {
   const user = await getCurrentUser();
+  if (!user) redirect("/about");
   return (
-    <SiteShell account={<SiteAccount user={user} />}>
+    <SiteShell>
       <div className="max-w-2xl space-y-6">
         <h1 className={typography.pageTitle}>UN {siteConfig.name}</h1>
         <p className={typography.lead}>
