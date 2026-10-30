@@ -75,6 +75,8 @@ async function interactiveSetup(role, responses) {
   const command = [
     "psql",
     "-X",
+    // A CI pager can block on SQL output before the password prompt.
+    "--pset=pager=off",
     "-v",
     "ON_ERROR_STOP=1",
     "-v",
