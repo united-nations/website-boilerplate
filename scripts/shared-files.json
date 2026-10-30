@@ -30,5 +30,9 @@
   "pyproject.toml",
   "uv.lock",
   "python/data_prep.py",
-  ".github/copilot-instructions.md"
+  ".github/copilot-instructions.md",
+  "data/reference/systemchart-entities.json",
+  "data/reference/systemchart-provenance.json",
+  "docs/entity-directory.md",
+  "tests/entity-directory.test.mjs"
 ]
