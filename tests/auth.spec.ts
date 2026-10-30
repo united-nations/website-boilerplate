@@ -62,7 +62,7 @@ test("email link, keyboard entity choice, custom affiliation, logout and single-
 }) => {
   const email = `browser-${randomUUID()}@un.org`;
   await page.goto("/");
-  await expect(page).toHaveURL(/\/about\/?$/);
+  await expect(page).toHaveURL(/\/$/);
   await page.getByRole("link", { name: "Sign in", exact: true }).click();
   await page.getByLabel("Email address").fill(email);
   await page.getByRole("button", { name: "Send sign-in link" }).click();
@@ -92,6 +92,11 @@ test("email link, keyboard entity choice, custom affiliation, logout and single-
     (item) => item.name === "auth_session",
   );
   expect(cookie?.httpOnly).toBe(true);
+  await page.getByRole("link", { name: "About", exact: true }).click();
+  await expect(page).toHaveURL(/\/about\/?$/);
+  await expect(
+    page.getByRole("link", { name: "Sign in", exact: true }),
+  ).toHaveCount(0);
   await page.getByRole("button", { name: "Your account" }).click();
   await page.getByRole("menuitem", { name: "Update entity" }).click();
   await expect(
@@ -113,7 +118,10 @@ test("email link, keyboard entity choice, custom affiliation, logout and single-
     page.getByText("Independent test organisation").first(),
   ).toBeVisible();
   await page.getByRole("menuitem", { name: "Sign out", exact: true }).click();
-  await expect(page).toHaveURL(/\/about\/?$/);
+  await expect(page).toHaveURL(/\/$/);
+  await expect(
+    page.getByRole("link", { name: "Sign in", exact: true }),
+  ).toBeVisible();
   expect(
     (await page.context().cookies()).some(
       (item) => item.name === "auth_session",

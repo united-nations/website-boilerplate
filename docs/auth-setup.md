@@ -71,7 +71,7 @@ Allowed domains are initially seeded with UN system domains. Administrators can 
 
 ## 4. Start and verify
 
-Run `pnpm dev`, visit `/about`, and choose **Sign in**. Request an email from an allowed domain, follow its link, and select an entity (or explicitly choose a custom affiliation). Returning users can complete sign-in with their existing affiliation. The account menu lets users update their entity and sign out.
+Run `pnpm dev`, visit `/`, and choose **Sign in**. Request an email from an allowed domain, follow its link, and select an entity (or explicitly choose a custom affiliation). Returning users can complete sign-in with their existing affiliation. Home and About are public and show the account menu when signed in. Signed-out visitors see a sign-in link, and signing out returns to Home. The entity directory is loaded for signed-in accounts only, so opening either public page without a session does not require a database connection. The account menu lets users update their entity and sign out.
 
 Links expire after 15 minutes and are consumed once. Sessions use an HTTP-only signed cookie lasting 30 days; sessions are not stored in a database table. Protected pages redirect unauthenticated visitors to About. Protected API routes return 401. The health endpoint `/api/health` returns liveness only and does not expose settings or credentials.
 
