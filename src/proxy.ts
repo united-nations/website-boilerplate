@@ -10,6 +10,7 @@ const PUBLIC_PATHS = [
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   if (
+    pathname === "/" ||
     PUBLIC_PATHS.some(
       (path) => pathname === path || pathname.startsWith(`${path}/`),
     ) ||

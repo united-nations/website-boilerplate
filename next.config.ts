@@ -1,6 +1,5 @@
 import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
-  output: "standalone",
   transpilePackages: ["@un-eosg/ui"],
   reactStrictMode: true,
   poweredByHeader: false,

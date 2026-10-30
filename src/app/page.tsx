@@ -1,11 +1,9 @@
-import { redirect } from "next/navigation";
 import { typography } from "@un-eosg/ui/typography";
 import { EntityRef } from "@un-eosg/ui/components/concepts";
 import { SiteShell } from "@/components/SiteShell";
 import { siteConfig } from "@/lib/site-config";
-import { UserMenu } from "@/components/UserMenu";
+import { SiteAccount } from "@/components/SiteAccount";
 import { getCurrentUser } from "@/features/auth/service";
-import { fetchEntities } from "@/lib/data/entities";
 // Complete class names keep Tailwind's source scanner and shared theme in sync.
 const palette = [
   { name: "UN Blue", className: "bg-un-blue", token: "un-blue" },
@@ -30,14 +28,8 @@ const palette = [
 export const dynamic = "force-dynamic";
 export default async function Home() {
   const user = await getCurrentUser();
-  if (!user) redirect("/about");
-  const entities = await fetchEntities();
   return (
-    <SiteShell
-      account={
-        <UserMenu email={user.email} entity={user.entity} entities={entities} />
-      }
-    >
+    <SiteShell account={<SiteAccount user={user} />}>
       <div className="max-w-2xl space-y-6">
         <h1 className={typography.pageTitle}>UN {siteConfig.name}</h1>
         <p className={typography.lead}>
@@ -72,16 +64,19 @@ export default async function Home() {
           ))}
         </div>
       </section>
-      <section className="mt-12 space-y-4">
-        <h2 className={typography.sectionTitle}>Welcome</h2>
-        <p className={typography.body}>
-          You are signed in. Use this space for your application’s content.
-        </p>
-        {user.entity && <EntityRef acronym={user.entity} />}
-        <p className={typography.meta}>
-          Update your organisational entity or sign out using the account menu.
-        </p>
-      </section>
+      {user && (
+        <section className="mt-12 space-y-4">
+          <h2 className={typography.sectionTitle}>Welcome</h2>
+          <p className={typography.body}>
+            You are signed in. Use this space for your application’s content.
+          </p>
+          {user.entity && <EntityRef acronym={user.entity} />}
+          <p className={typography.meta}>
+            Update your organisational entity or sign out using the account
+            menu.
+          </p>
+        </section>
+      )}
     </SiteShell>
   );
 }
