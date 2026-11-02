@@ -91,6 +91,7 @@ INSERT INTO :"app_schema".allowed_domains (entity, domain) VALUES
   ('ITC', 'intracen.org'),
   ('UNAIDS', 'unaids.org'),
   ('UNSSC', 'unssc.org'),
+  ('UNITAR', 'unitar.org'),
   ('UNU', 'unu.edu'),
   ('UNCCD', 'unccd.int')
 ON CONFLICT DO NOTHING;
