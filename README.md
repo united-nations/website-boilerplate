@@ -1,6 +1,10 @@
 # UN Website Boilerplate
 
-A starting point for United Nations websites, with a shared header, footer, typography and colour palette from the [EOSG UI library](https://un-eosg-analytics.github.io/ui/).
+A starting point for UN websites, with a shared header, footer, typography and colour palette from the [EOSG UI library](https://un-eosg-analytics.github.io/ui/).
+
+Created in the context of EOSG/UN80 websites, and open for anyone else to build on, especially for internal tools; not an officially endorsed template.
+
+For official guidelines on web development and how to access the (proprietary) official style guide, see the [DGC Web Guidelines](https://www.un.org/en/webguidelines/).
 
 ## Choose your starting point
 
